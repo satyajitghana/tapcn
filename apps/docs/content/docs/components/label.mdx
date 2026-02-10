@@ -1,0 +1,91 @@
+---
+title: Label
+description: An accessible label component for form controls.
+---
+
+# Label
+
+An accessible label component that associates text with form controls. Built on `@rn-primitives/label` for proper accessibility semantics across platforms.
+
+## Installation
+
+```bash
+npx @tapcn/cli add label
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/label.json
+```
+
+## Usage
+
+```tsx
+import { View } from 'react-native';
+import { Label } from '~/components/ui/label';
+import { Input } from '~/components/ui/input';
+
+export function Example() {
+  return (
+    <View className="gap-2">
+      <Label nativeID="email">Email</Label>
+      <Input
+        placeholder="you@example.com"
+        aria-labelledby="email"
+        keyboardType="email-address"
+      />
+    </View>
+  );
+}
+```
+
+### With checkbox
+
+```tsx
+import { View } from 'react-native';
+import { Label } from '~/components/ui/label';
+import { Checkbox } from '~/components/ui/checkbox';
+
+export function CheckboxWithLabel() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <View className="flex-row items-center gap-2">
+      <Checkbox
+        checked={checked}
+        onCheckedChange={setChecked}
+        nativeID="terms"
+      />
+      <Label nativeID="terms" onPress={() => setChecked(!checked)}>
+        Accept terms and conditions
+      </Label>
+    </View>
+  );
+}
+```
+
+### Disabled state
+
+```tsx
+<Label nativeID="disabled-input" className="text-muted-foreground">
+  Disabled Field
+</Label>
+<Input
+  aria-labelledby="disabled-input"
+  editable={false}
+  placeholder="Cannot edit"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `nativeID` | `string` | -- | Unique ID to associate with a form control via `aria-labelledby` |
+| `className` | `string` | -- | Additional NativeWind classes |
+| `onPress` | `() => void` | -- | Callback when the label is pressed |
+
+## Dependencies
+
+- `@rn-primitives/label` -- underlying primitive

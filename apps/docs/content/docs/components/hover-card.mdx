@@ -1,0 +1,118 @@
+---
+title: Hover Card
+description: A card that appears when hovering over or focusing on a trigger element.
+---
+
+# Hover Card
+
+A floating card that displays additional information when the user hovers over or focuses on a trigger element. Built on `@rn-primitives/hover-card`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add hover-card
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/hover-card.json
+```
+
+This will also install the `text` component.
+
+## Usage
+
+```tsx
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '~/components/ui/hover-card';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <HoverCard>
+      <HoverCardTrigger asChild>
+        <Button variant="link">
+          <Text>@username</Text>
+        </Button>
+      </HoverCardTrigger>
+      <HoverCardContent>
+        <Text className="font-semibold">@username</Text>
+        <Text className="text-sm text-muted-foreground">
+          Software developer and open source enthusiast.
+        </Text>
+      </HoverCardContent>
+    </HoverCard>
+  );
+}
+```
+
+### With rich content
+
+```tsx
+import { View } from 'react-native';
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+
+export function RichHoverCard() {
+  return (
+    <HoverCard>
+      <HoverCardTrigger asChild>
+        <Button variant="link">
+          <Text>@tapcn</Text>
+        </Button>
+      </HoverCardTrigger>
+      <HoverCardContent className="w-80">
+        <View className="flex-row gap-4">
+          <Avatar alt="tapcn avatar">
+            <AvatarImage source={{ uri: 'https://example.com/avatar.jpg' }} />
+            <AvatarFallback>
+              <Text>TC</Text>
+            </AvatarFallback>
+          </Avatar>
+          <View className="gap-1">
+            <Text className="text-sm font-semibold">tapcn</Text>
+            <Text className="text-sm text-muted-foreground">
+              React Native components built with NativeWind.
+            </Text>
+            <Text className="text-xs text-muted-foreground">
+              Joined December 2024
+            </Text>
+          </View>
+        </View>
+      </HoverCardContent>
+    </HoverCard>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `HoverCard` | Root component |
+| `HoverCardTrigger` | The element that triggers the card on hover/focus |
+| `HoverCardContent` | The floating card content |
+
+## Props
+
+### HoverCardContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `align` | `'start' \| 'center' \| 'end'` | `'center'` | Horizontal alignment relative to the trigger |
+| `sideOffset` | `number` | `4` | Distance from the trigger |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Platform Behavior
+
+- **Web**: Appears on hover with a short delay
+- **Native**: Appears on press/focus since hover is not available on touch devices
+
+## Dependencies
+
+- `text` -- for TextClassContext
+- `@rn-primitives/hover-card` -- underlying primitive

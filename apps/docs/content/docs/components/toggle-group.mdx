@@ -1,0 +1,141 @@
+---
+title: Toggle Group
+description: A group of toggle buttons supporting single or multiple selection.
+---
+
+# Toggle Group
+
+A group of toggle buttons where one or multiple items can be selected. Useful for toolbar-style controls like text formatting options. Built on `@rn-primitives/toggle-group`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add toggle-group
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/toggle-group.json
+```
+
+This will also install the `text` and `toggle` components.
+
+## Usage
+
+```tsx
+import { ToggleGroup, ToggleGroupItem } from '~/components/ui/toggle-group';
+import { Icon } from '~/components/ui/icon';
+import { Bold, Italic, Underline } from 'lucide-react-native';
+
+export function Example() {
+  return (
+    <ToggleGroup type="multiple">
+      <ToggleGroupItem value="bold" aria-label="Toggle bold">
+        <Icon as={Bold} size={16} />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Toggle italic">
+        <Icon as={Italic} size={16} />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline" aria-label="Toggle underline">
+        <Icon as={Underline} size={16} />
+      </ToggleGroupItem>
+    </ToggleGroup>
+  );
+}
+```
+
+### Single selection
+
+Use `type="single"` to allow only one item to be selected at a time:
+
+```tsx
+import { useState } from 'react';
+import { AlignLeft, AlignCenter, AlignRight } from 'lucide-react-native';
+
+export function SingleToggleGroup() {
+  const [value, setValue] = useState('left');
+
+  return (
+    <ToggleGroup type="single" value={value} onValueChange={setValue}>
+      <ToggleGroupItem value="left" aria-label="Align left">
+        <Icon as={AlignLeft} size={16} />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="center" aria-label="Align center">
+        <Icon as={AlignCenter} size={16} />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="right" aria-label="Align right">
+        <Icon as={AlignRight} size={16} />
+      </ToggleGroupItem>
+    </ToggleGroup>
+  );
+}
+```
+
+### Outline variant
+
+```tsx
+<ToggleGroup type="single" variant="outline">
+  <ToggleGroupItem value="left" aria-label="Align left">
+    <Icon as={AlignLeft} size={16} />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="center" aria-label="Align center">
+    <Icon as={AlignCenter} size={16} />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="right" aria-label="Align right">
+    <Icon as={AlignRight} size={16} />
+  </ToggleGroupItem>
+</ToggleGroup>
+```
+
+### With text labels
+
+```tsx
+import { Text } from '~/components/ui/text';
+
+<ToggleGroup type="single">
+  <ToggleGroupItem value="sm">
+    <Text>Small</Text>
+  </ToggleGroupItem>
+  <ToggleGroupItem value="md">
+    <Text>Medium</Text>
+  </ToggleGroupItem>
+  <ToggleGroupItem value="lg">
+    <Text>Large</Text>
+  </ToggleGroupItem>
+</ToggleGroup>
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `ToggleGroup` | Root component, manages selection state |
+| `ToggleGroupItem` | Individual toggle button within the group |
+
+## Props
+
+### ToggleGroup
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `'single' \| 'multiple'` | -- | Whether one or multiple items can be selected |
+| `value` | `string \| string[]` | -- | Controlled selected value(s) |
+| `onValueChange` | `(value: string \| string[]) => void` | -- | Callback when selection changes |
+| `variant` | `'default' \| 'outline'` | `'default'` | Visual style applied to all items |
+| `size` | `'default' \| 'sm' \| 'lg'` | `'default'` | Size applied to all items |
+
+### ToggleGroupItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | -- | The value this item represents |
+| `aria-label` | `string` | -- | Accessible label for icon-only items |
+| `disabled` | `boolean` | `false` | Whether this item is disabled |
+
+## Dependencies
+
+- `text` -- for TextClassContext
+- `toggle` -- for toggle variant styles
+- `@rn-primitives/toggle-group` -- underlying primitive
+- `class-variance-authority` -- for variant management

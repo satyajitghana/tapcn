@@ -49,10 +49,12 @@ export function getPackageRunnerCommand(pm: PackageManager): string {
     case 'npm':
       return 'npx';
     case 'yarn':
-      return 'npx';
+      return 'yarn dlx';
     case 'pnpm':
       return 'pnpm dlx';
     case 'bun':
       return 'bunx';
+    default:
+      return 'npx';
   }
 }

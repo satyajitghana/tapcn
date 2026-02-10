@@ -1,0 +1,110 @@
+---
+title: Radio Group
+description: A set of radio buttons for selecting a single option from a group.
+---
+
+# Radio Group
+
+A group of radio buttons where only one option can be selected at a time. Built on `@rn-primitives/radio-group`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add radio-group
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/radio-group.json
+```
+
+## Usage
+
+```tsx
+import { View } from 'react-native';
+import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
+import { Label } from '~/components/ui/label';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  const [value, setValue] = useState('comfortable');
+
+  return (
+    <RadioGroup value={value} onValueChange={setValue}>
+      <View className="flex-row items-center gap-2">
+        <RadioGroupItem value="default" aria-labelledby="default-label" />
+        <Label nativeID="default-label">Default</Label>
+      </View>
+      <View className="flex-row items-center gap-2">
+        <RadioGroupItem value="comfortable" aria-labelledby="comfortable-label" />
+        <Label nativeID="comfortable-label">Comfortable</Label>
+      </View>
+      <View className="flex-row items-center gap-2">
+        <RadioGroupItem value="compact" aria-labelledby="compact-label" />
+        <Label nativeID="compact-label">Compact</Label>
+      </View>
+    </RadioGroup>
+  );
+}
+```
+
+### With description
+
+```tsx
+export function RadioWithDescription() {
+  const [plan, setPlan] = useState('free');
+
+  return (
+    <RadioGroup value={plan} onValueChange={setPlan} className="gap-4">
+      <View className="flex-row items-start gap-3">
+        <RadioGroupItem value="free" aria-labelledby="free-label" />
+        <View>
+          <Label nativeID="free-label">Free</Label>
+          <Text className="text-sm text-muted-foreground">
+            Up to 5 projects with basic features.
+          </Text>
+        </View>
+      </View>
+      <View className="flex-row items-start gap-3">
+        <RadioGroupItem value="pro" aria-labelledby="pro-label" />
+        <View>
+          <Label nativeID="pro-label">Pro</Label>
+          <Text className="text-sm text-muted-foreground">
+            Unlimited projects with advanced features.
+          </Text>
+        </View>
+      </View>
+    </RadioGroup>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `RadioGroup` | Root component, manages the selected value |
+| `RadioGroupItem` | Individual radio button |
+
+## Props
+
+### RadioGroup
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | -- | The currently selected value |
+| `onValueChange` | `(value: string) => void` | -- | Callback when the selection changes |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+### RadioGroupItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | -- | The value this radio button represents |
+| `aria-labelledby` | `string` | -- | ID of the associated label |
+| `disabled` | `boolean` | `false` | Whether the radio button is disabled |
+
+## Dependencies
+
+- `@rn-primitives/radio-group` -- underlying primitive

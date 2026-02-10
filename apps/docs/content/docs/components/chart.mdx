@@ -1,0 +1,149 @@
+---
+title: Chart
+description: Chart configuration utilities with a container, color palette, and useChart hook.
+---
+
+# Chart
+
+A chart configuration system that provides a `ChartContainer` component, `ChartConfig` type for defining chart series, a `useChart` hook for accessing chart context, and a built-in `CHART_COLORS` palette.
+
+## Installation
+
+```bash
+npx @tapcn/cli add chart
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/chart.json
+```
+
+## Usage
+
+### Define a chart configuration
+
+```tsx
+import type { ChartConfig } from '~/components/ui/chart';
+
+const chartConfig: ChartConfig = {
+  revenue: {
+    label: 'Revenue',
+    color: 'hsl(var(--chart-1))',
+  },
+  expenses: {
+    label: 'Expenses',
+    color: 'hsl(var(--chart-2))',
+  },
+};
+```
+
+### Using ChartContainer
+
+```tsx
+import { ChartContainer } from '~/components/ui/chart';
+
+export function Example() {
+  return (
+    <ChartContainer config={chartConfig} className="h-[300px]">
+      {/* Your chart library components go here */}
+    </ChartContainer>
+  );
+}
+```
+
+### Using the useChart hook
+
+Access chart configuration from within chart components:
+
+```tsx
+import { useChart } from '~/components/ui/chart';
+
+function CustomChartComponent() {
+  const { config } = useChart();
+
+  // Access config.revenue.color, config.expenses.label, etc.
+  return (
+    // Render chart elements using config values
+  );
+}
+```
+
+### CHART_COLORS palette
+
+The chart component provides a predefined color palette:
+
+```tsx
+import { CHART_COLORS } from '~/components/ui/chart';
+
+// CHART_COLORS provides themed color values for chart series
+// These map to CSS variables: --chart-1 through --chart-5
+// with both light and dark theme variants
+```
+
+### Full example
+
+```tsx
+import type { ChartConfig } from '~/components/ui/chart';
+import { ChartContainer } from '~/components/ui/chart';
+import { View } from 'react-native';
+import { Text } from '~/components/ui/text';
+
+const chartConfig: ChartConfig = {
+  sales: {
+    label: 'Sales',
+    color: 'hsl(var(--chart-1))',
+  },
+  returns: {
+    label: 'Returns',
+    color: 'hsl(var(--chart-2))',
+  },
+};
+
+export function SalesChart() {
+  return (
+    <View className="gap-4">
+      <Text variant="h3">Monthly Overview</Text>
+      <ChartContainer config={chartConfig} className="h-[300px]">
+        {/* Integrate with your preferred charting library */}
+      </ChartContainer>
+    </View>
+  );
+}
+```
+
+## API
+
+### ChartConfig
+
+A record type for defining chart series:
+
+```tsx
+type ChartConfig = Record<
+  string,
+  {
+    label: string;
+    color: string;
+  }
+>;
+```
+
+### ChartContainer Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `config` | `ChartConfig` | -- | The chart configuration object |
+| `className` | `string` | -- | Additional NativeWind classes |
+| `children` | `ReactNode` | -- | Chart content |
+
+### useChart
+
+Returns the current chart context including the `config` object.
+
+### CHART_COLORS
+
+A predefined palette of colors optimized for data visualization, with both light and dark theme support. Maps to the `--chart-1` through `--chart-5` CSS variables.
+
+## Dependencies
+
+No component dependencies. Provides configuration utilities for use with chart libraries.

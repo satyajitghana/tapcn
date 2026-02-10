@@ -1,0 +1,125 @@
+---
+title: Toggle
+description: A two-state button that can be toggled on or off.
+---
+
+# Toggle
+
+A toggle button that switches between an active and inactive state. Supports multiple visual variants and sizes. Built on `@rn-primitives/toggle`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add toggle
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/toggle.json
+```
+
+This will also install the `text` component.
+
+## Usage
+
+```tsx
+import { Toggle } from '~/components/ui/toggle';
+import { Icon } from '~/components/ui/icon';
+import { Bold } from 'lucide-react-native';
+
+export function Example() {
+  return (
+    <Toggle aria-label="Toggle bold">
+      <Icon as={Bold} size={16} />
+    </Toggle>
+  );
+}
+```
+
+### With text
+
+```tsx
+import { Toggle } from '~/components/ui/toggle';
+import { Text } from '~/components/ui/text';
+import { Icon } from '~/components/ui/icon';
+import { Italic } from 'lucide-react-native';
+
+<Toggle aria-label="Toggle italic">
+  <Icon as={Italic} size={16} />
+  <Text>Italic</Text>
+</Toggle>
+```
+
+### Variants
+
+```tsx
+<Toggle variant="default" aria-label="Toggle">
+  <Icon as={Bold} size={16} />
+</Toggle>
+
+<Toggle variant="outline" aria-label="Toggle">
+  <Icon as={Bold} size={16} />
+</Toggle>
+```
+
+### Sizes
+
+```tsx
+<Toggle size="sm" aria-label="Toggle">
+  <Icon as={Bold} size={14} />
+</Toggle>
+
+<Toggle size="default" aria-label="Toggle">
+  <Icon as={Bold} size={16} />
+</Toggle>
+
+<Toggle size="lg" aria-label="Toggle">
+  <Icon as={Bold} size={18} />
+</Toggle>
+```
+
+### Controlled toggle
+
+```tsx
+import { useState } from 'react';
+
+export function ControlledToggle() {
+  const [pressed, setPressed] = useState(false);
+
+  return (
+    <Toggle
+      pressed={pressed}
+      onPressedChange={setPressed}
+      aria-label="Toggle bold"
+    >
+      <Icon as={Bold} size={16} />
+    </Toggle>
+  );
+}
+```
+
+### Disabled state
+
+```tsx
+<Toggle disabled aria-label="Toggle">
+  <Icon as={Bold} size={16} />
+</Toggle>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'outline'` | `'default'` | The visual style variant |
+| `size` | `'default' \| 'sm' \| 'lg'` | `'default'` | The size of the toggle |
+| `pressed` | `boolean` | -- | Controlled pressed state |
+| `onPressedChange` | `(pressed: boolean) => void` | -- | Callback when the pressed state changes |
+| `disabled` | `boolean` | `false` | Whether the toggle is disabled |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Dependencies
+
+- `text` -- for TextClassContext
+- `@rn-primitives/toggle` -- underlying primitive
+- `class-variance-authority` -- for variant management

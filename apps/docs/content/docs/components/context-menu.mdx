@@ -1,0 +1,168 @@
+---
+title: Context Menu
+description: A menu activated by long-press with support for sub-menus, check items, and radio items.
+---
+
+# Context Menu
+
+A context menu that appears on long-press (native) or right-click (web). Supports nested sub-menus, checkable items, and radio item groups. Built on `@rn-primitives/context-menu`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add context-menu
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/context-menu.json
+```
+
+This will also install the `icon` and `text` components.
+
+## Usage
+
+```tsx
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from '~/components/ui/context-menu';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <ContextMenu>
+      <ContextMenuTrigger>
+        <Text>Long press me</Text>
+      </ContextMenuTrigger>
+      <ContextMenuContent>
+        <ContextMenuItem>
+          <Text>Cut</Text>
+        </ContextMenuItem>
+        <ContextMenuItem>
+          <Text>Copy</Text>
+        </ContextMenuItem>
+        <ContextMenuItem>
+          <Text>Paste</Text>
+        </ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenu>
+  );
+}
+```
+
+### With sub-menu
+
+```tsx
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger,
+} from '~/components/ui/context-menu';
+import { Text } from '~/components/ui/text';
+
+export function SubMenuExample() {
+  return (
+    <ContextMenu>
+      <ContextMenuTrigger>
+        <Text>Long press for options</Text>
+      </ContextMenuTrigger>
+      <ContextMenuContent>
+        <ContextMenuItem>
+          <Text>Back</Text>
+        </ContextMenuItem>
+        <ContextMenuSub>
+          <ContextMenuSubTrigger>
+            <Text>More Tools</Text>
+          </ContextMenuSubTrigger>
+          <ContextMenuSubContent>
+            <ContextMenuItem>
+              <Text>Save Page As...</Text>
+            </ContextMenuItem>
+            <ContextMenuItem>
+              <Text>Create Shortcut...</Text>
+            </ContextMenuItem>
+          </ContextMenuSubContent>
+        </ContextMenuSub>
+        <ContextMenuSeparator />
+        <ContextMenuItem>
+          <Text>Inspect</Text>
+        </ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenu>
+  );
+}
+```
+
+### With check items
+
+```tsx
+import { useState } from 'react';
+import {
+  ContextMenu,
+  ContextMenuCheckboxItem,
+  ContextMenuContent,
+  ContextMenuTrigger,
+} from '~/components/ui/context-menu';
+import { Text } from '~/components/ui/text';
+
+export function CheckItemExample() {
+  const [showBookmarks, setShowBookmarks] = useState(true);
+  const [showFullUrls, setShowFullUrls] = useState(false);
+
+  return (
+    <ContextMenu>
+      <ContextMenuTrigger>
+        <Text>Long press me</Text>
+      </ContextMenuTrigger>
+      <ContextMenuContent>
+        <ContextMenuCheckboxItem
+          checked={showBookmarks}
+          onCheckedChange={setShowBookmarks}
+        >
+          <Text>Show Bookmarks</Text>
+        </ContextMenuCheckboxItem>
+        <ContextMenuCheckboxItem
+          checked={showFullUrls}
+          onCheckedChange={setShowFullUrls}
+        >
+          <Text>Show Full URLs</Text>
+        </ContextMenuCheckboxItem>
+      </ContextMenuContent>
+    </ContextMenu>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `ContextMenu` | Root component |
+| `ContextMenuTrigger` | The element that triggers the menu on long-press |
+| `ContextMenuContent` | The menu content container |
+| `ContextMenuItem` | A single menu item |
+| `ContextMenuCheckboxItem` | A checkable menu item |
+| `ContextMenuRadioGroup` | Groups radio menu items |
+| `ContextMenuRadioItem` | A radio-selectable menu item |
+| `ContextMenuSub` | Wrapper for a sub-menu |
+| `ContextMenuSubTrigger` | Trigger that opens the sub-menu |
+| `ContextMenuSubContent` | Content of the sub-menu |
+| `ContextMenuSeparator` | Visual separator between items |
+| `ContextMenuLabel` | Non-interactive label |
+| `ContextMenuShortcut` | Keyboard shortcut hint |
+
+## Dependencies
+
+- `icon` -- for check and chevron icons
+- `text` -- for TextClassContext
+- `@rn-primitives/context-menu` -- underlying primitive
+- `lucide-react-native` -- icon library

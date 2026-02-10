@@ -1,0 +1,158 @@
+---
+title: Theming
+description: Customize colors, dark mode, and chart colors with CSS variables.
+---
+
+# Theming
+
+tapcn uses CSS variables for theming, following the same approach as shadcn/ui. Colors are defined in HSL format in your `global.css` file and consumed by NativeWind via Tailwind CSS utilities.
+
+## Color System
+
+All colors are defined as HSL values in `global.css`:
+
+```css
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+  /* ... */
+}
+
+.dark:root {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  /* ... */
+}
+```
+
+These are mapped to Tailwind utilities in `tailwind.config.js`:
+
+```js
+colors: {
+  background: 'hsl(var(--background))',
+  foreground: 'hsl(var(--foreground))',
+  primary: {
+    DEFAULT: 'hsl(var(--primary))',
+    foreground: 'hsl(var(--primary-foreground))',
+  },
+  // ...
+}
+```
+
+## Dark Mode
+
+Dark mode is managed by NativeWind's `useColorScheme` hook:
+
+```tsx
+import { useColorScheme } from 'nativewind';
+
+function MyComponent() {
+  const { colorScheme, setColorScheme, toggleColorScheme } = useColorScheme();
+  // colorScheme is 'light' | 'dark'
+}
+```
+
+Or use the convenience wrapper hook:
+
+```tsx
+import { useColorScheme } from '~/hooks/useColorScheme';
+
+function MyComponent() {
+  const { isDark, toggleColorScheme } = useColorScheme();
+}
+```
+
+### Theme Toggle Component
+
+Use the pre-built `ThemeToggle` component:
+
+```bash
+npx @tapcn/cli add theme-toggle
+```
+
+```tsx
+import { ThemeToggle } from '~/components/ui/theme-toggle';
+
+// In your header or settings
+<ThemeToggle />
+```
+
+## Chart Colors
+
+Five chart colors are included for data visualization:
+
+```css
+:root {
+  --chart-1: 12 76% 61%;
+  --chart-2: 173 58% 39%;
+  --chart-3: 197 37% 24%;
+  --chart-4: 43 74% 66%;
+  --chart-5: 27 87% 67%;
+}
+```
+
+Access them programmatically:
+
+```tsx
+import { CHART_COLORS } from '~/components/ui/chart';
+import { NAV_THEME } from '~/lib/theme';
+
+// For charting libraries
+const color = CHART_COLORS.light.chart1; // 'hsl(12, 76%, 61%)'
+```
+
+## Navigation Theme
+
+For `@react-navigation/native` theme integration, use `NAV_THEME` from `~/lib/theme`:
+
+```tsx
+import { ThemeProvider, DarkTheme, DefaultTheme } from '@react-navigation/native';
+import { useColorScheme } from 'nativewind';
+import { NAV_THEME } from '~/lib/theme';
+
+function Layout() {
+  const { colorScheme } = useColorScheme();
+  const isDark = colorScheme === 'dark';
+
+  return (
+    <ThemeProvider value={isDark ? DarkTheme : DefaultTheme}>
+      {/* Your app */}
+    </ThemeProvider>
+  );
+}
+```
+
+## Customizing Colors
+
+To customize your theme, edit the CSS variables in `global.css`. All components automatically use the new colors.
+
+For example, to use a blue primary color:
+
+```css
+:root {
+  --primary: 221 83% 53%;
+  --primary-foreground: 210 40% 98%;
+}
+```
+
+## Available Color Variables
+
+| Variable | Usage |
+|----------|-------|
+| `--background` / `--foreground` | Page background and text |
+| `--card` / `--card-foreground` | Card backgrounds |
+| `--popover` / `--popover-foreground` | Popover, tooltip, dropdown backgrounds |
+| `--primary` / `--primary-foreground` | Primary buttons and accents |
+| `--secondary` / `--secondary-foreground` | Secondary elements |
+| `--muted` / `--muted-foreground` | Muted backgrounds and text |
+| `--accent` / `--accent-foreground` | Hover and active states |
+| `--destructive` / `--destructive-foreground` | Destructive actions |
+| `--border` | Border colors |
+| `--input` | Input border colors |
+| `--ring` | Focus ring colors |
+| `--radius` | Default border radius |
+| `--chart-1` through `--chart-5` | Chart/data visualization colors |

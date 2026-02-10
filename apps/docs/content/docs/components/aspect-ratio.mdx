@@ -1,0 +1,72 @@
+---
+title: Aspect Ratio
+description: Displays content within a desired aspect ratio.
+---
+
+# Aspect Ratio
+
+A component that maintains a specified aspect ratio for its children. Useful for images, videos, and other media that need to maintain consistent proportions. Wraps `@rn-primitives/aspect-ratio`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add aspect-ratio
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/aspect-ratio.json
+```
+
+## Usage
+
+```tsx
+import { AspectRatio } from '~/components/ui/aspect-ratio';
+import { Image } from 'react-native';
+
+export function Example() {
+  return (
+    <AspectRatio ratio={16 / 9}>
+      <Image
+        source={{ uri: 'https://example.com/image.jpg' }}
+        className="h-full w-full rounded-md"
+        resizeMode="cover"
+      />
+    </AspectRatio>
+  );
+}
+```
+
+### Square ratio
+
+```tsx
+<AspectRatio ratio={1}>
+  <Image
+    source={{ uri: 'https://example.com/avatar.jpg' }}
+    className="h-full w-full rounded-full"
+    resizeMode="cover"
+  />
+</AspectRatio>
+```
+
+### 4:3 ratio
+
+```tsx
+<AspectRatio ratio={4 / 3}>
+  <View className="flex h-full w-full items-center justify-center rounded-md bg-muted">
+    <Text>4:3 Content</Text>
+  </View>
+</AspectRatio>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `ratio` | `number` | `1` | The desired aspect ratio (width / height) |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Dependencies
+
+- `@rn-primitives/aspect-ratio` -- underlying primitive

@@ -1,0 +1,19 @@
+{
+  "name": "table",
+  "type": "registry:ui",
+  "title": "Table",
+  "description": "A data table component with header, body, footer, rows, and cells.",
+  "registryDependencies": [
+    "https://tapcn.dev/r/text.json"
+  ],
+  "dependencies": [
+    "@rn-primitives/table"
+  ],
+  "files": [
+    {
+      "path": "components/ui/table.tsx",
+      "type": "registry:ui",
+      "content": "import { TextClassContext } from '@/components/ui/text';\nimport { cn } from '@/lib/utils';\nimport * as TablePrimitive from '@rn-primitives/table';\nimport * as React from 'react';\nimport { Platform, ScrollView, View } from 'react-native';\n\nfunction Table({\n  className,\n  ...props\n}: TablePrimitive.RootProps & React.RefAttributes<TablePrimitive.RootRef>) {\n  return (\n    <ScrollView horizontal bounces={false} showsHorizontalScrollIndicator={false}>\n      <TablePrimitive.Root\n        className={cn('w-full caption-bottom text-sm', className)}\n        {...props}\n      />\n    </ScrollView>\n  );\n}\n\nfunction TableHeader({\n  className,\n  ...props\n}: TablePrimitive.HeaderProps & React.RefAttributes<TablePrimitive.HeaderRef>) {\n  return (\n    <TablePrimitive.Header\n      className={cn('border-border border-b', Platform.select({ web: '[&_tr]:border-b' }), className)}\n      {...props}\n    />\n  );\n}\n\nfunction TableBody({\n  className,\n  ...props\n}: TablePrimitive.BodyProps & React.RefAttributes<TablePrimitive.BodyRef>) {\n  return (\n    <TablePrimitive.Body\n      className={cn(Platform.select({ web: '[&_tr:last-child]:border-0' }), className)}\n      {...props}\n    />\n  );\n}\n\nfunction TableFooter({\n  className,\n  ...props\n}: TablePrimitive.FooterProps & React.RefAttributes<TablePrimitive.FooterRef>) {\n  return (\n    <TextClassContext.Provider value=\"text-primary-foreground\">\n      <TablePrimitive.Footer\n        className={cn('bg-muted/50 border-border border-t font-medium', className)}\n        {...props}\n      />\n    </TextClassContext.Provider>\n  );\n}\n\nfunction TableRow({\n  className,\n  ...props\n}: TablePrimitive.RowProps & React.RefAttributes<TablePrimitive.RowRef>) {\n  return (\n    <TablePrimitive.Row\n      className={cn(\n        'border-border flex-row border-b',\n        Platform.select({\n          web: 'transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted',\n        }),\n        Platform.select({\n          native: 'active:bg-muted/50',\n        }),\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\nfunction TableHead({\n  className,\n  ...props\n}: TablePrimitive.HeadProps & React.RefAttributes<TablePrimitive.HeadRef>) {\n  return (\n    <TextClassContext.Provider value=\"text-muted-foreground\">\n      <TablePrimitive.Head\n        className={cn(\n          'h-12 items-center justify-center px-4 text-left font-medium',\n          Platform.select({\n            web: 'align-middle [&:has([role=checkbox])]:pr-0',\n          }),\n          className\n        )}\n        {...props}\n      />\n    </TextClassContext.Provider>\n  );\n}\n\nfunction TableCell({\n  className,\n  ...props\n}: TablePrimitive.CellProps & React.RefAttributes<TablePrimitive.CellRef>) {\n  return (\n    <TablePrimitive.Cell\n      className={cn(\n        'flex-1 items-center justify-center p-4',\n        Platform.select({\n          web: 'align-middle [&:has([role=checkbox])]:pr-0',\n        }),\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\nexport { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow };\n"
+    }
+  ]
+}

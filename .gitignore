@@ -3,6 +3,8 @@ dist/
 build/
 .turbo/
 .next/
+.source/
+next-env.d.ts
 *.tsbuildinfo
 
 # Expo

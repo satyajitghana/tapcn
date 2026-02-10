@@ -1,0 +1,97 @@
+---
+title: Skeleton
+description: A loading placeholder with a pulse animation to indicate content is being loaded.
+---
+
+# Skeleton
+
+A placeholder component that displays a pulsing animation to indicate content is loading. Uses the `animate-pulse` animation for a smooth loading effect.
+
+## Installation
+
+```bash
+npx @tapcn/cli add skeleton
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/skeleton.json
+```
+
+## Usage
+
+```tsx
+import { Skeleton } from '~/components/ui/skeleton';
+
+export function Example() {
+  return <Skeleton className="h-4 w-[250px]" />;
+}
+```
+
+### Card skeleton
+
+```tsx
+import { View } from 'react-native';
+import { Skeleton } from '~/components/ui/skeleton';
+
+export function CardSkeleton() {
+  return (
+    <View className="gap-4 rounded-lg border border-border p-4">
+      <Skeleton className="h-32 w-full rounded-md" />
+      <View className="gap-2">
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+      </View>
+    </View>
+  );
+}
+```
+
+### Profile skeleton
+
+```tsx
+export function ProfileSkeleton() {
+  return (
+    <View className="flex-row items-center gap-4">
+      <Skeleton className="h-12 w-12 rounded-full" />
+      <View className="gap-2">
+        <Skeleton className="h-4 w-[150px]" />
+        <Skeleton className="h-4 w-[100px]" />
+      </View>
+    </View>
+  );
+}
+```
+
+### List skeleton
+
+```tsx
+export function ListSkeleton() {
+  return (
+    <View className="gap-3">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <View key={i} className="flex-row items-center gap-3">
+          <Skeleton className="h-10 w-10 rounded-md" />
+          <View className="flex-1 gap-1">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-3 w-2/3" />
+          </View>
+        </View>
+      ))}
+    </View>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | NativeWind classes to control size, shape, and appearance |
+
+The component renders a `View` with a muted background and `animate-pulse` animation. Use `className` to control the dimensions and border radius.
+
+## Dependencies
+
+No component dependencies. Only requires the `cn()` utility from `lib/utils`.

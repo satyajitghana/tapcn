@@ -1,0 +1,181 @@
+---
+title: Dropdown Menu
+description: A dropdown menu with support for sub-menus, check items, and radio items.
+---
+
+# Dropdown Menu
+
+A dropdown menu triggered by a button press. Supports nested sub-menus, checkable items, and radio item groups. Built on `@rn-primitives/dropdown-menu`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add dropdown-menu
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/dropdown-menu.json
+```
+
+This will also install the `icon` and `text` components.
+
+## Usage
+
+```tsx
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '~/components/ui/dropdown-menu';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <Text>Open Menu</Text>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem>
+          <Text>Profile</Text>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Text>Settings</Text>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Text>Logout</Text>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+```
+
+### With sub-menu
+
+```tsx
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+  DropdownMenuLabel,
+} from '~/components/ui/dropdown-menu';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+export function SubMenuExample() {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <Text>Options</Text>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>
+          <Text>My Account</Text>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <Text>Profile</Text>
+        </DropdownMenuItem>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>
+            <Text>Invite Users</Text>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuSubContent>
+            <DropdownMenuItem>
+              <Text>Email</Text>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Text>Message</Text>
+            </DropdownMenuItem>
+          </DropdownMenuSubContent>
+        </DropdownMenuSub>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <Text>Log out</Text>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+```
+
+### With radio items
+
+```tsx
+import { useState } from 'react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from '~/components/ui/dropdown-menu';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+export function RadioExample() {
+  const [position, setPosition] = useState('bottom');
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <Text>Position</Text>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+          <DropdownMenuRadioItem value="top">
+            <Text>Top</Text>
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="bottom">
+            <Text>Bottom</Text>
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="right">
+            <Text>Right</Text>
+          </DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `DropdownMenu` | Root component |
+| `DropdownMenuTrigger` | Button that opens the dropdown |
+| `DropdownMenuContent` | The dropdown content container |
+| `DropdownMenuItem` | A single menu item |
+| `DropdownMenuCheckboxItem` | A checkable menu item |
+| `DropdownMenuRadioGroup` | Groups radio menu items |
+| `DropdownMenuRadioItem` | A radio-selectable menu item |
+| `DropdownMenuSub` | Wrapper for a sub-menu |
+| `DropdownMenuSubTrigger` | Trigger that opens the sub-menu |
+| `DropdownMenuSubContent` | Content of the sub-menu |
+| `DropdownMenuSeparator` | Visual separator between items |
+| `DropdownMenuLabel` | Non-interactive label |
+| `DropdownMenuShortcut` | Keyboard shortcut hint |
+
+## Dependencies
+
+- `icon` -- for check and chevron icons
+- `text` -- for TextClassContext
+- `@rn-primitives/dropdown-menu` -- underlying primitive
+- `lucide-react-native` -- icon library

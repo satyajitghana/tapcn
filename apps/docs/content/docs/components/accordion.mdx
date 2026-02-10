@@ -1,0 +1,127 @@
+---
+title: Accordion
+description: A vertically stacked set of interactive headings that expand to reveal content.
+---
+
+# Accordion
+
+A vertically stacked set of collapsible sections. Each section has a trigger that expands or collapses its associated content panel, with an animated chevron indicator. Built on `@rn-primitives/accordion`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add accordion
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/accordion.json
+```
+
+This will also install the `icon` and `text` components.
+
+## Usage
+
+```tsx
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '~/components/ui/accordion';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <Accordion type="single" collapsible>
+      <AccordionItem value="item-1">
+        <AccordionTrigger>
+          <Text>Is it accessible?</Text>
+        </AccordionTrigger>
+        <AccordionContent>
+          <Text>Yes. It adheres to the WAI-ARIA design pattern.</Text>
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>
+          <Text>Is it styled?</Text>
+        </AccordionTrigger>
+        <AccordionContent>
+          <Text>
+            Yes. It comes with default styles that match the other components.
+          </Text>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+}
+```
+
+### Multiple items open
+
+Use `type="multiple"` to allow multiple items to be open at the same time:
+
+```tsx
+<Accordion type="multiple">
+  <AccordionItem value="item-1">
+    <AccordionTrigger>
+      <Text>Section 1</Text>
+    </AccordionTrigger>
+    <AccordionContent>
+      <Text>Content for section 1.</Text>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionTrigger>
+      <Text>Section 2</Text>
+    </AccordionTrigger>
+    <AccordionContent>
+      <Text>Content for section 2.</Text>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+### Default open item
+
+```tsx
+<Accordion type="single" collapsible defaultValue="item-1">
+  <AccordionItem value="item-1">
+    <AccordionTrigger>
+      <Text>Open by default</Text>
+    </AccordionTrigger>
+    <AccordionContent>
+      <Text>This section is open when the component mounts.</Text>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `Accordion` | Root component, manages open/closed state |
+| `AccordionItem` | Wraps a single collapsible section |
+| `AccordionTrigger` | The heading button that toggles the content, includes an animated chevron |
+| `AccordionContent` | The collapsible content panel |
+
+## Props
+
+### Accordion
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `'single' \| 'multiple'` | -- | Whether one or multiple items can be open at once |
+| `collapsible` | `boolean` | `false` | When `type="single"`, allows closing all items |
+| `defaultValue` | `string \| string[]` | -- | The initially open item(s) |
+| `value` | `string \| string[]` | -- | Controlled open item(s) |
+| `onValueChange` | `(value: string \| string[]) => void` | -- | Callback when open items change |
+
+## Dependencies
+
+- `icon` -- for the chevron indicator
+- `text` -- for TextClassContext
+- `@rn-primitives/accordion` -- underlying primitive
+- `lucide-react-native` -- ChevronDown icon

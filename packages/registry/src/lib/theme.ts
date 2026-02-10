@@ -11,6 +11,11 @@ export const NAV_THEME = {
     notification: 'hsl(0, 84.2%, 60.2%)',
     primary: 'hsl(240, 5.9%, 10%)',
     text: 'hsl(240, 10%, 3.9%)',
+    chart1: 'hsl(12, 76%, 61%)',
+    chart2: 'hsl(173, 58%, 39%)',
+    chart3: 'hsl(197, 37%, 24%)',
+    chart4: 'hsl(43, 74%, 66%)',
+    chart5: 'hsl(27, 87%, 67%)',
   },
   dark: {
     background: 'hsl(240, 10%, 3.9%)',
@@ -19,6 +24,11 @@ export const NAV_THEME = {
     notification: 'hsl(0, 72%, 51%)',
     primary: 'hsl(0, 0%, 98%)',
     text: 'hsl(0, 0%, 98%)',
+    chart1: 'hsl(220, 70%, 50%)',
+    chart2: 'hsl(160, 60%, 45%)',
+    chart3: 'hsl(30, 80%, 55%)',
+    chart4: 'hsl(280, 65%, 60%)',
+    chart5: 'hsl(340, 75%, 55%)',
   },
 };
 
@@ -44,6 +54,11 @@ export const COLORS = {
     input: '240 5.9% 90%',
     ring: '240 5.9% 10%',
     radius: '0.5rem',
+    chart1: '12 76% 61%',
+    chart2: '173 58% 39%',
+    chart3: '197 37% 24%',
+    chart4: '43 74% 66%',
+    chart5: '27 87% 67%',
   },
   dark: {
     background: '240 10% 3.9%',
@@ -66,5 +81,10 @@ export const COLORS = {
     input: '240 3.7% 15.9%',
     ring: '240 4.9% 83.9%',
     radius: '0.5rem',
+    chart1: '220 70% 50%',
+    chart2: '160 60% 45%',
+    chart3: '30 80% 55%',
+    chart4: '280 65% 60%',
+    chart5: '340 75% 55%',
   },
 };

@@ -1,0 +1,141 @@
+---
+title: Alert Dialog
+description: A modal dialog for confirmation actions that requires user acknowledgment.
+---
+
+# Alert Dialog
+
+A modal dialog that interrupts the user with important content and expects a response. Commonly used for destructive actions like deletions or irreversible changes. Built on `@rn-primitives/alert-dialog`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add alert-dialog
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/alert-dialog.json
+```
+
+This will also install the `button`, `native-only-animated-view`, and `text` components.
+
+## Usage
+
+```tsx
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '~/components/ui/alert-dialog';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="destructive">
+          <Text>Delete Account</Text>
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>
+            <Text>Cancel</Text>
+          </AlertDialogCancel>
+          <AlertDialogAction>
+            <Text>Continue</Text>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+```
+
+### Controlled alert dialog
+
+```tsx
+import { useState } from 'react';
+
+export function ControlledAlertDialog() {
+  const [open, setOpen] = useState(false);
+
+  const handleDelete = () => {
+    // Perform deletion
+    setOpen(false);
+  };
+
+  return (
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline">
+          <Text>Remove Item</Text>
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Remove item?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This will remove the item from your cart.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>
+            <Text>Cancel</Text>
+          </AlertDialogCancel>
+          <AlertDialogAction onPress={handleDelete}>
+            <Text>Remove</Text>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `AlertDialog` | Root component (controlled or uncontrolled) |
+| `AlertDialogTrigger` | Button that opens the alert dialog |
+| `AlertDialogContent` | The dialog panel |
+| `AlertDialogHeader` | Groups title and description |
+| `AlertDialogTitle` | The dialog heading |
+| `AlertDialogDescription` | Descriptive text explaining the action |
+| `AlertDialogFooter` | Container for action buttons |
+| `AlertDialogAction` | The confirm/proceed button (styled as primary) |
+| `AlertDialogCancel` | The cancel button (styled as outline) |
+| `AlertDialogOverlay` | Background overlay (used internally) |
+| `AlertDialogPortal` | Portal wrapper (used internally) |
+
+## Platform Behavior
+
+- **Web**: Uses CSS animations (`animate-in`, `fade-in`, `zoom-in`) for smooth transitions
+- **Native**: Uses `react-native-reanimated` (`FadeIn`, `FadeOut`) for native-performance animations
+- **iOS**: Uses `FullWindowOverlay` from `react-native-screens` for proper modal stacking
+
+## Dependencies
+
+- `button` -- for AlertDialogAction and AlertDialogCancel styling
+- `native-only-animated-view` -- for native-only Reanimated animations
+- `text` -- for TextClassContext
+- `@rn-primitives/alert-dialog` -- underlying primitive
+- `react-native-reanimated` -- native animations
+- `react-native-screens` -- iOS FullWindowOverlay

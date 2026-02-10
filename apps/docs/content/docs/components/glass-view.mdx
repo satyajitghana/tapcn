@@ -1,0 +1,136 @@
+---
+title: Glass View
+description: A Liquid Glass component for iOS 26+ with cross-platform fallback.
+---
+
+# Glass View
+
+A container view that renders Apple's Liquid Glass effect on iOS 26+ (Expo SDK 54+). On older iOS, Android, and Web, it gracefully falls back to a semi-transparent background with backdrop blur (web) or a solid card background (native).
+
+## Installation
+
+```bash
+npx @tapcn/cli add glass-view
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/glass-view.json
+```
+
+### Native Liquid Glass (optional)
+
+To enable the native Liquid Glass effect on iOS 26+, install `expo-glass-effect`:
+
+```bash
+npx expo install expo-glass-effect
+```
+
+Without this package, the component renders a styled fallback that works on all platforms.
+
+## Usage
+
+```tsx
+import { GlassView } from '~/components/ui/glass-view';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <GlassView className="p-4">
+      <Text variant="h4">Hello from Glass</Text>
+      <Text className="text-muted-foreground">
+        This card uses Liquid Glass on iOS 26+.
+      </Text>
+    </GlassView>
+  );
+}
+```
+
+### Variants
+
+The `variant` prop controls the glass opacity:
+
+```tsx
+{/* More transparent */}
+<GlassView variant="clear" className="p-4">
+  <Text>Clear glass</Text>
+</GlassView>
+
+{/* More opaque */}
+<GlassView variant="regular" className="p-4">
+  <Text>Regular glass</Text>
+</GlassView>
+```
+
+### With tint color
+
+```tsx
+<GlassView variant="clear" tintColor="#007AFF" className="p-4">
+  <Text>Tinted glass</Text>
+</GlassView>
+```
+
+### Custom fallback styling
+
+When Liquid Glass is not available, you can customize the fallback appearance:
+
+```tsx
+<GlassView
+  fallbackClassName="bg-primary/10 border border-primary/20"
+  className="p-6 rounded-3xl"
+>
+  <Text>Custom fallback styling</Text>
+</GlassView>
+```
+
+### Checking availability
+
+You can check if native Liquid Glass is available:
+
+```tsx
+import { GlassView, isGlassAvailable } from '~/components/ui/glass-view';
+
+function MyComponent() {
+  return (
+    <GlassView className="p-4">
+      <Text>
+        {isGlassAvailable ? 'Native Liquid Glass' : 'Fallback mode'}
+      </Text>
+    </GlassView>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'clear' \| 'regular'` | `'clear'` | Glass effect style. `clear` is more transparent, `regular` is more opaque. |
+| `tintColor` | `string` | - | Optional tint color for the glass effect. |
+| `fallbackClassName` | `string` | - | Additional class names applied to the fallback `View` when Liquid Glass is not available. |
+| `className` | `string` | - | Class names applied to the container. |
+| `style` | `ViewStyle` | - | Inline styles applied to the container. |
+| `children` | `ReactNode` | - | Content to render inside the glass view. |
+
+All standard `View` props are also supported.
+
+## Exports
+
+| Export | Description |
+|--------|-------------|
+| `GlassView` | The main glass view component. |
+| `isGlassAvailable` | Boolean indicating if native Liquid Glass is available on the current device. |
+| `GlassViewProps` | TypeScript type for the component props. |
+
+## How it works
+
+1. On import, the component attempts to load `expo-glass-effect` via `require()`.
+2. If the package is installed and `isGlassEffectAPIAvailable()` returns `true` (iOS 26+), the native `GlassView` from expo-glass-effect is used.
+3. Otherwise, a standard `View` is rendered with platform-appropriate fallback styling:
+   - **Web**: `bg-background/80` with `backdrop-blur-xl` for a frosted glass effect.
+   - **Native (iOS/Android)**: `bg-card/90` for a semi-transparent card background.
+
+## Dependencies
+
+- `expo-glass-effect` -- Optional. Required for native Liquid Glass on iOS 26+.

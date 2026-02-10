@@ -1,0 +1,17 @@
+{
+  "name": "glass-view",
+  "type": "registry:ui",
+  "title": "Glass View",
+  "description": "A Liquid Glass component for iOS 26+ with cross-platform fallback.",
+  "registryDependencies": [],
+  "dependencies": [
+    "expo-glass-effect"
+  ],
+  "files": [
+    {
+      "path": "components/ui/glass-view.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/utils';\nimport * as React from 'react';\nimport { Platform, View } from 'react-native';\n\n/**\n * GlassView - A Liquid Glass component for iOS 26+.\n *\n * On iOS 26+ with Expo SDK 54+, this renders a native Liquid Glass effect\n * using `expo-glass-effect`. On older iOS, Android, and Web, it falls back\n * to a semi-transparent background with backdrop blur (web) or solid background.\n *\n * Install `expo-glass-effect` for native Liquid Glass:\n *   npx expo install expo-glass-effect\n *\n * Without `expo-glass-effect`, this component renders a styled fallback.\n */\n\ninterface GlassViewProps extends React.ComponentProps<typeof View> {\n  /** Glass effect style. 'clear' is more transparent, 'regular' is more opaque. */\n  variant?: 'clear' | 'regular';\n  /** Optional tint color for the glass effect */\n  tintColor?: string;\n  /** Fallback background color when Liquid Glass is not available */\n  fallbackClassName?: string;\n  children?: React.ReactNode;\n}\n\n/**\n * Try to import expo-glass-effect. If not installed, we use fallback styling.\n */\nlet NativeGlassView: React.ComponentType<any> | null = null;\nlet isGlassAvailable = false;\n\ntry {\n  const glassEffect = require('expo-glass-effect');\n  NativeGlassView = glassEffect.GlassView;\n  isGlassAvailable = glassEffect.isGlassEffectAPIAvailable?.() ?? false;\n} catch {\n  // expo-glass-effect not installed, use fallback\n}\n\nfunction GlassView({\n  variant = 'clear',\n  tintColor,\n  fallbackClassName,\n  className,\n  children,\n  style,\n  ...props\n}: GlassViewProps) {\n  // Use native Liquid Glass when available\n  if (NativeGlassView && isGlassAvailable) {\n    return (\n      <NativeGlassView\n        glassEffectStyle={variant}\n        tintColor={tintColor}\n        style={[{ overflow: 'hidden' }, style]}\n        className={cn('rounded-2xl', className)}\n        {...props}\n      >\n        {children}\n      </NativeGlassView>\n    );\n  }\n\n  // Fallback: semi-transparent background\n  return (\n    <View\n      className={cn(\n        'overflow-hidden rounded-2xl',\n        Platform.select({\n          web: 'bg-background/80 backdrop-blur-xl',\n          default: 'bg-card/90',\n        }),\n        fallbackClassName,\n        className\n      )}\n      style={style}\n      {...props}\n    >\n      {children}\n    </View>\n  );\n}\n\nexport { GlassView, isGlassAvailable };\nexport type { GlassViewProps };\n"
+    }
+  ]
+}

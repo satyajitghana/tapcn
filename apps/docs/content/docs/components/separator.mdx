@@ -1,0 +1,71 @@
+---
+title: Separator
+description: A visual divider between content sections, supporting horizontal and vertical orientations.
+---
+
+# Separator
+
+A visual divider used to separate content into distinct sections. Supports both horizontal and vertical orientations. Built on `@rn-primitives/separator`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add separator
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/separator.json
+```
+
+## Usage
+
+```tsx
+import { View } from 'react-native';
+import { Separator } from '~/components/ui/separator';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <View>
+      <Text className="text-lg font-semibold">Title</Text>
+      <Text className="text-sm text-muted-foreground">
+        A description of the section.
+      </Text>
+      <Separator className="my-4" />
+      <Text>Content below the separator.</Text>
+    </View>
+  );
+}
+```
+
+### Vertical separator
+
+```tsx
+<View className="flex-row items-center gap-4 h-5">
+  <Text>Blog</Text>
+  <Separator orientation="vertical" />
+  <Text>Docs</Text>
+  <Separator orientation="vertical" />
+  <Text>Source</Text>
+</View>
+```
+
+### With decorative styling
+
+```tsx
+<Separator className="my-6 bg-primary" />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | The direction of the separator |
+| `decorative` | `boolean` | `true` | Whether the separator is purely decorative (hides from accessibility tree) |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Dependencies
+
+- `@rn-primitives/separator` -- underlying primitive

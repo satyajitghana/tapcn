@@ -1,0 +1,93 @@
+---
+title: Progress
+description: A progress bar that indicates the completion status of a task.
+---
+
+# Progress
+
+A progress bar component that visually represents the completion percentage of a task or operation. Built on `@rn-primitives/progress`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add progress
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/progress.json
+```
+
+## Usage
+
+```tsx
+import { Progress } from '~/components/ui/progress';
+
+export function Example() {
+  return <Progress value={60} />;
+}
+```
+
+### Animated progress
+
+```tsx
+import { useState, useEffect } from 'react';
+import { Progress } from '~/components/ui/progress';
+
+export function AnimatedProgress() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) return 0;
+        return prev + 10;
+      });
+    }, 500);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return <Progress value={progress} />;
+}
+```
+
+### With label
+
+```tsx
+import { View } from 'react-native';
+import { Text } from '~/components/ui/text';
+
+export function ProgressWithLabel() {
+  const value = 75;
+
+  return (
+    <View className="gap-2">
+      <View className="flex-row justify-between">
+        <Text className="text-sm">Uploading...</Text>
+        <Text className="text-sm text-muted-foreground">{value}%</Text>
+      </View>
+      <Progress value={value} />
+    </View>
+  );
+}
+```
+
+### Indeterminate state
+
+```tsx
+<Progress value={0} className="w-full" />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | `0` | The progress value (0-100) |
+| `max` | `number` | `100` | The maximum value |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Dependencies
+
+- `@rn-primitives/progress` -- underlying primitive

@@ -1,0 +1,141 @@
+---
+title: Toast
+description: Toast notifications with variant support and a useToast hook.
+---
+
+# Toast
+
+A toast notification system for displaying brief messages to the user. Provides a `ToastProvider` component and `useToast` hook for managing toast state, with support for multiple variants.
+
+## Installation
+
+```bash
+npx @tapcn/cli add toast
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/toast.json
+```
+
+This will also install the `icon` and `text` components.
+
+## Setup
+
+Wrap your app root with `ToastProvider`:
+
+```tsx
+import { ToastProvider } from '~/components/ui/toast';
+
+export default function App() {
+  return (
+    <ToastProvider>
+      {/* Your app content */}
+    </ToastProvider>
+  );
+}
+```
+
+## Usage
+
+```tsx
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+import { useToast } from '~/components/ui/toast';
+
+export function Example() {
+  const { toast } = useToast();
+
+  return (
+    <Button
+      onPress={() =>
+        toast({
+          title: 'Success',
+          description: 'Your changes have been saved.',
+        })
+      }
+    >
+      <Text>Show Toast</Text>
+    </Button>
+  );
+}
+```
+
+### Destructive variant
+
+```tsx
+const { toast } = useToast();
+
+toast({
+  variant: 'destructive',
+  title: 'Error',
+  description: 'Something went wrong. Please try again.',
+});
+```
+
+### With action
+
+```tsx
+toast({
+  title: 'Item deleted',
+  description: 'The item has been removed.',
+  action: {
+    label: 'Undo',
+    onPress: () => {
+      // Handle undo
+    },
+  },
+});
+```
+
+### Different use cases
+
+```tsx
+// Success toast
+toast({
+  title: 'Saved!',
+  description: 'Your profile has been updated.',
+});
+
+// Warning toast
+toast({
+  title: 'Warning',
+  description: 'Your session is about to expire.',
+});
+
+// Error toast
+toast({
+  variant: 'destructive',
+  title: 'Upload failed',
+  description: 'The file could not be uploaded. Please try again.',
+});
+```
+
+## API
+
+### useToast
+
+The `useToast` hook provides the following:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `toast` | `(props: ToastProps) => void` | Function to show a toast |
+| `dismiss` | `(id?: string) => void` | Dismiss a specific toast or all toasts |
+| `toasts` | `Toast[]` | Array of active toasts |
+
+### ToastProps
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | -- | The toast heading |
+| `description` | `string` | -- | The toast body text |
+| `variant` | `'default' \| 'destructive'` | `'default'` | The visual style variant |
+| `action` | `{ label: string; onPress: () => void }` | -- | Optional action button |
+| `duration` | `number` | `5000` | Auto-dismiss duration in milliseconds |
+
+## Dependencies
+
+- `icon` -- for the close button icon
+- `text` -- for TextClassContext
+- `lucide-react-native` -- X close icon

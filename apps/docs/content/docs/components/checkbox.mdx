@@ -1,0 +1,108 @@
+---
+title: Checkbox
+description: A checkbox control that allows the user to toggle between checked and unchecked states.
+---
+
+# Checkbox
+
+A checkbox component for toggling a boolean value. Displays a check icon when selected. Built on `@rn-primitives/checkbox`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add checkbox
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/checkbox.json
+```
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import { View } from 'react-native';
+import { Checkbox } from '~/components/ui/checkbox';
+import { Label } from '~/components/ui/label';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <View className="flex-row items-center gap-2">
+      <Checkbox
+        checked={checked}
+        onCheckedChange={setChecked}
+        nativeID="terms"
+      />
+      <Label nativeID="terms" onPress={() => setChecked(!checked)}>
+        Accept terms and conditions
+      </Label>
+    </View>
+  );
+}
+```
+
+### Default checked
+
+```tsx
+const [checked, setChecked] = useState(true);
+
+<Checkbox checked={checked} onCheckedChange={setChecked} />
+```
+
+### Disabled checkbox
+
+```tsx
+<Checkbox checked={false} onCheckedChange={() => {}} disabled />
+```
+
+### Checkbox group
+
+```tsx
+export function CheckboxGroup() {
+  const [options, setOptions] = useState({
+    email: true,
+    sms: false,
+    push: true,
+  });
+
+  const toggle = (key: keyof typeof options) => {
+    setOptions((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  return (
+    <View className="gap-3">
+      <View className="flex-row items-center gap-2">
+        <Checkbox checked={options.email} onCheckedChange={() => toggle('email')} />
+        <Text>Email notifications</Text>
+      </View>
+      <View className="flex-row items-center gap-2">
+        <Checkbox checked={options.sms} onCheckedChange={() => toggle('sms')} />
+        <Text>SMS notifications</Text>
+      </View>
+      <View className="flex-row items-center gap-2">
+        <Checkbox checked={options.push} onCheckedChange={() => toggle('push')} />
+        <Text>Push notifications</Text>
+      </View>
+    </View>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean` | `false` | Whether the checkbox is checked |
+| `onCheckedChange` | `(checked: boolean) => void` | -- | Callback when the checked state changes |
+| `disabled` | `boolean` | `false` | Whether the checkbox is disabled |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Dependencies
+
+- `@rn-primitives/checkbox` -- underlying primitive
+- `lucide-react-native` -- Check icon

@@ -1,0 +1,153 @@
+---
+title: Table
+description: A data table with composable header, body, row, and cell components.
+---
+
+# Table
+
+A composable table component for displaying structured data. Provides sub-components for building accessible data tables with header, body, rows, and cells.
+
+## Installation
+
+```bash
+npx @tapcn/cli add table
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/table.json
+```
+
+This will also install the `text` component.
+
+## Usage
+
+```tsx
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  TableFooter,
+} from '~/components/ui/table';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>
+            <Text>Invoice</Text>
+          </TableHead>
+          <TableHead>
+            <Text>Status</Text>
+          </TableHead>
+          <TableHead>
+            <Text>Amount</Text>
+          </TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell>
+            <Text>INV001</Text>
+          </TableCell>
+          <TableCell>
+            <Text>Paid</Text>
+          </TableCell>
+          <TableCell>
+            <Text>$250.00</Text>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <Text>INV002</Text>
+          </TableCell>
+          <TableCell>
+            <Text>Pending</Text>
+          </TableCell>
+          <TableCell>
+            <Text>$150.00</Text>
+          </TableCell>
+        </TableRow>
+      </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TableCell>
+            <Text className="font-semibold">Total</Text>
+          </TableCell>
+          <TableCell />
+          <TableCell>
+            <Text className="font-semibold">$400.00</Text>
+          </TableCell>
+        </TableRow>
+      </TableFooter>
+    </Table>
+  );
+}
+```
+
+### Dynamic data
+
+```tsx
+const invoices = [
+  { id: 'INV001', status: 'Paid', method: 'Credit Card', amount: '$250.00' },
+  { id: 'INV002', status: 'Pending', method: 'PayPal', amount: '$150.00' },
+  { id: 'INV003', status: 'Unpaid', method: 'Bank Transfer', amount: '$350.00' },
+];
+
+export function DynamicTable() {
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead><Text>Invoice</Text></TableHead>
+          <TableHead><Text>Status</Text></TableHead>
+          <TableHead><Text>Method</Text></TableHead>
+          <TableHead><Text>Amount</Text></TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {invoices.map((invoice) => (
+          <TableRow key={invoice.id}>
+            <TableCell><Text className="font-medium">{invoice.id}</Text></TableCell>
+            <TableCell><Text>{invoice.status}</Text></TableCell>
+            <TableCell><Text>{invoice.method}</Text></TableCell>
+            <TableCell><Text>{invoice.amount}</Text></TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `Table` | Root table container |
+| `TableHeader` | Groups header rows |
+| `TableBody` | Groups body rows |
+| `TableFooter` | Groups footer rows |
+| `TableRow` | A table row |
+| `TableHead` | A header cell |
+| `TableCell` | A body or footer cell |
+
+## Props
+
+All sub-components accept `className` for additional NativeWind styling.
+
+### Table
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Dependencies
+
+- `text` -- for TextClassContext

@@ -46,6 +46,12 @@ const COMPONENT_DEPS = {
   popover: ['native-only-animated-view', 'text'],
   tooltip: ['native-only-animated-view', 'text'],
   'hover-card': ['native-only-animated-view', 'text'],
+  table: ['text'],
+  toast: ['icon', 'text'],
+  slider: [],
+  chart: [],
+  'theme-toggle': ['icon'],
+  'glass-view': [],
   // Everything else: no component deps
   input: [],
   textarea: [],
@@ -98,6 +104,12 @@ const NPM_DEPS = {
   'aspect-ratio': ['@rn-primitives/aspect-ratio'],
   icon: ['lucide-react-native', 'nativewind'],
   'native-only-animated-view': ['react-native-reanimated'],
+  table: ['@rn-primitives/table'],
+  toast: ['class-variance-authority', 'react-native-reanimated', 'lucide-react-native'],
+  slider: [],
+  chart: ['nativewind'],
+  'theme-toggle': ['lucide-react-native', 'nativewind'],
+  'glass-view': ['expo-glass-effect'],
 };
 
 const COMPONENT_TITLES = {
@@ -133,6 +145,12 @@ const COMPONENT_TITLES = {
   'aspect-ratio': 'Aspect Ratio',
   icon: 'Icon',
   'native-only-animated-view': 'NativeOnlyAnimatedView',
+  table: 'Table',
+  toast: 'Toast',
+  slider: 'Slider',
+  chart: 'Chart',
+  'theme-toggle': 'Theme Toggle',
+  'glass-view': 'Glass View',
 };
 
 const COMPONENT_DESCRIPTIONS = {
@@ -168,6 +186,12 @@ const COMPONENT_DESCRIPTIONS = {
   'aspect-ratio': 'A container that maintains a given aspect ratio.',
   icon: 'An icon wrapper for Lucide icons with NativeWind className support.',
   'native-only-animated-view': 'A wrapper that applies Reanimated animations only on native platforms.',
+  table: 'A data table component with header, body, footer, rows, and cells.',
+  toast: 'A toast notification system with ToastProvider and useToast hook.',
+  slider: 'A range slider component with drag support.',
+  chart: 'Chart configuration utilities with ChartContainer and theme-aware colors.',
+  'theme-toggle': 'A dark/light mode toggle button using useColorScheme.',
+  'glass-view': 'A Liquid Glass component for iOS 26+ with cross-platform fallback.',
 };
 
 function toTitle(name) {

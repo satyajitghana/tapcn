@@ -1,0 +1,89 @@
+---
+title: Theme Toggle
+description: A button to toggle between dark and light color modes.
+---
+
+# Theme Toggle
+
+A toggle button that switches between dark and light color schemes. Uses the `useColorScheme` hook to read and update the current theme.
+
+## Installation
+
+```bash
+npx @tapcn/cli add theme-toggle
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/theme-toggle.json
+```
+
+This will also install the `icon` and `button` components.
+
+## Usage
+
+```tsx
+import { ThemeToggle } from '~/components/ui/theme-toggle';
+
+export function Example() {
+  return <ThemeToggle />;
+}
+```
+
+### In a header
+
+```tsx
+import { View } from 'react-native';
+import { Text } from '~/components/ui/text';
+import { ThemeToggle } from '~/components/ui/theme-toggle';
+
+export function Header() {
+  return (
+    <View className="flex-row items-center justify-between px-4 py-3">
+      <Text variant="h4">My App</Text>
+      <ThemeToggle />
+    </View>
+  );
+}
+```
+
+### In a settings screen
+
+```tsx
+import { View } from 'react-native';
+import { Text } from '~/components/ui/text';
+import { ThemeToggle } from '~/components/ui/theme-toggle';
+
+export function SettingsScreen() {
+  return (
+    <View className="gap-4 p-4">
+      <Text variant="h3">Settings</Text>
+      <View className="flex-row items-center justify-between">
+        <View>
+          <Text className="font-medium">Appearance</Text>
+          <Text className="text-sm text-muted-foreground">
+            Toggle between light and dark mode.
+          </Text>
+        </View>
+        <ThemeToggle />
+      </View>
+    </View>
+  );
+}
+```
+
+## How it works
+
+The ThemeToggle component renders a button that displays a Sun icon in light mode and a Moon icon in dark mode. When pressed, it calls the `setColorScheme` function from the `useColorScheme` hook to switch between `'light'` and `'dark'` schemes. The theme change is reflected across the entire application.
+
+## Props
+
+The ThemeToggle component does not accept any custom props. It uses `useColorScheme` internally to manage theme state.
+
+## Dependencies
+
+- `icon` -- for Sun and Moon icons
+- `button` -- for the toggle button
+- `useColorScheme` -- hook for reading and setting the color scheme
+- `lucide-react-native` -- Sun and MoonStar icons

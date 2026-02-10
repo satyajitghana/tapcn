@@ -1,0 +1,108 @@
+---
+title: Switch
+description: A toggle switch control for toggling between on and off states.
+---
+
+# Switch
+
+A toggle switch component for boolean settings. Provides a visual on/off indicator with smooth transition. Built on `@rn-primitives/switch`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add switch
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/switch.json
+```
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import { View } from 'react-native';
+import { Switch } from '~/components/ui/switch';
+import { Label } from '~/components/ui/label';
+
+export function Example() {
+  const [enabled, setEnabled] = useState(false);
+
+  return (
+    <View className="flex-row items-center gap-2">
+      <Switch checked={enabled} onCheckedChange={setEnabled} nativeID="airplane-mode" />
+      <Label nativeID="airplane-mode">Airplane Mode</Label>
+    </View>
+  );
+}
+```
+
+### Default on
+
+```tsx
+const [enabled, setEnabled] = useState(true);
+
+<Switch checked={enabled} onCheckedChange={setEnabled} />
+```
+
+### Disabled switch
+
+```tsx
+<Switch checked={false} onCheckedChange={() => {}} disabled />
+<Switch checked={true} onCheckedChange={() => {}} disabled />
+```
+
+### Settings list
+
+```tsx
+export function SettingsList() {
+  const [notifications, setNotifications] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
+  const [analytics, setAnalytics] = useState(true);
+
+  return (
+    <View className="gap-4">
+      <View className="flex-row items-center justify-between">
+        <Label nativeID="notifications">Push Notifications</Label>
+        <Switch
+          checked={notifications}
+          onCheckedChange={setNotifications}
+          nativeID="notifications"
+        />
+      </View>
+      <View className="flex-row items-center justify-between">
+        <Label nativeID="dark-mode">Dark Mode</Label>
+        <Switch
+          checked={darkMode}
+          onCheckedChange={setDarkMode}
+          nativeID="dark-mode"
+        />
+      </View>
+      <View className="flex-row items-center justify-between">
+        <Label nativeID="analytics">Analytics</Label>
+        <Switch
+          checked={analytics}
+          onCheckedChange={setAnalytics}
+          nativeID="analytics"
+        />
+      </View>
+    </View>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean` | `false` | Whether the switch is on |
+| `onCheckedChange` | `(checked: boolean) => void` | -- | Callback when the switch is toggled |
+| `disabled` | `boolean` | `false` | Whether the switch is disabled |
+| `nativeID` | `string` | -- | ID for label association |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Dependencies
+
+- `@rn-primitives/switch` -- underlying primitive

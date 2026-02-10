@@ -1,0 +1,109 @@
+---
+title: Collapsible
+description: An interactive component that expands and collapses a section of content.
+---
+
+# Collapsible
+
+A component for toggling the visibility of content. Wraps `@rn-primitives/collapsible` with a simple trigger-based expand/collapse mechanism.
+
+## Installation
+
+```bash
+npx @tapcn/cli add collapsible
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/collapsible.json
+```
+
+## Usage
+
+```tsx
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '~/components/ui/collapsible';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <Collapsible>
+      <CollapsibleTrigger asChild>
+        <Button variant="outline">
+          <Text>Toggle Content</Text>
+        </Button>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <Text>This content can be expanded and collapsed.</Text>
+      </CollapsibleContent>
+    </Collapsible>
+  );
+}
+```
+
+### Controlled collapsible
+
+```tsx
+import { useState } from 'react';
+
+export function ControlledCollapsible() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Collapsible open={open} onOpenChange={setOpen}>
+      <CollapsibleTrigger asChild>
+        <Button variant="ghost">
+          <Text>{open ? 'Hide' : 'Show'} Details</Text>
+        </Button>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <Text>
+          Here are the additional details that were hidden.
+        </Text>
+      </CollapsibleContent>
+    </Collapsible>
+  );
+}
+```
+
+### Default open
+
+```tsx
+<Collapsible defaultOpen>
+  <CollapsibleTrigger asChild>
+    <Button variant="outline">
+      <Text>Toggle</Text>
+    </Button>
+  </CollapsibleTrigger>
+  <CollapsibleContent>
+    <Text>This content is visible by default.</Text>
+  </CollapsibleContent>
+</Collapsible>
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `Collapsible` | Root component, manages open/closed state |
+| `CollapsibleTrigger` | Button that toggles the content visibility |
+| `CollapsibleContent` | The content that is shown or hidden |
+
+## Props
+
+### Collapsible
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `defaultOpen` | `boolean` | `false` | Whether the content is visible initially |
+| `open` | `boolean` | -- | Controlled open state |
+| `onOpenChange` | `(open: boolean) => void` | -- | Callback when open state changes |
+
+## Dependencies
+
+- `@rn-primitives/collapsible` -- underlying primitive

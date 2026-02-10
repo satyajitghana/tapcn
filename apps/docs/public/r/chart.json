@@ -1,0 +1,17 @@
+{
+  "name": "chart",
+  "type": "registry:ui",
+  "title": "Chart",
+  "description": "Chart configuration utilities with ChartContainer and theme-aware colors.",
+  "registryDependencies": [],
+  "dependencies": [
+    "nativewind"
+  ],
+  "files": [
+    {
+      "path": "components/ui/chart.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/utils';\nimport { useColorScheme } from 'nativewind';\nimport * as React from 'react';\nimport { View } from 'react-native';\n\ntype ChartConfig = {\n  [k: string]: {\n    label?: React.ReactNode;\n    icon?: React.ComponentType;\n  } & (\n    | { color?: string; theme?: never }\n    | { color?: never; theme: Record<'light' | 'dark', string> }\n  );\n};\n\ninterface ChartContextType {\n  config: ChartConfig;\n}\n\nconst ChartContext = React.createContext<ChartContextType | undefined>(undefined);\n\nfunction useChart() {\n  const context = React.useContext(ChartContext);\n  if (!context) {\n    throw new Error('useChart must be used within a ChartContainer');\n  }\n  return context;\n}\n\nfunction ChartContainer({\n  config,\n  children,\n  className,\n}: {\n  config: ChartConfig;\n  children: React.ReactNode;\n  className?: string;\n}) {\n  return (\n    <ChartContext.Provider value={{ config }}>\n      <View className={cn('', className)}>{children}</View>\n    </ChartContext.Provider>\n  );\n}\n\nfunction getChartColor(\n  config: ChartConfig,\n  key: string,\n  colorScheme: 'light' | 'dark' = 'light'\n): string {\n  const entry = config[key];\n  if (!entry) return 'hsl(0 0% 50%)';\n  if (entry.theme) return entry.theme[colorScheme];\n  return entry.color ?? 'hsl(0 0% 50%)';\n}\n\nfunction useChartColors(config: ChartConfig) {\n  const { colorScheme } = useColorScheme();\n  return React.useMemo(() => {\n    const resolved: Record<string, string> = {};\n    for (const [key, value] of Object.entries(config)) {\n      if (value.theme) {\n        resolved[key] = value.theme[colorScheme === 'dark' ? 'dark' : 'light'];\n      } else if (value.color) {\n        resolved[key] = value.color;\n      }\n    }\n    return resolved;\n  }, [config, colorScheme]);\n}\n\nconst CHART_COLORS = {\n  light: {\n    chart1: 'hsl(12, 76%, 61%)',\n    chart2: 'hsl(173, 58%, 39%)',\n    chart3: 'hsl(197, 37%, 24%)',\n    chart4: 'hsl(43, 74%, 66%)',\n    chart5: 'hsl(27, 87%, 67%)',\n  },\n  dark: {\n    chart1: 'hsl(220, 70%, 50%)',\n    chart2: 'hsl(160, 60%, 45%)',\n    chart3: 'hsl(30, 80%, 55%)',\n    chart4: 'hsl(280, 65%, 60%)',\n    chart5: 'hsl(340, 75%, 55%)',\n  },\n} as const;\n\nexport { CHART_COLORS, ChartContainer, ChartContext, getChartColor, useChart, useChartColors };\nexport type { ChartConfig, ChartContextType };\n"
+    }
+  ]
+}

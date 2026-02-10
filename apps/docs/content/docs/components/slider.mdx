@@ -1,0 +1,112 @@
+---
+title: Slider
+description: A range slider with drag support for selecting a value within a range.
+---
+
+# Slider
+
+A slider component that allows users to select a value within a specified range by dragging a thumb control. Supports customizable min, max, and step values.
+
+## Installation
+
+```bash
+npx @tapcn/cli add slider
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/slider.json
+```
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import { Slider } from '~/components/ui/slider';
+
+export function Example() {
+  const [value, setValue] = useState(50);
+
+  return <Slider value={value} onValueChange={setValue} />;
+}
+```
+
+### With label and value display
+
+```tsx
+import { View } from 'react-native';
+import { Text } from '~/components/ui/text';
+
+export function SliderWithLabel() {
+  const [volume, setVolume] = useState(75);
+
+  return (
+    <View className="gap-2">
+      <View className="flex-row justify-between">
+        <Text className="text-sm font-medium">Volume</Text>
+        <Text className="text-sm text-muted-foreground">{volume}%</Text>
+      </View>
+      <Slider value={volume} onValueChange={setVolume} />
+    </View>
+  );
+}
+```
+
+### Custom range
+
+```tsx
+export function CustomRangeSlider() {
+  const [temperature, setTemperature] = useState(72);
+
+  return (
+    <View className="gap-2">
+      <Text className="text-sm font-medium">Temperature: {temperature}F</Text>
+      <Slider
+        value={temperature}
+        onValueChange={setTemperature}
+        min={60}
+        max={90}
+        step={1}
+      />
+    </View>
+  );
+}
+```
+
+### With steps
+
+```tsx
+export function SteppedSlider() {
+  const [rating, setRating] = useState(3);
+
+  return (
+    <View className="gap-2">
+      <Text className="text-sm font-medium">Rating: {rating}/5</Text>
+      <Slider
+        value={rating}
+        onValueChange={setRating}
+        min={1}
+        max={5}
+        step={1}
+      />
+    </View>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | `0` | The current slider value |
+| `onValueChange` | `(value: number) => void` | -- | Callback when the value changes |
+| `min` | `number` | `0` | The minimum value |
+| `max` | `number` | `100` | The maximum value |
+| `step` | `number` | `1` | The step increment |
+| `disabled` | `boolean` | `false` | Whether the slider is disabled |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Dependencies
+
+No component dependencies. Uses gesture handling for drag support.

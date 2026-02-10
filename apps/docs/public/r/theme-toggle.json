@@ -1,0 +1,20 @@
+{
+  "name": "theme-toggle",
+  "type": "registry:ui",
+  "title": "Theme Toggle",
+  "description": "A dark/light mode toggle button using useColorScheme.",
+  "registryDependencies": [
+    "https://tapcn.dev/r/icon.json"
+  ],
+  "dependencies": [
+    "lucide-react-native",
+    "nativewind"
+  ],
+  "files": [
+    {
+      "path": "components/ui/theme-toggle.tsx",
+      "type": "registry:ui",
+      "content": "import * as React from 'react';\nimport { Pressable, Platform } from 'react-native';\nimport { cn } from '@/lib/utils';\nimport { useColorScheme } from '@/hooks/useColorScheme';\nimport { Moon, Sun } from 'lucide-react-native';\nimport { iconWithClassName } from '@/components/ui/icon';\n\niconWithClassName(Moon);\niconWithClassName(Sun);\n\nfunction ThemeToggle({ className }: { className?: string }) {\n  const { isDark, toggleColorScheme } = useColorScheme();\n\n  return (\n    <Pressable\n      onPress={toggleColorScheme}\n      className={cn(\n        'h-10 w-10 items-center justify-center rounded-md',\n        Platform.select({ web: 'hover:bg-accent' }),\n        'active:bg-accent',\n        className\n      )}\n      role=\"button\"\n      accessibilityLabel={isDark ? 'Switch to light mode' : 'Switch to dark mode'}\n    >\n      {isDark ? (\n        <Moon className=\"size-5 text-foreground\" />\n      ) : (\n        <Sun className=\"size-5 text-foreground\" />\n      )}\n    </Pressable>\n  );\n}\n\nexport { ThemeToggle };\n"
+    }
+  ]
+}

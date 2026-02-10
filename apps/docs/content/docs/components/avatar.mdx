@@ -1,0 +1,109 @@
+---
+title: Avatar
+description: An image element with a fallback for representing the user.
+---
+
+# Avatar
+
+An avatar component that displays a user image with a text or icon fallback when the image is unavailable. Built on `@rn-primitives/avatar`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add avatar
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/avatar.json
+```
+
+## Usage
+
+```tsx
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <Avatar alt="User avatar">
+      <AvatarImage source={{ uri: 'https://example.com/avatar.jpg' }} />
+      <AvatarFallback>
+        <Text>CN</Text>
+      </AvatarFallback>
+    </Avatar>
+  );
+}
+```
+
+### Fallback only
+
+When no image is provided or the image fails to load, the fallback is displayed:
+
+```tsx
+<Avatar alt="Jane Doe">
+  <AvatarFallback>
+    <Text>JD</Text>
+  </AvatarFallback>
+</Avatar>
+```
+
+### Custom size
+
+```tsx
+<Avatar alt="User avatar" className="h-16 w-16">
+  <AvatarImage source={{ uri: 'https://example.com/avatar.jpg' }} />
+  <AvatarFallback>
+    <Text className="text-lg">CN</Text>
+  </AvatarFallback>
+</Avatar>
+```
+
+### Multiple avatars
+
+```tsx
+import { View } from 'react-native';
+
+export function AvatarGroup() {
+  const users = [
+    { name: 'Alice', initials: 'AL', image: 'https://example.com/alice.jpg' },
+    { name: 'Bob', initials: 'BO', image: 'https://example.com/bob.jpg' },
+    { name: 'Charlie', initials: 'CH' },
+  ];
+
+  return (
+    <View className="flex-row gap-2">
+      {users.map((user) => (
+        <Avatar key={user.name} alt={user.name}>
+          {user.image && <AvatarImage source={{ uri: user.image }} />}
+          <AvatarFallback>
+            <Text>{user.initials}</Text>
+          </AvatarFallback>
+        </Avatar>
+      ))}
+    </View>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `Avatar` | Root container with rounded styling |
+| `AvatarImage` | The user image |
+| `AvatarFallback` | Fallback content shown when image is unavailable |
+
+## Props
+
+### Avatar
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `alt` | `string` | -- | Accessible description of the avatar |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Dependencies
+
+- `@rn-primitives/avatar` -- underlying primitive

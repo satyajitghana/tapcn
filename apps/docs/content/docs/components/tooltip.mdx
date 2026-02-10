@@ -1,0 +1,122 @@
+---
+title: Tooltip
+description: A floating label that provides contextual information on hover or focus.
+---
+
+# Tooltip
+
+A tooltip component that displays a brief, informative message when the user hovers over or focuses on an element. Built on `@rn-primitives/tooltip`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add tooltip
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/tooltip.json
+```
+
+This will also install the `text` component.
+
+## Usage
+
+```tsx
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '~/components/ui/tooltip';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="outline">
+          <Text>Hover me</Text>
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <Text>This is a tooltip</Text>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+```
+
+### With icon button
+
+```tsx
+import { Icon } from '~/components/ui/icon';
+import { Info } from 'lucide-react-native';
+
+export function IconTooltip() {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="ghost" size="icon">
+          <Icon as={Info} size={16} />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <Text>More information about this feature.</Text>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+```
+
+### Controlled tooltip
+
+```tsx
+import { useState } from 'react';
+
+export function ControlledTooltip() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Tooltip open={open} onOpenChange={setOpen}>
+      <TooltipTrigger asChild>
+        <Button variant="outline">
+          <Text>Controlled</Text>
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <Text>This tooltip is controlled.</Text>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `Tooltip` | Root component, manages open/closed state |
+| `TooltipTrigger` | The element that triggers the tooltip |
+| `TooltipContent` | The floating tooltip content |
+
+## Props
+
+### TooltipContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'top'` | Which side of the trigger to display on |
+| `sideOffset` | `number` | `4` | Distance from the trigger |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Platform Behavior
+
+- **Web**: Appears on hover with a delay, also accessible via keyboard focus
+- **Native**: Appears on long-press since hover is not available on touch devices
+
+## Dependencies
+
+- `text` -- for TextClassContext
+- `@rn-primitives/tooltip` -- underlying primitive

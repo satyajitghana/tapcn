@@ -1,0 +1,164 @@
+---
+title: Menubar
+description: A horizontal menu bar with multiple dropdown menus.
+---
+
+# Menubar
+
+A horizontal menu bar component that contains multiple dropdown menus, commonly used for application-level navigation. Built on `@rn-primitives/menubar`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add menubar
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/menubar.json
+```
+
+This will also install the `icon` and `text` components.
+
+## Usage
+
+```tsx
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarTrigger,
+} from '~/components/ui/menubar';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <Menubar>
+      <MenubarMenu>
+        <MenubarTrigger>
+          <Text>File</Text>
+        </MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem>
+            <Text>New Tab</Text>
+          </MenubarItem>
+          <MenubarItem>
+            <Text>New Window</Text>
+          </MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem>
+            <Text>Print</Text>
+          </MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>
+          <Text>Edit</Text>
+        </MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem>
+            <Text>Undo</Text>
+          </MenubarItem>
+          <MenubarItem>
+            <Text>Redo</Text>
+          </MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem>
+            <Text>Cut</Text>
+          </MenubarItem>
+          <MenubarItem>
+            <Text>Copy</Text>
+          </MenubarItem>
+          <MenubarItem>
+            <Text>Paste</Text>
+          </MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
+  );
+}
+```
+
+### With sub-menus and shortcuts
+
+```tsx
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarTrigger,
+} from '~/components/ui/menubar';
+import { Text } from '~/components/ui/text';
+
+export function FullMenubar() {
+  return (
+    <Menubar>
+      <MenubarMenu>
+        <MenubarTrigger>
+          <Text>File</Text>
+        </MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem>
+            <Text>New Tab</Text>
+            <MenubarShortcut>
+              <Text>Ctrl+T</Text>
+            </MenubarShortcut>
+          </MenubarItem>
+          <MenubarSub>
+            <MenubarSubTrigger>
+              <Text>Share</Text>
+            </MenubarSubTrigger>
+            <MenubarSubContent>
+              <MenubarItem>
+                <Text>Email link</Text>
+              </MenubarItem>
+              <MenubarItem>
+                <Text>Messages</Text>
+              </MenubarItem>
+            </MenubarSubContent>
+          </MenubarSub>
+          <MenubarSeparator />
+          <MenubarItem>
+            <Text>Exit</Text>
+          </MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `Menubar` | Root horizontal bar container |
+| `MenubarMenu` | Wraps a single menu and its trigger |
+| `MenubarTrigger` | Button that opens the menu |
+| `MenubarContent` | The dropdown content container |
+| `MenubarItem` | A single menu item |
+| `MenubarCheckboxItem` | A checkable menu item |
+| `MenubarRadioGroup` | Groups radio menu items |
+| `MenubarRadioItem` | A radio-selectable menu item |
+| `MenubarSub` | Wrapper for a sub-menu |
+| `MenubarSubTrigger` | Trigger that opens the sub-menu |
+| `MenubarSubContent` | Content of the sub-menu |
+| `MenubarSeparator` | Visual separator between items |
+| `MenubarLabel` | Non-interactive label |
+| `MenubarShortcut` | Keyboard shortcut hint |
+
+## Dependencies
+
+- `icon` -- for check and chevron icons
+- `text` -- for TextClassContext
+- `@rn-primitives/menubar` -- underlying primitive
+- `lucide-react-native` -- icon library

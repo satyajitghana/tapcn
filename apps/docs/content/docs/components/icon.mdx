@@ -1,0 +1,78 @@
+---
+title: Icon
+description: A Lucide icon wrapper with NativeWind className support.
+---
+
+# Icon
+
+A wrapper component for Lucide icons that enables NativeWind `className` support via `cssInterop`. This bridges the gap between Lucide's SVG-based icons and NativeWind's styling system.
+
+## Installation
+
+```bash
+npx @tapcn/cli add icon
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/icon.json
+```
+
+## Usage
+
+```tsx
+import { Icon } from '~/components/ui/icon';
+import { Heart } from 'lucide-react-native';
+
+export function Example() {
+  return <Icon as={Heart} className="text-red-500" />;
+}
+```
+
+### With different sizes
+
+```tsx
+import { Settings } from 'lucide-react-native';
+
+<Icon as={Settings} size={16} className="text-muted-foreground" />
+<Icon as={Settings} size={24} className="text-foreground" />
+<Icon as={Settings} size={32} className="text-primary" />
+```
+
+### Inside other components
+
+The Icon component works well inside Button, Badge, and other components:
+
+```tsx
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+import { Icon } from '~/components/ui/icon';
+import { ArrowRight } from 'lucide-react-native';
+
+<Button>
+  <Text>Continue</Text>
+  <Icon as={ArrowRight} size={16} />
+</Button>
+
+<Button size="icon" variant="outline">
+  <Icon as={Settings} />
+</Button>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `as` | `LucideIcon` | -- | The Lucide icon component to render |
+| `size` | `number` | `24` | The icon size in pixels |
+| `className` | `string` | -- | NativeWind classes (e.g., `text-primary` for color) |
+
+## How it works
+
+The Icon component uses `cssInterop` from NativeWind to map the `className` prop to the icon's `color` and `size` style properties. This means you can use Tailwind color utilities like `text-red-500` to color icons, and they will work identically on web and native.
+
+## Dependencies
+
+- `lucide-react-native` -- icon library
+- `nativewind` -- for cssInterop
