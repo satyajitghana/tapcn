@@ -1,0 +1,121 @@
+---
+title: Button
+description: A button component with variants and sizes, built on Pressable.
+---
+
+# Button
+
+A button component with multiple style variants and sizes. Built on React Native's `Pressable` with `class-variance-authority` for type-safe variants.
+
+## Installation
+
+```bash
+npx @tapcn/cli add button
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/button.json
+```
+
+This will also install the `text` component (Button depends on `TextClassContext` from Text).
+
+## Usage
+
+```tsx
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <Button onPress={() => console.log('pressed')}>
+      <Text>Click me</Text>
+    </Button>
+  );
+}
+```
+
+### With variants
+
+```tsx
+<Button variant="default">
+  <Text>Default</Text>
+</Button>
+
+<Button variant="destructive">
+  <Text>Destructive</Text>
+</Button>
+
+<Button variant="outline">
+  <Text>Outline</Text>
+</Button>
+
+<Button variant="secondary">
+  <Text>Secondary</Text>
+</Button>
+
+<Button variant="ghost">
+  <Text>Ghost</Text>
+</Button>
+
+<Button variant="link">
+  <Text>Link</Text>
+</Button>
+```
+
+### With sizes
+
+```tsx
+<Button size="sm">
+  <Text>Small</Text>
+</Button>
+
+<Button size="default">
+  <Text>Default</Text>
+</Button>
+
+<Button size="lg">
+  <Text>Large</Text>
+</Button>
+
+<Button size="icon">
+  <Icon as={ArrowRight} />
+</Button>
+```
+
+### Disabled state
+
+```tsx
+<Button disabled>
+  <Text>Disabled</Text>
+</Button>
+```
+
+## Props
+
+The Button component extends React Native's `PressableProps` with:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'destructive' \| 'outline' \| 'secondary' \| 'ghost' \| 'link'` | `'default'` | The visual style variant |
+| `size` | `'default' \| 'sm' \| 'lg' \| 'icon'` | `'default'` | The size of the button |
+| `className` | `string` | -- | Additional NativeWind classes |
+| `disabled` | `boolean` | `false` | Whether the button is disabled |
+
+## How it works
+
+Button uses `TextClassContext.Provider` to automatically style child `Text` components. This means you do not need to manually style text inside buttons -- the text color and size are set based on the button's variant and size.
+
+```tsx
+// Button automatically provides text styling via context
+<Button variant="destructive">
+  {/* This Text will automatically be white */}
+  <Text>Delete</Text>
+</Button>
+```
+
+## Dependencies
+
+- `text` -- for TextClassContext
+- `class-variance-authority` -- for variant management

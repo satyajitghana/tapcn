@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "tapcn-showcase",
+    "slug": "tapcn-showcase",
+    "version": "0.1.0",
+    "scheme": "tapcn-showcase",
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": ["expo-router"]
+  }
+}

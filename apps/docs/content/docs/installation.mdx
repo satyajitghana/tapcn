@@ -1,0 +1,184 @@
+---
+title: Installation
+description: How to set up tapcn in your Expo / React Native project.
+---
+
+# Installation
+
+## Prerequisites
+
+You need an existing Expo project. If you do not have one yet:
+
+```bash
+npx create-expo-app@latest my-app
+cd my-app
+```
+
+## Automatic Setup (Recommended)
+
+The tapcn CLI handles all configuration for you:
+
+```bash
+npx @tapcn/cli init
+```
+
+This will:
+
+1. Install required dependencies (NativeWind, tailwind-merge, clsx, cva, etc.)
+2. Create `global.css` with theme CSS variables
+3. Configure `tailwind.config.ts`
+4. Set up `babel.config.js` for NativeWind
+5. Configure `metro.config.js`
+6. Create `components.json` for the CLI
+7. Add the `cn()` utility in `lib/utils.ts`
+
+## Manual Setup
+
+If you prefer to set things up manually, follow these steps.
+
+### 1. Install NativeWind
+
+```bash
+npx expo install nativewind tailwindcss react-native-reanimated react-native-safe-area-context
+```
+
+Follow the [NativeWind installation guide](https://www.nativewind.dev/getting-started/installation) for full setup.
+
+### 2. Install utilities
+
+```bash
+npm install class-variance-authority clsx tailwind-merge
+```
+
+### 3. Create lib/utils.ts
+
+```ts
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+### 4. Create global.css
+
+Create a `global.css` file in your project root with theme variables:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+  }
+
+  .dark:root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+```
+
+### 5. Configure tailwind.config.ts
+
+```ts
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
+  darkMode: 'class',
+  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
+  presets: [require('nativewind/preset')],
+  theme: {
+    extend: {
+      colors: {
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        card: { DEFAULT: 'hsl(var(--card))', foreground: 'hsl(var(--card-foreground))' },
+        primary: { DEFAULT: 'hsl(var(--primary))', foreground: 'hsl(var(--primary-foreground))' },
+        secondary: { DEFAULT: 'hsl(var(--secondary))', foreground: 'hsl(var(--secondary-foreground))' },
+        muted: { DEFAULT: 'hsl(var(--muted))', foreground: 'hsl(var(--muted-foreground))' },
+        accent: { DEFAULT: 'hsl(var(--accent))', foreground: 'hsl(var(--accent-foreground))' },
+        destructive: { DEFAULT: 'hsl(var(--destructive))', foreground: 'hsl(var(--destructive-foreground))' },
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
+```
+
+### 6. Create components.json
+
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "global.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "~/components",
+    "utils": "~/lib/utils",
+    "ui": "~/components/ui",
+    "lib": "~/lib",
+    "hooks": "~/hooks"
+  }
+}
+```
+
+## Adding Components
+
+Once set up, add components using the CLI:
+
+```bash
+npx @tapcn/cli add button
+```
+
+Or directly with shadcn:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/button.json
+```
+
+Dependencies are resolved automatically. For example, adding `button` will also add `text` since Button depends on the TextClassContext from Text.

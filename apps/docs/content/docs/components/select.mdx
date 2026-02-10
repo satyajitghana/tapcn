@@ -1,0 +1,144 @@
+---
+title: Select
+description: A dropdown select component with search and scroll support.
+---
+
+# Select
+
+A dropdown select component for choosing from a list of options. Uses `@rn-primitives/select` for cross-platform behavior with proper accessibility.
+
+## Installation
+
+```bash
+npx @tapcn/cli add select
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/select.json
+```
+
+This will also install the `icon`, `native-only-animated-view`, and `text` components.
+
+## Usage
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/select';
+
+export function Example() {
+  return (
+    <Select>
+      <SelectTrigger>
+        <SelectValue placeholder="Select a fruit" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Fruits</SelectLabel>
+          <SelectItem value="apple">Apple</SelectItem>
+          <SelectItem value="banana">Banana</SelectItem>
+          <SelectItem value="cherry">Cherry</SelectItem>
+          <SelectItem value="grape">Grape</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+}
+```
+
+### Controlled select
+
+```tsx
+import { useState } from 'react';
+import type { Option } from '~/components/ui/select';
+
+export function ControlledSelect() {
+  const [value, setValue] = useState<Option | undefined>(undefined);
+
+  return (
+    <Select value={value} onValueChange={setValue}>
+      <SelectTrigger>
+        <SelectValue placeholder="Choose..." />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="light">Light</SelectItem>
+        <SelectItem value="dark">Dark</SelectItem>
+        <SelectItem value="system">System</SelectItem>
+      </SelectContent>
+    </Select>
+  );
+}
+```
+
+### With native scroll view
+
+For long lists on native platforms, wrap items in `NativeSelectScrollView`:
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  NativeSelectScrollView,
+} from '~/components/ui/select';
+
+export function LongList() {
+  return (
+    <Select>
+      <SelectTrigger>
+        <SelectValue placeholder="Select a timezone" />
+      </SelectTrigger>
+      <SelectContent>
+        <NativeSelectScrollView>
+          {timezones.map((tz) => (
+            <SelectItem key={tz.value} value={tz.value}>
+              {tz.label}
+            </SelectItem>
+          ))}
+        </NativeSelectScrollView>
+      </SelectContent>
+    </Select>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `Select` | Root component |
+| `SelectTrigger` | The button that opens the dropdown |
+| `SelectValue` | Displays the selected value or placeholder |
+| `SelectContent` | The dropdown content container |
+| `SelectGroup` | Groups related items |
+| `SelectLabel` | Label for a group of items |
+| `SelectItem` | Individual selectable item |
+| `SelectSeparator` | Visual separator between items |
+| `NativeSelectScrollView` | Scrollable container for native platforms |
+
+### SelectTrigger Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `'default' \| 'sm'` | `'default'` | Trigger size |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Dependencies
+
+- `icon` -- for chevron and check icons
+- `native-only-animated-view` -- for native-only animations
+- `text` -- for TextClassContext
+- `@rn-primitives/select` -- underlying primitive
+- `react-native-reanimated` -- native animations
+- `react-native-screens` -- iOS FullWindowOverlay
+- `lucide-react-native` -- chevron and check icons

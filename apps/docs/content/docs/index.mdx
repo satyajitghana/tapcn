@@ -1,0 +1,76 @@
+---
+title: Getting Started
+description: Introduction to tapcn - copy-paste UI components for React Native and Expo.
+---
+
+# Getting Started
+
+**tapcn** is a collection of copy-paste UI components for React Native (Expo) that follows the [shadcn/ui](https://ui.shadcn.com) philosophy. Components are not installed as npm packages -- they are copied directly into your project so you have full ownership and control.
+
+## What is tapcn?
+
+This is **not** a component library in the traditional sense. It is a set of beautifully designed, accessible components that you can copy and paste into your apps. Pick the components you need, customize them, and build your own component library.
+
+### Key Features
+
+- **Cross-platform**: Every component works on iOS, Android, and Web via NativeWind
+- **Copy & paste**: Components live in your project. Full control, no version lock-in
+- **Type-safe variants**: Built with `class-variance-authority` for type-safe styling
+- **Accessible**: Uses `@rn-primitives` for proper accessibility on all platforms
+- **AI friendly**: Simple, readable, self-documenting code that AI tools understand
+- **shadcn compatible**: Uses the same registry format, so `shadcn add` works with tapcn URLs
+
+## Quick Start
+
+### 1. Initialize your project
+
+```bash
+npx @tapcn/cli init
+```
+
+This sets up NativeWind, global.css, tailwind.config, and creates a `components.json` file.
+
+### 2. Add components
+
+```bash
+npx @tapcn/cli add button card input
+```
+
+Or use shadcn directly with our registry URL:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/button.json
+```
+
+### 3. Use them
+
+```tsx
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+export function MyScreen() {
+  return (
+    <Button variant="outline" onPress={() => console.log('pressed')}>
+      <Text>Press me</Text>
+    </Button>
+  );
+}
+```
+
+## Tech Stack
+
+| Technology | Purpose |
+|-----------|---------|
+| **Expo** (React Native) | Cross-platform app framework |
+| **NativeWind v4** | Tailwind CSS for React Native |
+| **@rn-primitives** | Universal Radix UI ports for React Native |
+| **react-native-reanimated** | Native-performance animations |
+| **class-variance-authority** | Type-safe variant management |
+| **clsx + tailwind-merge** | The `cn()` utility |
+| **lucide-react-native** | Icon system |
+
+## Next Steps
+
+- [Installation Guide](/docs/installation) -- detailed setup instructions
+- [CLI Reference](/docs/cli) -- full CLI command documentation
+- [Button](/docs/components/button) -- start exploring components

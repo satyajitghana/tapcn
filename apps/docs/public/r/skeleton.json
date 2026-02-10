@@ -1,0 +1,15 @@
+{
+  "name": "skeleton",
+  "type": "registry:ui",
+  "title": "Skeleton",
+  "description": "A loading placeholder component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/skeleton.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/utils';\nimport { View } from 'react-native';\n\nfunction Skeleton({\n  className,\n  ...props\n}: React.ComponentProps<typeof View> & React.RefAttributes<View>) {\n  return <View className={cn('bg-accent animate-pulse rounded-md', className)} {...props} />;\n}\n\nexport { Skeleton };\n"
+    }
+  ]
+}

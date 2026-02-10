@@ -1,0 +1,101 @@
+---
+title: Text
+description: A text component with variant support and TextClassContext for parent-driven styling.
+---
+
+# Text
+
+The foundational text component for tapcn. Provides multiple typographic variants and the `TextClassContext` system that allows parent components to inject text styles.
+
+## Installation
+
+```bash
+npx @tapcn/cli add text
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/text.json
+```
+
+## Usage
+
+```tsx
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return <Text>Hello, world!</Text>;
+}
+```
+
+### With variants
+
+```tsx
+<Text variant="h1">Heading 1</Text>
+<Text variant="h2">Heading 2</Text>
+<Text variant="h3">Heading 3</Text>
+<Text variant="h4">Heading 4</Text>
+<Text variant="p">Paragraph text with proper leading and spacing.</Text>
+<Text variant="blockquote">A blockquote for emphasis.</Text>
+<Text variant="code">inline_code()</Text>
+<Text variant="lead">Lead text for introductions.</Text>
+<Text variant="large">Large text</Text>
+<Text variant="small">Small text</Text>
+<Text variant="muted">Muted secondary text</Text>
+```
+
+### With asChild
+
+The `asChild` prop uses `@rn-primitives/slot` to merge props onto the child element:
+
+```tsx
+<Text asChild variant="h2">
+  <Animated.Text>Animated heading</Animated.Text>
+</Text>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'h1' \| 'h2' \| 'h3' \| 'h4' \| 'p' \| 'blockquote' \| 'code' \| 'lead' \| 'large' \| 'small' \| 'muted'` | `'default'` | Typographic variant |
+| `asChild` | `boolean` | `false` | Merge props onto child element via Slot |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+All standard React Native `Text` props are also supported.
+
+## TextClassContext
+
+`TextClassContext` is a React context that allows parent components to inject CSS class names into child `Text` components. This is how components like `Button`, `Badge`, and `Card` automatically style their text children.
+
+```tsx
+import { TextClassContext } from '~/components/ui/text';
+
+// Parent component provides text classes
+function MyCard({ children }) {
+  return (
+    <TextClassContext.Provider value="text-red-500 text-sm">
+      <View>{children}</View>
+    </TextClassContext.Provider>
+  );
+}
+
+// Child Text automatically picks up the classes
+<MyCard>
+  <Text>This text will be red and small</Text>
+</MyCard>
+```
+
+The priority order for classes is: `variant classes` < `TextClassContext` < `className prop`.
+
+## Accessibility
+
+- Heading variants (`h1`-`h4`) automatically set `role="heading"` and `aria-level`
+- `blockquote` variant sets `role="blockquote"` on web
+- `code` variant sets `role="code"` on web
+
+## Dependencies
+
+- `class-variance-authority` -- for variant management
+- `@rn-primitives/slot` -- for asChild support

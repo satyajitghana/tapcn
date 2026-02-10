@@ -1,0 +1,35 @@
+{
+  "name": "@tapcn/cli",
+  "version": "0.1.0",
+  "description": "CLI tool for adding tapcn UI components to React Native projects",
+  "type": "module",
+  "bin": {
+    "tapcn": "./dist/bin.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/bin.ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "execa": "^9.5.1",
+    "fs-extra": "^11.2.0",
+    "ora": "^8.1.1",
+    "prompts": "^2.4.2",
+    "tsconfig-paths": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.10.2",
+    "@types/prompts": "^2.4.9",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "files": [
+    "dist"
+  ],
+  "license": "MIT"
+}

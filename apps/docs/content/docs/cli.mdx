@@ -1,0 +1,139 @@
+---
+title: CLI Reference
+description: Complete reference for the @tapcn/cli command line tool.
+---
+
+# CLI Reference
+
+The `@tapcn/cli` is the command line tool for initializing tapcn in your project and adding components.
+
+## Installation
+
+You do not need to install the CLI globally. Use `npx` to run it:
+
+```bash
+npx @tapcn/cli <command>
+```
+
+## Commands
+
+### init
+
+Initialize tapcn in your project. Sets up NativeWind, global.css, tailwind.config, and creates a `components.json` configuration file.
+
+```bash
+npx @tapcn/cli init
+```
+
+**What it does:**
+
+1. Detects your existing Expo project (or helps create one)
+2. Installs required dependencies: `nativewind`, `tailwindcss`, `class-variance-authority`, `clsx`, `tailwind-merge`, `react-native-reanimated`
+3. Creates `global.css` with light/dark theme CSS variables
+4. Configures `tailwind.config.ts` with theme color mappings
+5. Updates `babel.config.js` for NativeWind
+6. Updates `metro.config.js` for CSS support
+7. Creates `lib/utils.ts` with the `cn()` utility
+8. Creates `components.json` for CLI configuration
+
+### add
+
+Add one or more components to your project.
+
+```bash
+npx @tapcn/cli add <component...>
+```
+
+**Examples:**
+
+```bash
+# Add a single component
+npx @tapcn/cli add button
+
+# Add multiple components at once
+npx @tapcn/cli add button card input tabs
+
+# Add all available components
+npx @tapcn/cli add --all
+```
+
+**What it does:**
+
+1. Reads your `components.json` for project configuration
+2. Fetches the component JSON from the tapcn registry
+3. Resolves all `registryDependencies` (transitive component deps)
+4. Copies component files into your `components/ui/` directory
+5. Installs any required npm packages
+
+**Flags:**
+
+| Flag | Description |
+|------|-------------|
+| `--all` | Add all available components |
+| `--overwrite` | Overwrite existing component files |
+| `--path <path>` | Custom path for component installation |
+
+### doctor
+
+Validate your project setup and diagnose common issues.
+
+```bash
+npx @tapcn/cli doctor
+```
+
+**Checks performed:**
+
+- `components.json` exists and is valid
+- Required dependencies are installed
+- Config files exist (babel, metro, tailwind, global.css)
+- Config files contain required content
+- Reports issues with links to relevant documentation
+
+## Using with shadcn CLI
+
+Since tapcn uses the same registry format as shadcn/ui, you can also use the shadcn CLI directly:
+
+```bash
+# Add a component using the tapcn registry URL
+npx shadcn@latest add https://tapcn.dev/r/button.json
+
+# Add multiple components
+npx shadcn@latest add https://tapcn.dev/r/button.json https://tapcn.dev/r/card.json
+```
+
+This is what `@tapcn/cli add` does under the hood -- it resolves dependencies and delegates to shadcn.
+
+## Available Components
+
+| Component | Dependencies |
+|-----------|-------------|
+| `text` | -- |
+| `button` | text |
+| `input` | -- |
+| `textarea` | -- |
+| `card` | text |
+| `badge` | text |
+| `label` | -- |
+| `separator` | -- |
+| `avatar` | -- |
+| `switch` | -- |
+| `checkbox` | icon |
+| `progress` | -- |
+| `dialog` | icon, native-only-animated-view |
+| `alert-dialog` | button, native-only-animated-view, text |
+| `select` | icon, native-only-animated-view, text |
+| `tabs` | text |
+| `accordion` | icon, text |
+| `tooltip` | native-only-animated-view, text |
+| `popover` | native-only-animated-view, text |
+| `dropdown-menu` | icon, native-only-animated-view, text |
+| `context-menu` | icon, native-only-animated-view, text |
+| `menubar` | icon, native-only-animated-view, text |
+| `hover-card` | native-only-animated-view, text |
+| `skeleton` | -- |
+| `alert` | text, icon |
+| `toggle` | icon, text |
+| `toggle-group` | icon, text, toggle |
+| `radio-group` | -- |
+| `collapsible` | -- |
+| `aspect-ratio` | -- |

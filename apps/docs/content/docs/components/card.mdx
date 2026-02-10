@@ -1,0 +1,116 @@
+---
+title: Card
+description: A card container with header, title, description, content, and footer sections.
+---
+
+# Card
+
+A versatile card component with composable sub-components for structured content display.
+
+## Installation
+
+```bash
+npx @tapcn/cli add card
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/card.json
+```
+
+This will also install the `text` component.
+
+## Usage
+
+```tsx
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '~/components/ui/card';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card Title</CardTitle>
+        <CardDescription>Card description goes here.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Text>Card content goes here.</Text>
+      </CardContent>
+      <CardFooter>
+        <Text>Card footer</Text>
+      </CardFooter>
+    </Card>
+  );
+}
+```
+
+### Simple card
+
+```tsx
+<Card>
+  <CardContent>
+    <Text>A simple card with just content.</Text>
+  </CardContent>
+</Card>
+```
+
+### Card with action
+
+```tsx
+<Card>
+  <CardHeader>
+    <CardTitle>Notifications</CardTitle>
+    <CardDescription>You have 3 unread messages.</CardDescription>
+  </CardHeader>
+  <CardContent>
+    {/* List items here */}
+  </CardContent>
+  <CardFooter>
+    <Button className="w-full">
+      <Text>Mark all as read</Text>
+    </Button>
+  </CardFooter>
+</Card>
+```
+
+## Sub-Components
+
+### Card
+
+The root container. Provides `TextClassContext` with `text-card-foreground`.
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `className` | `string` | Additional NativeWind classes |
+
+### CardHeader
+
+Groups the title and description with proper spacing.
+
+### CardTitle
+
+Renders the card's heading using the `Text` component with heading role.
+
+### CardDescription
+
+Renders muted descriptive text using the `Text` component.
+
+### CardContent
+
+The main content area with horizontal padding.
+
+### CardFooter
+
+The footer section, rendered as a horizontal row.
+
+## Dependencies
+
+- `text` -- for Text component and TextClassContext

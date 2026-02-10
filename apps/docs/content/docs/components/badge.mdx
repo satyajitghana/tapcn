@@ -1,0 +1,89 @@
+---
+title: Badge
+description: A badge component with variant styles for labeling and status indicators.
+---
+
+# Badge
+
+A small badge component for labeling, categorization, and status indicators. Supports multiple visual variants.
+
+## Installation
+
+```bash
+npx @tapcn/cli add badge
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/badge.json
+```
+
+This will also install the `text` component.
+
+## Usage
+
+```tsx
+import { Badge } from '~/components/ui/badge';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <Badge>
+      <Text>Badge</Text>
+    </Badge>
+  );
+}
+```
+
+### With variants
+
+```tsx
+<Badge variant="default">
+  <Text>Default</Text>
+</Badge>
+
+<Badge variant="secondary">
+  <Text>Secondary</Text>
+</Badge>
+
+<Badge variant="destructive">
+  <Text>Destructive</Text>
+</Badge>
+
+<Badge variant="outline">
+  <Text>Outline</Text>
+</Badge>
+```
+
+### With asChild
+
+Use `asChild` to compose Badge styling with a custom component:
+
+```tsx
+<Badge asChild variant="secondary">
+  <Pressable onPress={() => console.log('pressed')}>
+    <Text>Clickable Badge</Text>
+  </Pressable>
+</Badge>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline'` | `'default'` | The visual style variant |
+| `asChild` | `boolean` | `false` | Merge props onto child element via Slot |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+All standard `View` props are also supported.
+
+## How it works
+
+Like Button, Badge uses `TextClassContext.Provider` to automatically style child `Text` components based on the selected variant. Text colors are handled automatically.
+
+## Dependencies
+
+- `text` -- for TextClassContext
+- `class-variance-authority` -- for variant management
+- `@rn-primitives/slot` -- for asChild support

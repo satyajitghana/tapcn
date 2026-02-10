@@ -1,0 +1,19 @@
+{
+  "name": "checkbox",
+  "type": "registry:ui",
+  "title": "Checkbox",
+  "description": "A checkbox component with check icon.",
+  "registryDependencies": [
+    "https://tapcn.dev/r/icon.json"
+  ],
+  "dependencies": [
+    "@rn-primitives/checkbox"
+  ],
+  "files": [
+    {
+      "path": "components/ui/checkbox.tsx",
+      "type": "registry:ui",
+      "content": "import { Icon } from '@/components/ui/icon';\nimport { cn } from '@/lib/utils';\nimport * as CheckboxPrimitive from '@rn-primitives/checkbox';\nimport { Check } from 'lucide-react-native';\nimport { Platform } from 'react-native';\n\nfunction Checkbox({\n  className,\n  ...props\n}: CheckboxPrimitive.RootProps & React.RefAttributes<CheckboxPrimitive.RootRef>) {\n  return (\n    <CheckboxPrimitive.Root\n      className={cn(\n        'border-input size-4 shrink-0 rounded-[4px] border shadow-sm shadow-black/5',\n        Platform.select({\n          web: 'focus-visible:border-ring focus-visible:ring-ring/50 peer outline-none transition-shadow focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground',\n        }),\n        props.checked && 'border-primary bg-primary',\n        props.disabled && 'opacity-50',\n        className\n      )}\n      {...props}>\n      <CheckboxPrimitive.Indicator className=\"flex items-center justify-center text-current\">\n        <Icon as={Check} className=\"size-3.5 text-primary-foreground\" />\n      </CheckboxPrimitive.Indicator>\n    </CheckboxPrimitive.Root>\n  );\n}\n\nexport { Checkbox };\n"
+    }
+  ]
+}

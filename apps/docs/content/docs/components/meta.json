@@ -1,0 +1,13 @@
+{
+  "title": "Components",
+  "pages": [
+    "button",
+    "card",
+    "input",
+    "text",
+    "badge",
+    "dialog",
+    "select",
+    "tabs"
+  ]
+}

@@ -1,0 +1,159 @@
+---
+title: Tabs
+description: A tab navigation component with tab list, triggers, and content panels.
+---
+
+# Tabs
+
+A tab navigation component for switching between different views or content sections. Uses `@rn-primitives/tabs` for accessible tab behavior.
+
+## Installation
+
+```bash
+npx @tapcn/cli add tabs
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/tabs.json
+```
+
+This will also install the `text` component.
+
+## Usage
+
+```tsx
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <Tabs defaultValue="account">
+      <TabsList>
+        <TabsTrigger value="account">
+          <Text>Account</Text>
+        </TabsTrigger>
+        <TabsTrigger value="password">
+          <Text>Password</Text>
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="account">
+        <Text>Make changes to your account here.</Text>
+      </TabsContent>
+      <TabsContent value="password">
+        <Text>Change your password here.</Text>
+      </TabsContent>
+    </Tabs>
+  );
+}
+```
+
+### Controlled tabs
+
+```tsx
+import { useState } from 'react';
+
+export function ControlledTabs() {
+  const [value, setValue] = useState('tab1');
+
+  return (
+    <Tabs value={value} onValueChange={setValue}>
+      <TabsList>
+        <TabsTrigger value="tab1">
+          <Text>Tab 1</Text>
+        </TabsTrigger>
+        <TabsTrigger value="tab2">
+          <Text>Tab 2</Text>
+        </TabsTrigger>
+        <TabsTrigger value="tab3">
+          <Text>Tab 3</Text>
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="tab1">
+        <Text>Content for tab 1</Text>
+      </TabsContent>
+      <TabsContent value="tab2">
+        <Text>Content for tab 2</Text>
+      </TabsContent>
+      <TabsContent value="tab3">
+        <Text>Content for tab 3</Text>
+      </TabsContent>
+    </Tabs>
+  );
+}
+```
+
+### With cards
+
+```tsx
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
+import { Text } from '~/components/ui/text';
+
+export function TabsWithCards() {
+  return (
+    <Tabs defaultValue="overview">
+      <TabsList>
+        <TabsTrigger value="overview">
+          <Text>Overview</Text>
+        </TabsTrigger>
+        <TabsTrigger value="analytics">
+          <Text>Analytics</Text>
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="overview">
+        <Card>
+          <CardHeader>
+            <CardTitle>Overview</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Text>Your overview content here.</Text>
+          </CardContent>
+        </Card>
+      </TabsContent>
+      <TabsContent value="analytics">
+        <Card>
+          <CardHeader>
+            <CardTitle>Analytics</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Text>Your analytics content here.</Text>
+          </CardContent>
+        </Card>
+      </TabsContent>
+    </Tabs>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `Tabs` | Root component, manages state |
+| `TabsList` | Container for tab triggers |
+| `TabsTrigger` | Individual tab button |
+| `TabsContent` | Content panel for each tab |
+
+### Tabs Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `defaultValue` | `string` | -- | Initial active tab (uncontrolled) |
+| `value` | `string` | -- | Active tab (controlled) |
+| `onValueChange` | `(value: string) => void` | -- | Callback when active tab changes |
+
+## How it works
+
+`TabsTrigger` uses `TextClassContext` to automatically style its child `Text` based on the active state. The active tab trigger gets a background and border treatment, while text color updates for both active and inactive states.
+
+## Platform Behavior
+
+- **Web**: Includes focus-visible ring styles, transitions, and pointer-events-none on disabled triggers
+- **Native**: Auto-sizes the tab list with `mr-auto` to avoid full-width stretching
+
+## Dependencies
+
+- `text` -- for TextClassContext
+- `@rn-primitives/tabs` -- underlying primitive

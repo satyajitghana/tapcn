@@ -1,0 +1,9 @@
+{
+  "name": "@tapcn/registry",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Registry is source-only, no build needed'",
+    "clean": "echo 'Nothing to clean'"
+  }
+}

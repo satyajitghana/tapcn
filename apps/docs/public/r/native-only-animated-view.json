@@ -1,0 +1,17 @@
+{
+  "name": "native-only-animated-view",
+  "type": "registry:ui",
+  "title": "NativeOnlyAnimatedView",
+  "description": "A wrapper that applies Reanimated animations only on native platforms.",
+  "registryDependencies": [],
+  "dependencies": [
+    "react-native-reanimated"
+  ],
+  "files": [
+    {
+      "path": "components/ui/native-only-animated-view.tsx",
+      "type": "registry:ui",
+      "content": "import { Platform } from 'react-native';\nimport Animated from 'react-native-reanimated';\n\n/**\n * Wraps animated views that should only be animated on native platforms.\n * On web, it renders children directly without animation wrappers.\n */\nfunction NativeOnlyAnimatedView(\n  props: React.ComponentProps<typeof Animated.View> & React.RefAttributes<Animated.View>\n) {\n  if (Platform.OS === 'web') {\n    return <>{props.children as React.ReactNode}</>;\n  } else {\n    return <Animated.View {...props} />;\n  }\n}\n\nexport { NativeOnlyAnimatedView };\n"
+    }
+  ]
+}

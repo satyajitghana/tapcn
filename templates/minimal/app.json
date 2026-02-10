@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "my-tapcn-app",
+    "slug": "my-tapcn-app",
+    "version": "1.0.0",
+    "scheme": "my-tapcn-app",
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": ["expo-router"]
+  }
+}

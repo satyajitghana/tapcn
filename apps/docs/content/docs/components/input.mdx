@@ -1,0 +1,99 @@
+---
+title: Input
+description: A text input component with proper styling and states.
+---
+
+# Input
+
+A styled text input component built on React Native's `TextInput`.
+
+## Installation
+
+```bash
+npx @tapcn/cli add input
+```
+
+Or using shadcn directly:
+
+```bash
+npx shadcn@latest add https://tapcn.dev/r/input.json
+```
+
+## Usage
+
+```tsx
+import { Input } from '~/components/ui/input';
+
+export function Example() {
+  return <Input placeholder="Enter your name" />;
+}
+```
+
+### With state management
+
+```tsx
+import { useState } from 'react';
+import { Input } from '~/components/ui/input';
+
+export function Example() {
+  const [value, setValue] = useState('');
+
+  return (
+    <Input
+      placeholder="Email address"
+      value={value}
+      onChangeText={setValue}
+      keyboardType="email-address"
+      autoCapitalize="none"
+    />
+  );
+}
+```
+
+### Disabled state
+
+```tsx
+<Input placeholder="Disabled input" editable={false} />
+```
+
+### With label
+
+```tsx
+import { Label } from '~/components/ui/label';
+import { Input } from '~/components/ui/input';
+import { View } from 'react-native';
+
+export function Example() {
+  return (
+    <View className="gap-2">
+      <Label nativeID="email">Email</Label>
+      <Input
+        placeholder="you@example.com"
+        aria-labelledby="email"
+        keyboardType="email-address"
+      />
+    </View>
+  );
+}
+```
+
+## Props
+
+Input extends React Native's `TextInputProps`:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | Additional NativeWind classes |
+| `editable` | `boolean` | `true` | Whether the input is editable (acts as disabled when `false`) |
+| `placeholder` | `string` | -- | Placeholder text |
+
+All standard `TextInput` props are supported (value, onChangeText, keyboardType, etc.).
+
+## Platform Behavior
+
+- **Web**: Includes focus-visible ring styles, proper placeholder styling, and aria-invalid support
+- **Native**: Uses native text input with muted placeholder color
+
+## Dependencies
+
+No component dependencies. Only requires the `cn()` utility from `lib/utils`.
