@@ -46,7 +46,7 @@ export function PreviewCard({ preview, code }: PreviewCardProps) {
       </div>
 
       {tab === 'preview' ? (
-        <div className="flex min-h-[350px] items-center justify-center rounded-b-md border border-t-0 border-fd-border bg-fd-background p-6">
+        <div className="tapcn-preview flex min-h-[350px] items-center justify-center rounded-b-md border border-t-0 border-fd-border bg-fd-background p-6">
           <div style={{ width: '100%', maxWidth: 480 }}>{preview}</div>
         </div>
       ) : code ? (
