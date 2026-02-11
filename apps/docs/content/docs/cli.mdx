@@ -11,7 +11,7 @@ The `@tapcn/cli` is the command line tool for initializing tapcn in your project
 
 You do not need to install the CLI globally. Use `npx` to run it:
 
-```bash
+```npm
 npx @tapcn/cli <command>
 ```
 
@@ -21,7 +21,7 @@ npx @tapcn/cli <command>
 
 Initialize tapcn in your project. Sets up NativeWind, global.css, tailwind.config, and creates a `components.json` configuration file.
 
-```bash
+```npm
 npx @tapcn/cli init
 ```
 
@@ -40,13 +40,13 @@ npx @tapcn/cli init
 
 Add one or more components to your project.
 
-```bash
+```npm
 npx @tapcn/cli add <component...>
 ```
 
 **Examples:**
 
-```bash
+```npm
 # Add a single component
 npx @tapcn/cli add button
 
@@ -77,7 +77,7 @@ npx @tapcn/cli add --all
 
 Validate your project setup and diagnose common issues.
 
-```bash
+```npm
 npx @tapcn/cli doctor
 ```
 
@@ -93,7 +93,7 @@ npx @tapcn/cli doctor
 
 Since tapcn uses the same registry format as shadcn/ui, you can also use the shadcn CLI directly:
 
-```bash
+```npm
 # Add a component using the tapcn registry URL
 npx shadcn@latest add https://tapcn.vercel.app/r/button.json
 
