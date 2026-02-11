@@ -18,6 +18,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           url: '/docs/components/button',
         },
       ]}
+      className="[--color-fd-primary:var(--color-brand)]"
     >
       {children}
     </HomeLayout>

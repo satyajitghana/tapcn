@@ -33,6 +33,21 @@
   --radius-lg: var(--tapcn-radius, 0.5rem);
   --radius-md: calc(var(--tapcn-radius, 0.5rem) - 2px);
   --radius-sm: calc(var(--tapcn-radius, 0.5rem) - 4px);
+
+  /* Brand color system for landing page */
+  --color-brand: hsl(240, 5.9%, 10%);
+  --color-brand-foreground: hsl(0, 0%, 98%);
+  --color-brand-secondary: hsl(240, 4.8%, 95.9%);
+  --color-brand-secondary-foreground: hsl(240, 5.9%, 10%);
+  --color-brand-200: hsl(240, 3.7%, 20%);
+
+  /* Marquee animation */
+  --animate-marquee: marquee var(--duration) infinite linear;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - var(--gap))); }
+  }
 }
 
 /*
@@ -97,6 +112,22 @@
   50% { background-position: 100% 50%; }
 }
 
+/* Grid dot pattern for hero background */
+.bg-grid-pattern {
+  background-image: radial-gradient(circle, hsl(240 5.9% 10% / 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Cursor blink animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.dark .bg-grid-pattern {
+  background-image: radial-gradient(circle, hsl(0 0% 98% / 0.07) 1px, transparent 1px);
+}
+
 .dark .tapcn-preview {
   --tapcn-background: hsl(240 10% 3.9%);
   --tapcn-foreground: hsl(0 0% 98%);
@@ -117,4 +148,13 @@
   --tapcn-border: hsl(240 3.7% 15.9%);
   --tapcn-input: hsl(240 3.7% 15.9%);
   --tapcn-ring: hsl(240 4.9% 83.9%);
+}
+
+/* Dark mode brand colors */
+.dark {
+  --color-brand: hsl(0, 0%, 98%);
+  --color-brand-foreground: hsl(240, 5.9%, 10%);
+  --color-brand-secondary: hsl(240, 3.7%, 15.9%);
+  --color-brand-secondary-foreground: hsl(0, 0%, 98%);
+  --color-brand-200: hsl(240, 4.9%, 83.9%);
 }

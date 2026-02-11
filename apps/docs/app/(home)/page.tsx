@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { cva } from 'class-variance-authority';
 import {
   ArrowRight,
   Smartphone,
@@ -7,44 +8,99 @@ import {
   Accessibility,
   Code,
   Blocks,
+  Heart,
 } from 'lucide-react';
+import {
+  CreateAppAnimation,
+  ComponentsGrid,
+  Marquee,
+} from '@/app/(home)/page.client';
 
+// ---------------------------------------------------------------------------
+// CVA variants (adapted from fumadocs)
+// ---------------------------------------------------------------------------
+const headingVariants = cva('font-medium tracking-tight', {
+  variants: {
+    variant: {
+      h2: 'text-3xl lg:text-4xl',
+      h3: 'text-xl lg:text-2xl',
+    },
+  },
+});
+
+const buttonVariants = cva(
+  'inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full font-medium tracking-tight transition-colors text-sm',
+  {
+    variants: {
+      variant: {
+        primary: 'bg-brand text-brand-foreground hover:bg-brand-200',
+        secondary:
+          'border bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent',
+      },
+    },
+    defaultVariants: {
+      variant: 'primary',
+    },
+  },
+);
+
+const cardVariants = cva('rounded-2xl text-sm p-6 shadow-lg', {
+  variants: {
+    variant: {
+      secondary: 'bg-brand-secondary text-brand-secondary-foreground',
+      default: 'border bg-fd-card',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
+
+// ---------------------------------------------------------------------------
+// Data
+// ---------------------------------------------------------------------------
 const features = [
   {
     icon: Smartphone,
     title: 'Cross-Platform',
     description:
       'Every component works on iOS, Android, and Web out of the box with NativeWind.',
+    variant: 'default' as const,
   },
   {
     icon: Copy,
     title: 'Copy & Paste',
     description:
       'Components live in your project. Full control, no version lock-in, customize freely.',
+    variant: 'secondary' as const,
   },
   {
     icon: Sparkles,
     title: 'AI Friendly',
     description:
       'Simple, readable code that AI tools like Claude and Cursor can easily understand and modify.',
+    variant: 'default' as const,
   },
   {
     icon: Accessibility,
     title: 'Accessible',
     description:
       'Built on @rn-primitives for proper accessibility. Screen reader and keyboard support.',
+    variant: 'default' as const,
   },
   {
     icon: Code,
     title: 'Type-Safe Variants',
     description:
       'Uses class-variance-authority for type-safe variants with full autocomplete.',
+    variant: 'secondary' as const,
   },
   {
     icon: Blocks,
     title: 'shadcn Compatible',
     description:
       'Same registry format as shadcn/ui. Works with the shadcn CLI directly.',
+    variant: 'default' as const,
   },
 ];
 
@@ -53,118 +109,269 @@ const techStack = [
   'NativeWind v4',
   '@rn-primitives',
   'Reanimated',
-  'cva',
+  'class-variance-authority',
   'Lucide Icons',
+  'tailwind-merge',
+  'React Native Web',
 ];
 
+// ---------------------------------------------------------------------------
+// Page
+// ---------------------------------------------------------------------------
 export default function HomePage() {
   return (
-    <main className="flex flex-1 flex-col">
+    <main className="pt-4 pb-6 md:pb-12">
       {/* Hero Section */}
-      <section className="relative flex flex-col items-center gap-6 px-4 pt-16 pb-12 text-center md:pt-24 md:pb-16">
-        <Link
-          href="/docs/components/button"
-          className="group inline-flex items-center gap-1.5 rounded-full border border-fd-border bg-fd-muted px-4 py-1.5 text-sm text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground"
-        >
-          38+ components available
-          <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
-        </Link>
+      <div className="relative flex min-h-[500px] h-[65vh] max-h-[800px] border rounded-2xl overflow-hidden mx-auto w-full max-w-[1400px]">
+        {/* Grid dot background */}
+        <div className="absolute inset-0 bg-grid-pattern [mask-image:radial-gradient(ellipse_80%_60%_at_50%_40%,black,transparent)]" />
 
-        <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
-          Build beautiful{' '}
-          <span className="bg-gradient-to-r from-fd-foreground via-fd-muted-foreground to-fd-foreground bg-[length:200%_auto] bg-clip-text text-transparent animate-[gradient-shift_4s_ease-in-out_infinite]">
-            React Native
-          </span>{' '}
-          apps
-        </h1>
-
-        <p className="max-w-2xl text-lg text-fd-muted-foreground sm:text-xl">
-          Copy-paste UI components for Expo. Built with NativeWind, Radix
-          Primitives, and cva. Works on iOS, Android, and Web.
-        </p>
-
-        <p className="max-w-xl text-sm text-fd-muted-foreground">
-          This is not a component library. Pick the components you need, copy
-          them into your project, and customize everything.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col items-center gap-3 sm:flex-row">
-          <Link
-            href="/docs"
-            className="group inline-flex h-11 items-center gap-2 rounded-lg bg-fd-primary px-6 text-sm font-medium text-fd-primary-foreground transition-all hover:bg-fd-primary/90 hover:shadow-lg"
-          >
-            Get Started
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-          </Link>
+        <div className="flex flex-col z-[2] px-6 size-full md:p-12 max-md:items-center max-md:text-center max-md:justify-center">
           <Link
             href="/docs/components/button"
-            className="inline-flex h-11 items-center rounded-lg border border-fd-border bg-fd-background px-6 text-sm font-medium transition-all hover:bg-fd-accent hover:text-fd-accent-foreground"
+            className="group mt-8 md:mt-12 inline-flex items-center gap-1.5 text-xs text-brand font-medium rounded-full py-2 px-4 border border-brand/30 w-fit transition-colors hover:bg-brand/5"
           >
-            Browse Components
+            38+ components available
+            <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
           </Link>
-        </div>
 
-        {/* CLI Terminal Snippet */}
-        <div className="mx-auto mt-2 w-full max-w-lg">
-          <div className="overflow-hidden rounded-xl border border-fd-border bg-fd-card shadow-sm">
-            <div className="flex items-center gap-1.5 border-b border-fd-border px-4 py-2.5">
-              <div className="size-2.5 rounded-full bg-fd-muted-foreground/20" />
-              <div className="size-2.5 rounded-full bg-fd-muted-foreground/20" />
-              <div className="size-2.5 rounded-full bg-fd-muted-foreground/20" />
-              <span className="ml-2 text-xs text-fd-muted-foreground">
-                Terminal
-              </span>
-            </div>
-            <div className="px-4 py-3 font-mono text-sm">
-              <span className="text-fd-muted-foreground">$ </span>
-              <span className="text-fd-foreground">
-                npx @tapcn/cli add button card input
-              </span>
-            </div>
+          <h1 className="text-4xl my-8 leading-tight font-medium tracking-tight xl:text-5xl xl:mb-12">
+            Build beautiful React Native apps,
+            <br />
+            your <span className="text-brand">way</span>.
+          </h1>
+
+          <p className="max-w-2xl text-fd-muted-foreground text-lg mb-8">
+            Copy-paste UI components for Expo. Built with NativeWind, Radix
+            Primitives, and cva. Works on iOS, Android, and Web.
+          </p>
+
+          <div className="flex flex-row items-center gap-4 flex-wrap w-fit">
+            <Link
+              href="/docs"
+              className={buttonVariants({ variant: 'primary' })}
+            >
+              Getting Started
+              <ArrowRight className="size-4" />
+            </Link>
+            <Link
+              href="/docs/components/button"
+              className={buttonVariants({ variant: 'secondary' })}
+            >
+              Browse Components
+            </Link>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Feature Cards */}
-      <section className="mx-auto w-full max-w-5xl px-4 py-12">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="group rounded-xl border border-fd-border bg-fd-card p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-fd-primary/30 hover:shadow-md"
-            >
-              <feature.icon className="mb-3 size-5 text-fd-muted-foreground transition-colors group-hover:text-fd-primary" />
-              <h3 className="mb-1.5 font-semibold text-fd-foreground">
-                {feature.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-fd-muted-foreground">
-                {feature.description}
-              </p>
+      {/* Content Grid */}
+      <div className="grid grid-cols-1 gap-10 mt-12 px-6 mx-auto w-full max-w-[1400px] md:px-12 lg:grid-cols-2">
+        {/* Intro paragraph */}
+        <p className="text-2xl tracking-tight leading-snug font-light col-span-full md:text-3xl">
+          tapcn is a{' '}
+          <span className="text-brand font-medium">copy-paste</span> component
+          library for{' '}
+          <span className="text-brand font-medium">React Native</span>{' '}
+          developers. Pick the components you need, add them to your project
+          with the CLI, and{' '}
+          <span className="text-brand font-medium">customize everything</span>.
+          No version lock-in, no black boxes.
+        </p>
+
+        {/* CLI Demo */}
+        <div className="col-span-full rounded-xl p-8 bg-fd-secondary/50">
+          <h2 className="text-xl text-center text-brand font-mono font-bold uppercase mb-2">
+            Try it out.
+          </h2>
+
+          <div className="mx-auto w-full max-w-[800px]">
+            <div className="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 shadow-lg">
+              <div className="flex items-center gap-2 border-b border-neutral-800 px-4 py-2.5">
+                <div className="size-2.5 rounded-full bg-red-500/70" />
+                <div className="size-2.5 rounded-full bg-yellow-500/70" />
+                <div className="size-2.5 rounded-full bg-green-500/70" />
+                <span className="ml-2 text-xs text-neutral-400">Terminal</span>
+              </div>
+              <div className="px-4 py-3 font-mono text-sm">
+                <span className="text-neutral-500">$ </span>
+                <span className="text-neutral-100">npx @tapcn/cli init</span>
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
 
-      {/* Tech Stack */}
-      <section className="mx-auto w-full max-w-5xl px-4 pb-12">
-        <h2 className="mb-6 text-center text-sm font-medium uppercase tracking-wider text-fd-muted-foreground">
-          Built with
-        </h2>
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          {techStack.map((tech) => (
-            <span
-              key={tech}
-              className="rounded-full border border-fd-border bg-fd-card px-4 py-1.5 text-sm font-medium text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground"
-            >
-              {tech}
-            </span>
-          ))}
+          <CreateAppAnimation />
         </div>
-      </section>
+
+        {/* Live Component Showcase */}
+        <div className="col-span-full">
+          <h2
+            className={headingVariants({
+              variant: 'h2',
+              className: 'text-brand text-center mb-8',
+            })}
+          >
+            Components, Live.
+          </h2>
+          <ComponentsGrid />
+        </div>
+
+        {/* Why tapcn? */}
+        <h2
+          className={headingVariants({
+            variant: 'h2',
+            className: 'text-brand text-center col-span-full mt-4',
+          })}
+        >
+          Why tapcn?
+        </h2>
+
+        {features.map((feature) => (
+          <div
+            key={feature.title}
+            className={cardVariants({
+              variant: feature.variant,
+              className: 'flex flex-col',
+            })}
+          >
+            <feature.icon className="mb-4 size-5" />
+            <h3
+              className={headingVariants({
+                variant: 'h3',
+                className: 'mb-3',
+              })}
+            >
+              {feature.title}
+            </h3>
+            <p className="leading-relaxed">{feature.description}</p>
+          </div>
+        ))}
+
+        {/* Code Example */}
+        <div className={cardVariants({ className: 'flex flex-col' })}>
+          <h3
+            className={headingVariants({
+              variant: 'h3',
+              className: 'mb-6',
+            })}
+          >
+            Simple, familiar API.
+          </h3>
+          <p className="mb-4">
+            Same patterns as{' '}
+            <span className="text-brand font-medium">shadcn/ui</span>. If you
+            know shadcn, you already know tapcn.
+          </p>
+          <ul className="text-xs list-disc list-inside space-y-1 text-fd-muted-foreground">
+            <li>Full TypeScript autocompletion</li>
+            <li>CVA for type-safe variants</li>
+            <li>cn() for class merging</li>
+            <li>Works across iOS, Android, and Web</li>
+            <li>Accessible by default with @rn-primitives</li>
+          </ul>
+        </div>
+
+        <div
+          className={cardVariants({
+            variant: 'secondary',
+            className: 'flex flex-col p-0 overflow-hidden',
+          })}
+        >
+          <pre className="overflow-auto rounded-2xl bg-neutral-950 p-6 text-sm leading-relaxed text-neutral-100 h-full">
+            <code>{`import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+import { View } from 'react-native';
+
+export function MyScreen() {
+  return (
+    <View className="flex-1 items-center
+      justify-center gap-4">
+      <Button variant="outline">
+        <Text>Click me</Text>
+      </Button>
+      <Button variant="destructive">
+        <Text>Delete</Text>
+      </Button>
+    </View>
+  );
+}`}</code>
+          </pre>
+        </div>
+
+        {/* Tech Stack Marquee */}
+        <div className="col-span-full mt-4">
+          <h2 className="mb-6 text-center text-sm font-medium uppercase tracking-wider text-fd-muted-foreground">
+            Built with
+          </h2>
+          <Marquee>
+            {techStack.map((tech) => (
+              <span
+                key={tech}
+                className="rounded-full border bg-fd-card px-4 py-1.5 text-sm font-medium text-fd-muted-foreground whitespace-nowrap"
+              >
+                {tech}
+              </span>
+            ))}
+          </Marquee>
+        </div>
+
+        {/* Open Source */}
+        <h2
+          className={headingVariants({
+            variant: 'h2',
+            className: 'mt-8 text-brand text-center col-span-full',
+          })}
+        >
+          Open Source.
+        </h2>
+
+        <div className={cardVariants({ className: 'flex flex-col' })}>
+          <Heart fill="currentColor" className="text-pink-500 mb-4 size-6" />
+          <h3
+            className={headingVariants({
+              variant: 'h3',
+              className: 'mb-6',
+            })}
+          >
+            Free &amp; Open Source.
+          </h3>
+          <p className="mb-8">
+            tapcn is 100% open source, built with passion for the React Native
+            community. Contributions welcome.
+          </p>
+          <div className="flex flex-row flex-wrap gap-2">
+            <Link href="/docs" className={buttonVariants()}>
+              Read docs
+            </Link>
+            <a
+              href="https://github.com/satyajitghana/tapcn"
+              target="_blank"
+              rel="noreferrer noopener"
+              className={buttonVariants({ variant: 'secondary' })}
+            >
+              Open GitHub
+            </a>
+          </div>
+        </div>
+
+        <div
+          className={cardVariants({
+            className: 'flex flex-col p-0 pt-8',
+          })}
+        >
+          <h2 className="text-3xl text-center font-extrabold font-mono uppercase mb-4 lg:text-4xl">
+            Build Your App
+          </h2>
+          <p className="text-center font-mono text-xs text-fd-muted-foreground mb-8">
+            beautiful, accessible, cross-platform.
+          </p>
+          <div className="h-[200px] mt-auto overflow-hidden p-8 bg-gradient-to-b from-brand-secondary/10">
+            <div className="mx-auto bg-radial-[circle_at_0%_100%] from-60% from-transparent to-brand-secondary size-[500px] rounded-full" />
+          </div>
+        </div>
+      </div>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-fd-border px-4 py-8 text-center text-sm text-fd-muted-foreground">
+      <footer className="mt-16 border-t border-fd-border px-4 py-8 text-center text-sm text-fd-muted-foreground">
         <p>
           Built with{' '}
           <a
