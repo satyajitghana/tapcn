@@ -1,12 +1,11 @@
 {
   "title": "Documentation",
-  "root": true,
   "pages": [
     "---Getting Started---",
-    "[BookOpen]index",
-    "[FolderDown]installation",
-    "[Terminal]cli",
-    "[Palette]theming",
+    "index",
+    "installation",
+    "cli",
+    "theming",
     "---Components---",
     "components/..."
   ]
