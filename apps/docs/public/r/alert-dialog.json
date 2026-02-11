@@ -4,9 +4,9 @@
   "title": "Alert Dialog",
   "description": "A confirmation dialog with action and cancel buttons.",
   "registryDependencies": [
-    "https://tapcn.dev/r/button.json",
-    "https://tapcn.dev/r/native-only-animated-view.json",
-    "https://tapcn.dev/r/text.json"
+    "https://tapcn.vercel.app/r/button.json",
+    "https://tapcn.vercel.app/r/native-only-animated-view.json",
+    "https://tapcn.vercel.app/r/text.json"
   ],
   "dependencies": [
     "@rn-primitives/alert-dialog",

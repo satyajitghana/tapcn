@@ -4,9 +4,9 @@
   "title": "Menubar",
   "description": "A menu bar component with multiple menus.",
   "registryDependencies": [
-    "https://tapcn.dev/r/icon.json",
-    "https://tapcn.dev/r/native-only-animated-view.json",
-    "https://tapcn.dev/r/text.json"
+    "https://tapcn.vercel.app/r/icon.json",
+    "https://tapcn.vercel.app/r/native-only-animated-view.json",
+    "https://tapcn.vercel.app/r/text.json"
   ],
   "dependencies": [
     "@rn-primitives/menubar",

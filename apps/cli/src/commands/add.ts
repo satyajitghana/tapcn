@@ -89,7 +89,7 @@ export async function runAdd(
 
   // Build the shadcn command
   // Delegate to shadcn@latest add with registry URLs
-  // e.g., npx shadcn@latest add https://tapcn.dev/r/button.json --yes
+  // e.g., npx shadcn@latest add https://tapcn.vercel.app/r/button.json --yes
   const shadcnArgs = ['shadcn@latest', 'add', ...registryUrls];
 
   if (options.yes) {

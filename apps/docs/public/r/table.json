@@ -4,7 +4,7 @@
   "title": "Table",
   "description": "A data table component with header, body, footer, rows, and cells.",
   "registryDependencies": [
-    "https://tapcn.dev/r/text.json"
+    "https://tapcn.vercel.app/r/text.json"
   ],
   "dependencies": [
     "@rn-primitives/table"

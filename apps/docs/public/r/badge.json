@@ -4,7 +4,7 @@
   "title": "Badge",
   "description": "A badge component with variant styles for labeling and status indicators.",
   "registryDependencies": [
-    "https://tapcn.dev/r/text.json"
+    "https://tapcn.vercel.app/r/text.json"
   ],
   "dependencies": [
     "class-variance-authority",

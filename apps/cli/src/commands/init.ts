@@ -197,7 +197,7 @@ async function createComponentsJson(targetDir: string): Promise<void> {
   const componentsJsonPath = path.join(targetDir, 'components.json');
 
   const config = {
-    $schema: 'https://tapcn.dev/schema.json',
+    $schema: 'https://tapcn.vercel.app/schema.json',
     style: 'default',
     tailwind: {
       config: 'tailwind.config.ts',

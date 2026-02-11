@@ -4,8 +4,8 @@
   "title": "Toast",
   "description": "A toast notification system with ToastProvider and useToast hook.",
   "registryDependencies": [
-    "https://tapcn.dev/r/icon.json",
-    "https://tapcn.dev/r/text.json"
+    "https://tapcn.vercel.app/r/icon.json",
+    "https://tapcn.vercel.app/r/text.json"
   ],
   "dependencies": [
     "class-variance-authority",

@@ -4,8 +4,8 @@
   "title": "Dialog",
   "description": "A modal dialog component with overlay and animations.",
   "registryDependencies": [
-    "https://tapcn.dev/r/icon.json",
-    "https://tapcn.dev/r/native-only-animated-view.json"
+    "https://tapcn.vercel.app/r/icon.json",
+    "https://tapcn.vercel.app/r/native-only-animated-view.json"
   ],
   "dependencies": [
     "@rn-primitives/dialog",

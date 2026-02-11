@@ -150,7 +150,7 @@ const COMPONENT_DESCRIPTIONS: Record<string, string> = {
   'native-only-animated-view': 'A wrapper that applies Reanimated animations only on native platforms.',
 };
 
-const REGISTRY_BASE_URL = 'https://tapcn.dev/r';
+const REGISTRY_BASE_URL = 'https://tapcn.vercel.app/r';
 
 export async function GET(
   _request: NextRequest,
