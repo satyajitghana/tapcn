@@ -44,9 +44,17 @@ const previewComponents: Record<string, React.ComponentType> = {
   'aspect-ratio': dynamic(() => import('./previews/aspect-ratio-preview').then(m => m.AspectRatioPreview as any)),
 };
 
-export function ComponentPreview({ component, code }: { component: string; code?: string }) {
+export function ComponentPreview({
+  component,
+  code,
+  highlightedCode,
+}: {
+  component: string;
+  code?: string;
+  highlightedCode?: string;
+}) {
   const Preview = previewComponents[component];
   if (!Preview) return null;
 
-  return <PreviewCard preview={<Preview />} code={code} />;
+  return <PreviewCard preview={<Preview />} code={code} highlightedCode={highlightedCode} />;
 }

@@ -1,22 +1,16 @@
 'use client';
 
 import * as React from 'react';
+import { CodeBlock, Pre } from 'fumadocs-ui/components/codeblock';
 
 type PreviewCardProps = {
   preview: React.ReactNode;
   code?: string;
+  highlightedCode?: string;
 };
 
-export function PreviewCard({ preview, code }: PreviewCardProps) {
+export function PreviewCard({ preview, code, highlightedCode }: PreviewCardProps) {
   const [tab, setTab] = React.useState<'preview' | 'code'>('preview');
-  const [copied, setCopied] = React.useState(false);
-
-  const handleCopy = React.useCallback(async () => {
-    if (!code) return;
-    await navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }, [code]);
 
   return (
     <div className="not-prose my-6">
@@ -50,18 +44,31 @@ export function PreviewCard({ preview, code }: PreviewCardProps) {
           <div style={{ width: '100%', maxWidth: 480 }}>{preview}</div>
         </div>
       ) : code ? (
-        <div className="relative rounded-b-md border border-t-0 border-fd-border">
-          <button
-            onClick={handleCopy}
-            className="absolute right-2 top-2 rounded-md border border-fd-border bg-fd-background px-2 py-1 text-xs text-fd-muted-foreground hover:text-fd-foreground"
-          >
-            {copied ? 'Copied!' : 'Copy'}
-          </button>
-          <pre className="max-h-[400px] overflow-auto p-4 text-xs">
-            <code>{code}</code>
-          </pre>
+        <div className="overflow-hidden rounded-b-md border border-t-0 border-fd-border [&_figure]:my-0 [&_figure]:rounded-none [&_figure]:border-0">
+          {highlightedCode ? (
+            <CodeBlock allowCopy keepBackground>
+              <Pre
+                className="max-h-[400px]"
+                dangerouslySetInnerHTML={{ __html: extractPreContent(highlightedCode) }}
+              />
+            </CodeBlock>
+          ) : (
+            <CodeBlock allowCopy>
+              <Pre className="max-h-[400px]">
+                <code>{code}</code>
+              </Pre>
+            </CodeBlock>
+          )}
         </div>
       ) : null}
     </div>
   );
+}
+
+/** Extract the inner content from shiki's <pre><code>...</code></pre> output */
+function extractPreContent(html: string): string {
+  // Shiki wraps output in <pre ...><code ...>content</code></pre>
+  // We need just the inner HTML of <code> for our Pre component
+  const codeMatch = html.match(/<code[^>]*>([\s\S]*?)<\/code>/);
+  return codeMatch ? codeMatch[1] : html;
 }

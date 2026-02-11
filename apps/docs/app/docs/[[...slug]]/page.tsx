@@ -12,6 +12,7 @@ import { PageActions } from '@/components/page-actions';
 import { ComponentPreview } from '@/components/component-preview';
 import fs from 'node:fs';
 import path from 'node:path';
+import { codeToHtml } from 'shiki';
 
 function getRawContent(slug?: string[]): string | undefined {
   const filePath = slug
@@ -37,6 +38,16 @@ function getComponentSource(componentName: string): string | undefined {
   }
 }
 
+async function highlightCode(code: string): Promise<string> {
+  return codeToHtml(code, {
+    lang: 'tsx',
+    themes: {
+      light: 'github-light-default',
+      dark: 'github-dark-default',
+    },
+  });
+}
+
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
 }) {
@@ -54,14 +65,21 @@ export default async function Page(props: {
   const componentSource = componentName
     ? getComponentSource(componentName)
     : undefined;
+  const highlightedCode = componentSource
+    ? await highlightCode(componentSource)
+    : undefined;
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
+    <DocsPage toc={page.data.toc} full={page.data.full} tableOfContent={{ style: 'clerk' }}>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <PageActions rawContent={rawContent} />
       {componentName && (
-        <ComponentPreview component={componentName} code={componentSource} />
+        <ComponentPreview
+          component={componentName}
+          code={componentSource}
+          highlightedCode={highlightedCode}
+        />
       )}
       <DocsBody>
         <MDX components={getMDXComponents()} />

@@ -60,8 +60,8 @@ const config = {
   ],
   turbopack: {
     resolveAlias: {
-      // React Native → react-native-web
-      'react-native': 'react-native-web',
+      // React Native → custom shim that forwards className to DOM
+      'react-native': './lib/react-native-web-shim.tsx',
       // NativeWind / CSS interop → no-op shim (Tailwind v4 handles className on web)
       nativewind: './lib/nativewind-shim.ts',
       'react-native-css-interop': './lib/nativewind-shim.ts',
@@ -92,13 +92,7 @@ const config = {
     webpackConfig.resolve = webpackConfig.resolve || {};
     webpackConfig.resolve.alias = {
       ...(webpackConfig.resolve.alias || {}),
-      'react-native$': 'react-native-web',
-      'react-native/Libraries/EventEmitter/RCTDeviceEventEmitter$':
-        'react-native-web/dist/vendor/react-native/NativeEventEmitter/RCTDeviceEventEmitter',
-      'react-native/Libraries/vendor/emitter/EventEmitter$':
-        'react-native-web/dist/vendor/react-native/emitter/EventEmitter',
-      'react-native/Libraries/EventEmitter/NativeEventEmitter$':
-        'react-native-web/dist/vendor/react-native/NativeEventEmitter',
+      'react-native$': path.resolve(__dirname, 'lib/react-native-web-shim.tsx'),
       nativewind: nativewindShim,
       'react-native-css-interop': nativewindShim,
       'expo-glass-effect': nativewindShim,
