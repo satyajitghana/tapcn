@@ -1,40 +1,27 @@
 'use client';
-import { View, Text, StyleSheet } from 'react-native';
-import { colors, radius } from './theme';
-
-function IconPlaceholder({ size, symbol }: { size: number; symbol: string }) {
-  return (
-    <View style={[s.icon, { width: size, height: size, borderRadius: radius.full }]}>
-      <Text style={[s.symbol, { fontSize: size * 0.5 }]}>{symbol}</Text>
-    </View>
-  );
-}
+import { Text } from '@/components/ui/text';
+import { View } from 'react-native';
 
 export function IconPreview() {
   return (
-    <View style={s.container}>
-      <View style={s.item}>
-        <IconPlaceholder size={16} symbol={'\u2605'} />
-        <Text style={s.label}>16px</Text>
-      </View>
-      <View style={s.item}>
-        <IconPlaceholder size={24} symbol={'\u2665'} />
-        <Text style={s.label}>24px</Text>
-      </View>
-      <View style={s.item}>
-        <IconPlaceholder size={32} symbol={'\u2709'} />
-        <Text style={s.label}>32px</Text>
+    <View className="gap-4 items-center">
+      <Text variant="muted">
+        The Icon component wraps any icon library (Lucide, Tabler, Phosphor, Hugeicons) with NativeWind className support via cssInterop.
+      </Text>
+      <View className="flex-row gap-4">
+        <View className="items-center gap-1 rounded-md border border-border p-4">
+          <Text className="text-2xl">{'\u2605'}</Text>
+          <Text variant="small">16px</Text>
+        </View>
+        <View className="items-center gap-1 rounded-md border border-border p-4">
+          <Text className="text-3xl">{'\u2665'}</Text>
+          <Text variant="small">24px</Text>
+        </View>
+        <View className="items-center gap-1 rounded-md border border-border p-4">
+          <Text className="text-4xl">{'\u2709'}</Text>
+          <Text variant="small">32px</Text>
+        </View>
       </View>
     </View>
   );
 }
-
-const s = StyleSheet.create({
-  container: { flexDirection: 'row', gap: 20, alignItems: 'flex-end' },
-  item: { alignItems: 'center', gap: 6 },
-  icon: {
-    backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center',
-  },
-  symbol: { color: colors.primaryForeground },
-  label: { fontSize: 12, color: colors.mutedForeground },
-});

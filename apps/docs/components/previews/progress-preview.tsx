@@ -1,35 +1,23 @@
 'use client';
-import { View, Text, StyleSheet } from 'react-native';
-import { colors, radius } from './theme';
-
-function ProgressBar({ value }: { value: number }) {
-  return (
-    <View style={s.row}>
-      <View style={s.track}>
-        <View style={[s.fill, { width: `${value}%` }]} />
-      </View>
-      <Text style={s.value}>{value}%</Text>
-    </View>
-  );
-}
+import { Progress } from '@/components/ui/progress';
+import { Text } from '@/components/ui/text';
+import { View } from 'react-native';
 
 export function ProgressPreview() {
   return (
-    <View style={s.container}>
-      <ProgressBar value={25} />
-      <ProgressBar value={50} />
-      <ProgressBar value={75} />
+    <View className="gap-4 w-[280px]">
+      <View className="gap-2">
+        <Text variant="small">25%</Text>
+        <Progress value={25} />
+      </View>
+      <View className="gap-2">
+        <Text variant="small">50%</Text>
+        <Progress value={50} />
+      </View>
+      <View className="gap-2">
+        <Text variant="small">75%</Text>
+        <Progress value={75} />
+      </View>
     </View>
   );
 }
-
-const s = StyleSheet.create({
-  container: { gap: 16, width: 280 },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  track: {
-    flex: 1, height: 8, borderRadius: radius.full,
-    backgroundColor: `${colors.primary}33`, overflow: 'hidden',
-  },
-  fill: { height: '100%', borderRadius: radius.full, backgroundColor: colors.primary },
-  value: { fontSize: 13, color: colors.mutedForeground, width: 36, textAlign: 'right' },
-});

@@ -1,41 +1,26 @@
 'use client';
-import { View, Text, StyleSheet } from 'react-native';
-import { colors, radius } from './theme';
-
-const options = [
-  { label: 'Default', selected: true },
-  { label: 'Comfortable', selected: false },
-  { label: 'Compact', selected: false },
-];
-
-function Radio({ selected, label }: { selected: boolean; label: string }) {
-  return (
-    <View style={s.row}>
-      <View style={s.circle}>
-        {selected && <View style={s.dot} />}
-      </View>
-      <Text style={s.label}>{label}</Text>
-    </View>
-  );
-}
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import * as React from 'react';
+import { View } from 'react-native';
 
 export function RadioGroupPreview() {
+  const [value, setValue] = React.useState('default');
+
   return (
-    <View style={s.container}>
-      {options.map((opt) => (
-        <Radio key={opt.label} selected={opt.selected} label={opt.label} />
-      ))}
-    </View>
+    <RadioGroup value={value} onValueChange={setValue}>
+      <View className="flex-row items-center gap-3">
+        <RadioGroupItem value="default" aria-labelledby="label-default" />
+        <Label nativeID="label-default">Default</Label>
+      </View>
+      <View className="flex-row items-center gap-3">
+        <RadioGroupItem value="comfortable" aria-labelledby="label-comfortable" />
+        <Label nativeID="label-comfortable">Comfortable</Label>
+      </View>
+      <View className="flex-row items-center gap-3">
+        <RadioGroupItem value="compact" aria-labelledby="label-compact" />
+        <Label nativeID="label-compact">Compact</Label>
+      </View>
+    </RadioGroup>
   );
 }
-
-const s = StyleSheet.create({
-  container: { gap: 10, alignItems: 'flex-start' },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  circle: {
-    width: 16, height: 16, borderRadius: radius.full, borderWidth: 1,
-    borderColor: colors.primary, alignItems: 'center', justifyContent: 'center',
-  },
-  dot: { width: 8, height: 8, borderRadius: radius.full, backgroundColor: colors.primary },
-  label: { fontSize: 14, color: colors.foreground },
-});

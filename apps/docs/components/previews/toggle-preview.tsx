@@ -1,32 +1,24 @@
 'use client';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { colors, radius } from './theme';
-
-function Toggle({ pressed, children }: { pressed: boolean; children: string }) {
-  return (
-    <Pressable style={[s.toggle, pressed && s.togglePressed]}>
-      <Text style={[s.toggleText, pressed && s.toggleTextPressed]}>{children}</Text>
-    </Pressable>
-  );
-}
+import { Text } from '@/components/ui/text';
+import { Toggle } from '@/components/ui/toggle';
+import * as React from 'react';
+import { View } from 'react-native';
 
 export function TogglePreview() {
+  const [boldPressed, setBoldPressed] = React.useState(true);
+  const [italicPressed, setItalicPressed] = React.useState(false);
+
   return (
-    <View style={s.container}>
-      <Toggle pressed={true}>B</Toggle>
-      <Toggle pressed={false}>I</Toggle>
-      <Toggle pressed={false}>U</Toggle>
+    <View className="flex-row gap-2 items-center">
+      <Toggle pressed={boldPressed} onPressedChange={setBoldPressed}>
+        <Text className="font-bold">B</Text>
+      </Toggle>
+      <Toggle pressed={italicPressed} onPressedChange={setItalicPressed}>
+        <Text className="italic">I</Text>
+      </Toggle>
+      <Toggle variant="outline" pressed={false} onPressedChange={() => {}}>
+        <Text>U</Text>
+      </Toggle>
     </View>
   );
 }
-
-const s = StyleSheet.create({
-  container: { flexDirection: 'row', gap: 8, alignItems: 'center' },
-  toggle: {
-    width: 40, height: 40, borderRadius: radius.md,
-    alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent',
-  },
-  togglePressed: { backgroundColor: colors.accent },
-  toggleText: { fontSize: 14, fontWeight: '700', color: colors.mutedForeground },
-  toggleTextPressed: { color: colors.accentForeground },
-});

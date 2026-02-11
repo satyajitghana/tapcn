@@ -1,27 +1,28 @@
 'use client';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { colors, radius } from './theme';
+import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
+import * as React from 'react';
+import { View } from 'react-native';
 
 export function ThemeTogglePreview() {
+  const [isDark, setIsDark] = React.useState(false);
+
   return (
-    <View style={s.container}>
-      <Pressable style={({ pressed }) => [s.btn, { opacity: pressed ? 0.8 : 1 }]}>
-        <Text style={s.icon}>{'\u2600'}</Text>
-      </Pressable>
-      <Pressable style={({ pressed }) => [s.btn, s.btnActive, { opacity: pressed ? 0.8 : 1 }]}>
-        <Text style={s.icon}>{'\u263D'}</Text>
-      </Pressable>
+    <View className="flex-row gap-3 items-center">
+      <Button
+        variant={isDark ? 'outline' : 'default'}
+        size="sm"
+        onPress={() => setIsDark(false)}
+      >
+        <Text>{'\u2600'} Light</Text>
+      </Button>
+      <Button
+        variant={isDark ? 'default' : 'outline'}
+        size="sm"
+        onPress={() => setIsDark(true)}
+      >
+        <Text>{'\u263E'} Dark</Text>
+      </Button>
     </View>
   );
 }
-
-const s = StyleSheet.create({
-  container: { flexDirection: 'row', gap: 8, alignItems: 'center' },
-  btn: {
-    width: 40, height: 40, borderRadius: radius.md, borderWidth: 1,
-    borderColor: colors.border, alignItems: 'center', justifyContent: 'center',
-    backgroundColor: colors.background,
-  },
-  btnActive: { backgroundColor: colors.accent },
-  icon: { fontSize: 18, color: colors.foreground },
-});

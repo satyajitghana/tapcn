@@ -1,44 +1,44 @@
 'use client';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { colors, radius } from './theme';
+import { Button } from '@/components/ui/button';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
+import { Text } from '@/components/ui/text';
+import * as React from 'react';
+import { View } from 'react-native';
 
 export function CollapsiblePreview() {
+  const [open, setOpen] = React.useState(true);
+
   return (
-    <View style={s.container}>
-      <View style={s.header}>
-        <Text style={s.title}>@tapcn/ui starred 3 repositories</Text>
-        <Pressable style={s.chevronBtn}>
-          <Text style={s.chevron}>{'\u2303'}</Text>
-        </Pressable>
-      </View>
-      <View style={s.item}>
-        <Text style={s.itemText}>@radix-ui/primitives</Text>
-      </View>
-      <View style={s.content}>
-        <View style={s.item}>
-          <Text style={s.itemText}>@nativewind/nativewind</Text>
+    <View className="w-[300px]">
+      <Collapsible open={open} onOpenChange={setOpen}>
+        <View className="flex-row items-center justify-between">
+          <Text className="text-sm font-semibold">
+            @tapcn/ui starred 3 repositories
+          </Text>
+          <CollapsibleTrigger asChild>
+            <Button variant="outline" size="sm">
+              <Text>{open ? '\u2303' : '\u2304'}</Text>
+            </Button>
+          </CollapsibleTrigger>
         </View>
-        <View style={s.item}>
-          <Text style={s.itemText}>@react-native/react-native</Text>
+        <View className="mt-2 rounded-md border border-border px-3 py-2">
+          <Text className="text-sm">@radix-ui/primitives</Text>
         </View>
-      </View>
+        <CollapsibleContent>
+          <View className="mt-2 gap-2">
+            <View className="rounded-md border border-border px-3 py-2">
+              <Text className="text-sm">@nativewind/nativewind</Text>
+            </View>
+            <View className="rounded-md border border-border px-3 py-2">
+              <Text className="text-sm">@react-native/react-native</Text>
+            </View>
+          </View>
+        </CollapsibleContent>
+      </Collapsible>
     </View>
   );
 }
-
-const s = StyleSheet.create({
-  container: { width: 300, gap: 8 },
-  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  title: { fontSize: 14, fontWeight: '600', color: colors.foreground },
-  chevronBtn: {
-    width: 28, height: 28, borderRadius: radius.md, borderWidth: 1,
-    borderColor: colors.border, alignItems: 'center', justifyContent: 'center',
-  },
-  chevron: { fontSize: 14, color: colors.foreground },
-  content: { gap: 8 },
-  item: {
-    paddingVertical: 8, paddingHorizontal: 12, borderWidth: 1,
-    borderColor: colors.border, borderRadius: radius.md,
-  },
-  itemText: { fontSize: 14, color: colors.foreground },
-});

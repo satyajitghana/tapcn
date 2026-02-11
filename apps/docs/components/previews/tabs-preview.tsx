@@ -1,45 +1,33 @@
 'use client';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { colors, radius } from './theme';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Text } from '@/components/ui/text';
+import { View } from 'react-native';
 
 export function TabsPreview() {
-  const active = 0;
-  const tabs = ['Account', 'Password'];
   return (
-    <View style={s.container}>
-      <View style={s.tabList}>
-        {tabs.map((tab, i) => (
-          <Pressable key={tab} style={[s.tab, i === active && s.tabActive]}>
-            <Text style={[s.tabText, i === active ? s.tabTextActive : s.tabTextInactive]}>{tab}</Text>
-          </Pressable>
-        ))}
-      </View>
-      <View style={s.content}>
-        <Text style={s.title}>Account</Text>
-        <Text style={s.desc}>Make changes to your account here.</Text>
-      </View>
+    <View className="w-[320px]">
+      <Tabs defaultValue="account">
+        <TabsList>
+          <TabsTrigger value="account">
+            <Text>Account</Text>
+          </TabsTrigger>
+          <TabsTrigger value="password">
+            <Text>Password</Text>
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="account">
+          <View className="gap-2 p-4 border border-border rounded-lg">
+            <Text className="font-semibold">Account</Text>
+            <Text variant="muted">Make changes to your account here.</Text>
+          </View>
+        </TabsContent>
+        <TabsContent value="password">
+          <View className="gap-2 p-4 border border-border rounded-lg">
+            <Text className="font-semibold">Password</Text>
+            <Text variant="muted">Change your password here.</Text>
+          </View>
+        </TabsContent>
+      </Tabs>
     </View>
   );
 }
-
-const s = StyleSheet.create({
-  container: { width: 320, gap: 12 },
-  tabList: {
-    flexDirection: 'row', backgroundColor: colors.muted,
-    borderRadius: radius.lg, padding: 3, gap: 2,
-  },
-  tab: { flex: 1, paddingVertical: 6, alignItems: 'center', borderRadius: radius.md },
-  tabActive: {
-    backgroundColor: colors.background,
-    shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 2, shadowOffset: { width: 0, height: 1 },
-  },
-  tabText: { fontSize: 14, fontWeight: '500' },
-  tabTextActive: { color: colors.foreground },
-  tabTextInactive: { color: colors.mutedForeground },
-  content: {
-    padding: 16, borderWidth: 1, borderColor: colors.border,
-    borderRadius: radius.lg, gap: 4,
-  },
-  title: { fontSize: 16, fontWeight: '600', color: colors.foreground },
-  desc: { fontSize: 14, color: colors.mutedForeground },
-});

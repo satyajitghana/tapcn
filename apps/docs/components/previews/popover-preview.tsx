@@ -1,48 +1,35 @@
 'use client';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { colors, radius } from './theme';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Text } from '@/components/ui/text';
+import { View } from 'react-native';
 
 export function PopoverPreview() {
   return (
-    <View style={s.container}>
-      <Pressable style={s.trigger}>
-        <Text style={s.triggerText}>Open Popover</Text>
-      </Pressable>
-      <View style={s.popover}>
-        <Text style={s.title}>Dimensions</Text>
-        <Text style={s.desc}>Set the dimensions for the layer.</Text>
-        <View style={s.row}>
-          <Text style={s.label}>Width</Text>
-          <View style={s.input}><Text style={s.inputText}>100%</Text></View>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline">
+          <Text>Open Popover</Text>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <View className="gap-3">
+          <View className="gap-1">
+            <Text className="font-semibold text-sm">Dimensions</Text>
+            <Text variant="muted">Set the dimensions for the layer.</Text>
+          </View>
+          <View className="flex-row items-center gap-3">
+            <Label className="w-[50px]">Width</Label>
+            <Input className="flex-1" defaultValue="100%" />
+          </View>
+          <View className="flex-row items-center gap-3">
+            <Label className="w-[50px]">Height</Label>
+            <Input className="flex-1" defaultValue="25px" />
+          </View>
         </View>
-        <View style={s.row}>
-          <Text style={s.label}>Height</Text>
-          <View style={s.input}><Text style={s.inputText}>25px</Text></View>
-        </View>
-      </View>
-    </View>
+      </PopoverContent>
+    </Popover>
   );
 }
-
-const s = StyleSheet.create({
-  container: { alignItems: 'flex-start', gap: 8 },
-  trigger: {
-    borderWidth: 1, borderColor: colors.border, borderRadius: radius.md,
-    paddingHorizontal: 16, height: 36, alignItems: 'center', justifyContent: 'center',
-  },
-  triggerText: { fontSize: 14, fontWeight: '500', color: colors.foreground },
-  popover: {
-    width: 288, borderWidth: 1, borderColor: colors.border, borderRadius: radius.md,
-    padding: 16, backgroundColor: colors.popover, gap: 8,
-    shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 8, shadowOffset: { width: 0, height: 4 },
-  },
-  title: { fontSize: 14, fontWeight: '600', color: colors.popoverForeground },
-  desc: { fontSize: 13, color: colors.mutedForeground },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  label: { fontSize: 13, color: colors.popoverForeground, width: 50 },
-  input: {
-    flex: 1, height: 32, borderWidth: 1, borderColor: colors.input,
-    borderRadius: radius.md, paddingHorizontal: 8, justifyContent: 'center',
-  },
-  inputText: { fontSize: 13, color: colors.foreground },
-});

@@ -1,37 +1,19 @@
 'use client';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { colors, radius } from './theme';
+import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 export function TooltipPreview() {
   return (
-    <View style={s.container}>
-      <View style={s.tooltip}>
-        <Text style={s.tooltipText}>Add to library</Text>
-      </View>
-      <View style={s.arrow} />
-      <Pressable style={s.trigger}>
-        <Text style={s.triggerText}>+</Text>
-      </Pressable>
-    </View>
+    <Tooltip delayDuration={300}>
+      <TooltipTrigger asChild>
+        <Button variant="outline" className="w-10 h-10">
+          <Text>+</Text>
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <Text>Add to library</Text>
+      </TooltipContent>
+    </Tooltip>
   );
 }
-
-const s = StyleSheet.create({
-  container: { alignItems: 'center', gap: 4, paddingTop: 8 },
-  tooltip: {
-    backgroundColor: colors.primary, borderRadius: radius.md,
-    paddingHorizontal: 12, paddingVertical: 8,
-  },
-  tooltipText: { fontSize: 12, color: colors.primaryForeground },
-  arrow: {
-    width: 0, height: 0,
-    borderLeftWidth: 5, borderRightWidth: 5, borderTopWidth: 5,
-    borderLeftColor: 'transparent', borderRightColor: 'transparent',
-    borderTopColor: colors.primary,
-  },
-  trigger: {
-    width: 40, height: 40, borderRadius: radius.md, borderWidth: 1,
-    borderColor: colors.border, alignItems: 'center', justifyContent: 'center',
-  },
-  triggerText: { fontSize: 18, color: colors.foreground },
-});

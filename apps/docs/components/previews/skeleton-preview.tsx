@@ -1,35 +1,22 @@
 'use client';
-import { View, StyleSheet } from 'react-native';
-import { colors, radius } from './theme';
+import { Skeleton } from '@/components/ui/skeleton';
+import { View } from 'react-native';
 
 export function SkeletonPreview() {
   return (
-    <View style={s.container}>
-      <View style={s.row}>
-        <View style={s.circle} />
-        <View style={s.lines}>
-          <View style={s.lineWide} />
-          <View style={s.lineNarrow} />
+    <View className="gap-4 w-[280px]">
+      <View className="flex-row gap-3 items-center">
+        <Skeleton className="size-10 rounded-full" />
+        <View className="flex-1 gap-2">
+          <Skeleton className="h-3 w-4/5 rounded-md" />
+          <Skeleton className="h-3 w-1/2 rounded-md" />
         </View>
       </View>
-      <View style={s.rect} />
-      <View style={s.row2}>
-        <View style={s.lineShort} />
-        <View style={s.lineMedium} />
+      <Skeleton className="h-20 w-full rounded-md" />
+      <View className="gap-2">
+        <Skeleton className="h-3 w-3/5 rounded-md" />
+        <Skeleton className="h-3 w-[90%] rounded-md" />
       </View>
     </View>
   );
 }
-
-const s = StyleSheet.create({
-  container: { gap: 16, width: 280 },
-  row: { flexDirection: 'row', gap: 12, alignItems: 'center' },
-  circle: { width: 40, height: 40, borderRadius: radius.full, backgroundColor: colors.accent },
-  lines: { flex: 1, gap: 6 },
-  lineWide: { height: 12, borderRadius: radius.md, backgroundColor: colors.accent, width: '80%' },
-  lineNarrow: { height: 12, borderRadius: radius.md, backgroundColor: colors.accent, width: '50%' },
-  rect: { height: 80, borderRadius: radius.md, backgroundColor: colors.accent },
-  row2: { gap: 6 },
-  lineShort: { height: 12, borderRadius: radius.md, backgroundColor: colors.accent, width: '60%' },
-  lineMedium: { height: 12, borderRadius: radius.md, backgroundColor: colors.accent, width: '90%' },
-});

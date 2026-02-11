@@ -1,25 +1,18 @@
 'use client';
-import { View, Text, StyleSheet } from 'react-native';
-import { colors, radius } from './theme';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Text } from '@/components/ui/text';
+import { View } from 'react-native';
 
 export function AspectRatioPreview() {
   return (
-    <View style={s.container}>
-      <View style={s.wrapper}>
-        <View style={s.inner}>
-          <Text style={s.label}>16 : 9</Text>
+    <View className="w-[320px]">
+      <AspectRatio ratio={16 / 9}>
+        <View className="flex-1 bg-muted items-center justify-center rounded-lg border border-border">
+          <Text className="text-base font-semibold text-muted-foreground">
+            16 : 9
+          </Text>
         </View>
-      </View>
+      </AspectRatio>
     </View>
   );
 }
-
-const s = StyleSheet.create({
-  container: { width: 320 },
-  wrapper: { width: '100%', aspectRatio: 16 / 9, borderRadius: radius.lg, overflow: 'hidden' },
-  inner: {
-    flex: 1, backgroundColor: colors.muted, alignItems: 'center', justifyContent: 'center',
-    borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg,
-  },
-  label: { fontSize: 16, fontWeight: '600', color: colors.mutedForeground },
-});

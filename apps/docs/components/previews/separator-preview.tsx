@@ -1,35 +1,26 @@
 'use client';
-import { View, Text, StyleSheet } from 'react-native';
-import { colors } from './theme';
+import { Separator } from '@/components/ui/separator';
+import { Text } from '@/components/ui/text';
+import { View } from 'react-native';
 
 export function SeparatorPreview() {
   return (
-    <View style={s.container}>
-      <Text style={s.heading}>Horizontal Separator</Text>
-      <Text style={s.text}>Content above</Text>
-      <View style={s.horizontal} />
-      <Text style={s.text}>Content below</Text>
+    <View className="gap-4 items-start w-[280px]">
+      <Text variant="small" className="font-semibold">Horizontal</Text>
+      <Text>Content above</Text>
+      <Separator />
+      <Text>Content below</Text>
 
-      <View style={s.spacer} />
+      <View className="h-4" />
 
-      <Text style={s.heading}>Vertical Separator</Text>
-      <View style={s.row}>
-        <Text style={s.text}>Left</Text>
-        <View style={s.vertical} />
-        <Text style={s.text}>Center</Text>
-        <View style={s.vertical} />
-        <Text style={s.text}>Right</Text>
+      <Text variant="small" className="font-semibold">Vertical</Text>
+      <View className="flex-row items-center gap-3 h-10">
+        <Text>Left</Text>
+        <Separator orientation="vertical" />
+        <Text>Center</Text>
+        <Separator orientation="vertical" />
+        <Text>Right</Text>
       </View>
     </View>
   );
 }
-
-const s = StyleSheet.create({
-  container: { gap: 8, alignItems: 'flex-start', width: 280 },
-  heading: { fontSize: 14, fontWeight: '600', color: colors.foreground },
-  text: { fontSize: 14, color: colors.foreground },
-  horizontal: { height: 1, width: '100%', backgroundColor: colors.border },
-  vertical: { width: 1, height: 40, backgroundColor: colors.border },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  spacer: { height: 16 },
-});

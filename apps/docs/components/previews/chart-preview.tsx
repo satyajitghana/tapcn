@@ -1,37 +1,39 @@
 'use client';
-import { View, Text, StyleSheet } from 'react-native';
-import { colors, radius } from './theme';
+import { ChartContainer, type ChartConfig } from '@/components/ui/chart';
+import { Text } from '@/components/ui/text';
+import { View } from 'react-native';
+
+const chartConfig: ChartConfig = {
+  visitors: {
+    label: 'Visitors',
+    color: 'hsl(12, 76%, 61%)',
+  },
+};
 
 const bars = [
-  { label: 'Mon', height: 40, color: colors.primary },
-  { label: 'Tue', height: 70, color: `${colors.primary}cc` },
-  { label: 'Wed', height: 55, color: colors.primary },
-  { label: 'Thu', height: 90, color: `${colors.primary}cc` },
-  { label: 'Fri', height: 65, color: colors.primary },
+  { label: 'Mon', height: 40 },
+  { label: 'Tue', height: 70 },
+  { label: 'Wed', height: 55 },
+  { label: 'Thu', height: 90 },
+  { label: 'Fri', height: 65 },
 ];
 
 export function ChartPreview() {
   return (
-    <View style={s.container}>
-      <View style={s.chart}>
+    <ChartContainer config={chartConfig} className="w-[280px] border border-border rounded-xl p-4">
+      <View className="flex-row items-end justify-around h-[100px]">
         {bars.map((bar) => (
-          <View key={bar.label} style={s.barCol}>
-            <View style={[s.bar, { height: bar.height, backgroundColor: bar.color }]} />
-            <Text style={s.label}>{bar.label}</Text>
+          <View key={bar.label} className="items-center gap-1.5">
+            <View
+              className="w-7 rounded-sm bg-primary"
+              style={{ height: bar.height }}
+            />
+            <Text className="text-[11px] text-muted-foreground">
+              {bar.label}
+            </Text>
           </View>
         ))}
       </View>
-    </View>
+    </ChartContainer>
   );
 }
-
-const s = StyleSheet.create({
-  container: {
-    padding: 16, borderWidth: 1, borderColor: colors.border,
-    borderRadius: radius.xl, width: 280,
-  },
-  chart: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-around', height: 100 },
-  barCol: { alignItems: 'center', gap: 6 },
-  bar: { width: 28, borderRadius: radius.sm },
-  label: { fontSize: 11, color: colors.mutedForeground },
-});
