@@ -4,8 +4,8 @@
   "title": "Popover",
   "description": "A popover component for floating content.",
   "registryDependencies": [
-    "https://tapcn.dev/r/native-only-animated-view.json",
-    "https://tapcn.dev/r/text.json"
+    "https://tapcn.vercel.app/r/native-only-animated-view.json",
+    "https://tapcn.vercel.app/r/text.json"
   ],
   "dependencies": [
     "@rn-primitives/popover",

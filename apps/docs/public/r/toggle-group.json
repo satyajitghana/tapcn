@@ -4,9 +4,9 @@
   "title": "Toggle Group",
   "description": "A group of toggle buttons with single or multiple selection.",
   "registryDependencies": [
-    "https://tapcn.dev/r/icon.json",
-    "https://tapcn.dev/r/text.json",
-    "https://tapcn.dev/r/toggle.json"
+    "https://tapcn.vercel.app/r/icon.json",
+    "https://tapcn.vercel.app/r/text.json",
+    "https://tapcn.vercel.app/r/toggle.json"
   ],
   "dependencies": [
     "@rn-primitives/toggle-group",

@@ -20,7 +20,7 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
 const REGISTRY_SRC = path.resolve(ROOT, '../../packages/registry/src/components/ui');
 const OUTPUT_DIR = path.resolve(ROOT, 'public/r');
-const REGISTRY_BASE_URL = 'https://tapcn.dev/r';
+const REGISTRY_BASE_URL = 'https://tapcn.vercel.app/r';
 
 /**
  * Component dependency map.

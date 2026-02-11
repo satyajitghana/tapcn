@@ -4,9 +4,9 @@
   "title": "Context Menu",
   "description": "A context menu triggered by long press.",
   "registryDependencies": [
-    "https://tapcn.dev/r/icon.json",
-    "https://tapcn.dev/r/native-only-animated-view.json",
-    "https://tapcn.dev/r/text.json"
+    "https://tapcn.vercel.app/r/icon.json",
+    "https://tapcn.vercel.app/r/native-only-animated-view.json",
+    "https://tapcn.vercel.app/r/text.json"
   ],
   "dependencies": [
     "@rn-primitives/context-menu",

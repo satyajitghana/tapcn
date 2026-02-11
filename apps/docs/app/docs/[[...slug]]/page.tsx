@@ -7,7 +7,21 @@ import {
 } from 'fumadocs-ui/layouts/docs/page';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import defaultMdxComponents from 'fumadocs-ui/mdx';
+import { getMDXComponents } from '@/mdx-components';
+import { PageActions } from '@/components/page-actions';
+import fs from 'node:fs';
+import path from 'node:path';
+
+function getRawContent(slug?: string[]): string | undefined {
+  const filePath = slug
+    ? path.join(process.cwd(), 'content/docs', ...slug) + '.mdx'
+    : path.join(process.cwd(), 'content/docs/index.mdx');
+  try {
+    return fs.readFileSync(filePath, 'utf-8');
+  } catch {
+    return undefined;
+  }
+}
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -17,13 +31,15 @@ export default async function Page(props: {
   if (!page) notFound();
 
   const MDX = page.data.body;
+  const rawContent = getRawContent(params.slug);
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
+      <PageActions rawContent={rawContent} />
       <DocsBody>
-        <MDX components={{ ...defaultMdxComponents }} />
+        <MDX components={getMDXComponents()} />
       </DocsBody>
     </DocsPage>
   );

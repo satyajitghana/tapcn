@@ -1,4 +1,4 @@
-export const REGISTRY_BASE_URL = 'https://tapcn.dev/r';
+export const REGISTRY_BASE_URL = 'https://tapcn.vercel.app/r';
 
 export const AVAILABLE_COMPONENTS = [
   'accordion',
@@ -45,7 +45,7 @@ export type ComponentName = (typeof AVAILABLE_COMPONENTS)[number];
 
 /**
  * Build the registry URL for a given component.
- * e.g., "button" -> "https://tapcn.dev/r/button.json"
+ * e.g., "button" -> "https://tapcn.vercel.app/r/button.json"
  */
 export function getRegistryUrl(component: string): string {
   return `${REGISTRY_BASE_URL}/${component}.json`;

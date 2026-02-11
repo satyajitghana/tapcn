@@ -4,8 +4,8 @@
   "title": "Alert",
   "description": "An alert banner component with icon, title, and description.",
   "registryDependencies": [
-    "https://tapcn.dev/r/text.json",
-    "https://tapcn.dev/r/icon.json"
+    "https://tapcn.vercel.app/r/text.json",
+    "https://tapcn.vercel.app/r/icon.json"
   ],
   "dependencies": [
     "lucide-react-native"

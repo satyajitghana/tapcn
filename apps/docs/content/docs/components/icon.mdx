@@ -1,11 +1,11 @@
 ---
 title: Icon
-description: A Lucide icon wrapper with NativeWind className support.
+description: A universal icon wrapper with NativeWind className support for any icon library.
 ---
 
 # Icon
 
-A wrapper component for Lucide icons that enables NativeWind `className` support via `cssInterop`. This bridges the gap between Lucide's SVG-based icons and NativeWind's styling system.
+A wrapper component for SVG icons that enables NativeWind `className` support via `cssInterop`. Works with **any icon library** -- Lucide, Tabler, Phosphor, Hugeicons, and more.
 
 ## Installation
 
@@ -16,10 +16,41 @@ npx @tapcn/cli add icon
 Or using shadcn directly:
 
 ```bash
-npx shadcn@latest add https://tapcn.dev/r/icon.json
+npx shadcn@latest add https://tapcn.vercel.app/r/icon.json
+```
+
+## Supported Icon Libraries
+
+tapcn works with any React Native icon library. Here are the recommended ones:
+
+| Library | Package (React Native) | Icons | License |
+|---------|----------------------|-------|---------|
+| [Lucide](https://lucide.dev) | `lucide-react-native` | 1,500+ | MIT |
+| [Tabler](https://tabler.io/icons) | `@tabler/icons-react-native` | 5,500+ | MIT |
+| [Phosphor](https://phosphoricons.com) | `phosphor-react-native` | 9,000+ | MIT |
+| [Hugeicons](https://hugeicons.com) | `@hugeicons/react-native` | 4,600+ free | MIT |
+
+### Installing icon libraries
+
+Pick one or more and install:
+
+```bash
+# Lucide (default, already included)
+npx expo install lucide-react-native react-native-svg
+
+# Tabler Icons
+npx expo install @tabler/icons-react-native react-native-svg
+
+# Phosphor Icons
+npx expo install phosphor-react-native react-native-svg
+
+# Hugeicons
+npx expo install @hugeicons/react-native
 ```
 
 ## Usage
+
+### With Lucide (default)
 
 ```tsx
 import { Icon } from '~/components/ui/icon';
@@ -27,6 +58,39 @@ import { Heart } from 'lucide-react-native';
 
 export function Example() {
   return <Icon as={Heart} className="text-red-500" />;
+}
+```
+
+### With Tabler Icons
+
+```tsx
+import { Icon } from '~/components/ui/icon';
+import { IconHeart } from '@tabler/icons-react-native';
+
+export function Example() {
+  return <Icon as={IconHeart} className="text-red-500" />;
+}
+```
+
+### With Phosphor Icons
+
+```tsx
+import { Icon } from '~/components/ui/icon';
+import { Heart } from 'phosphor-react-native';
+
+export function Example() {
+  return <Icon as={Heart} className="text-red-500" />;
+}
+```
+
+### With Hugeicons
+
+```tsx
+import { Icon } from '~/components/ui/icon';
+import { FavouriteIcon } from '@hugeicons/react-native';
+
+export function Example() {
+  return <Icon as={FavouriteIcon} className="text-red-500" />;
 }
 ```
 
@@ -64,15 +128,17 @@ import { ArrowRight } from 'lucide-react-native';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `as` | `LucideIcon` | -- | The Lucide icon component to render |
-| `size` | `number` | `24` | The icon size in pixels |
+| `as` | `ComponentType` | -- | Any icon component (Lucide, Tabler, Phosphor, Hugeicons, etc.) |
+| `size` | `number` | `14` | The icon size in pixels |
 | `className` | `string` | -- | NativeWind classes (e.g., `text-primary` for color) |
 
 ## How it works
 
 The Icon component uses `cssInterop` from NativeWind to map the `className` prop to the icon's `color` and `size` style properties. This means you can use Tailwind color utilities like `text-red-500` to color icons, and they will work identically on web and native.
 
+The component accepts any React component via the `as` prop, so it works with any icon library that follows the standard `size`/`color` prop convention.
+
 ## Dependencies
 
-- `lucide-react-native` -- icon library
 - `nativewind` -- for cssInterop
+- Plus your chosen icon library (e.g., `lucide-react-native`, `@tabler/icons-react-native`, etc.)

@@ -1,9 +1,12 @@
 import { cn } from '@/lib/utils';
-import type { LucideIcon, LucideProps } from 'lucide-react-native';
+import type { ComponentType } from 'react';
 import { cssInterop } from 'nativewind';
 
-type IconProps = LucideProps & {
-  as: LucideIcon;
+type IconProps = {
+  as: ComponentType<{ size?: number; color?: string; style?: any; [key: string]: any }>;
+  size?: number;
+  className?: string;
+  [key: string]: any;
 };
 
 function IconImpl({ as: IconComponent, ...props }: IconProps) {
@@ -21,7 +24,8 @@ cssInterop(IconImpl, {
 });
 
 /**
- * A wrapper component for Lucide icons with Nativewind `className` support via `cssInterop`.
+ * A wrapper component for SVG icons with NativeWind `className` support via `cssInterop`.
+ * Works with any icon library: Lucide, Tabler, Phosphor, Hugeicons, etc.
  *
  * @example
  * ```tsx
@@ -43,3 +47,4 @@ function Icon({ as: IconComponent, className, size = 14, ...props }: IconProps) 
 }
 
 export { Icon };
+export type { IconProps };

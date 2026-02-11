@@ -4,8 +4,8 @@
   "title": "Hover Card",
   "description": "A card that appears on hover or focus.",
   "registryDependencies": [
-    "https://tapcn.dev/r/native-only-animated-view.json",
-    "https://tapcn.dev/r/text.json"
+    "https://tapcn.vercel.app/r/native-only-animated-view.json",
+    "https://tapcn.vercel.app/r/text.json"
   ],
   "dependencies": [
     "@rn-primitives/hover-card",

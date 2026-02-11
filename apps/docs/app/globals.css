@@ -1,3 +1,8 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
+
+@theme inline {
+  --fd-sidebar-width: 240px;
+  --fd-layout-width: 1400px;
+}

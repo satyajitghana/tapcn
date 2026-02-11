@@ -4,8 +4,8 @@
   "title": "Accordion",
   "description": "A collapsible accordion component with animated sections.",
   "registryDependencies": [
-    "https://tapcn.dev/r/icon.json",
-    "https://tapcn.dev/r/text.json"
+    "https://tapcn.vercel.app/r/icon.json",
+    "https://tapcn.vercel.app/r/text.json"
   ],
   "dependencies": [
     "@rn-primitives/accordion",

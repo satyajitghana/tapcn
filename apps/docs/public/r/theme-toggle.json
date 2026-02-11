@@ -4,7 +4,7 @@
   "title": "Theme Toggle",
   "description": "A dark/light mode toggle button using useColorScheme.",
   "registryDependencies": [
-    "https://tapcn.dev/r/icon.json"
+    "https://tapcn.vercel.app/r/icon.json"
   ],
   "dependencies": [
     "lucide-react-native",

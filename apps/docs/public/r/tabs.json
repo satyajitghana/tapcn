@@ -4,7 +4,7 @@
   "title": "Tabs",
   "description": "A tab navigation component with tab list, triggers, and content panels.",
   "registryDependencies": [
-    "https://tapcn.dev/r/text.json"
+    "https://tapcn.vercel.app/r/text.json"
   ],
   "dependencies": [
     "@rn-primitives/tabs"

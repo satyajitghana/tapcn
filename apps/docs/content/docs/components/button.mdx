@@ -16,10 +16,67 @@ npx @tapcn/cli add button
 Or using shadcn directly:
 
 ```bash
-npx shadcn@latest add https://tapcn.dev/r/button.json
+npx shadcn@latest add https://tapcn.vercel.app/r/button.json
 ```
 
 This will also install the `text` component (Button depends on `TextClassContext` from Text).
+
+## Preview
+
+<SnackEmbed
+  name="tapcn Button"
+  platform="web"
+  preview={true}
+  code={`import { View, Text, Pressable, StyleSheet } from 'react-native';
+
+const variants = {
+  default: { bg: '#18181b', text: '#fafafa' },
+  destructive: { bg: '#dc2626', text: '#fafafa' },
+  outline: { bg: 'transparent', text: '#18181b', border: '#e4e4e7' },
+  secondary: { bg: '#f4f4f5', text: '#18181b' },
+  ghost: { bg: 'transparent', text: '#18181b' },
+};
+
+function Button({ variant = 'default', children, style }) {
+  const v = variants[variant] || variants.default;
+  return (
+    <Pressable
+      style={({ pressed }) => [
+        styles.button,
+        { backgroundColor: v.bg, opacity: pressed ? 0.8 : 1 },
+        v.border && { borderWidth: 1, borderColor: v.border },
+        style,
+      ]}>
+      <Text style={[styles.text, { color: v.text }]}>{children}</Text>
+    </Pressable>
+  );
+}
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Button Variants</Text>
+      <View style={styles.row}>
+        <Button>Default</Button>
+        <Button variant="destructive">Destructive</Button>
+        <Button variant="outline">Outline</Button>
+      </View>
+      <View style={styles.row}>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="ghost">Ghost</Button>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 24, justifyContent: 'center', alignItems: 'center', gap: 16 },
+  title: { fontSize: 18, fontWeight: '700', marginBottom: 8 },
+  row: { flexDirection: 'row', gap: 8, flexWrap: 'wrap', justifyContent: 'center' },
+  button: { paddingHorizontal: 16, paddingVertical: 10, borderRadius: 6, alignItems: 'center' },
+  text: { fontSize: 14, fontWeight: '500' },
+});`}
+/>
 
 ## Usage
 
