@@ -4,6 +4,8 @@
 
 /* Scan registry component source for Tailwind class usage */
 @source "../../../packages/registry/src";
+/* Also scan the preview components */
+@source "../components";
 
 @theme inline {
   /* tapcn color system — maps Tailwind utilities (bg-primary, text-foreground, etc.)
@@ -31,6 +33,38 @@
   --radius-lg: var(--tapcn-radius, 0.5rem);
   --radius-md: calc(var(--tapcn-radius, 0.5rem) - 2px);
   --radius-sm: calc(var(--tapcn-radius, 0.5rem) - 4px);
+}
+
+/*
+ * react-native-web default styles — @layer base so Tailwind utilities override.
+ * These mirror the layout defaults from react-native-web's View/Text components.
+ */
+@layer base {
+  .rnw-view {
+    align-content: flex-start;
+    align-items: stretch;
+    box-sizing: border-box;
+    display: flex;
+    flex-basis: auto;
+    flex-direction: column;
+    flex-shrink: 0;
+    list-style: none;
+    margin: 0;
+    min-height: 0;
+    min-width: 0;
+    padding: 0;
+    position: relative;
+    z-index: 0;
+  }
+  .rnw-text {
+    box-sizing: border-box;
+    color: inherit;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
 }
 
 /* tapcn design tokens — scoped to preview container only */

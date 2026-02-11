@@ -2,8 +2,9 @@ import Link from 'next/link';
 
 export default function HomePage() {
   return (
-    <main className="flex flex-1 flex-col items-center justify-center px-4 text-center">
-      <div className="max-w-3xl space-y-8 py-20">
+    <main className="container flex flex-1 flex-col items-center justify-center px-4 py-16 text-center">
+      <div className="max-w-3xl space-y-6">
+        {/* Hero */}
         <div className="space-y-4">
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
             tapcn
@@ -16,11 +17,12 @@ export default function HomePage() {
         </div>
 
         <p className="text-fd-muted-foreground mx-auto max-w-xl text-sm sm:text-base">
-          This is not a component library. It{"'"}s how you build your
-          component library. Pick the components you need, copy them into your
-          project, and customize everything. Works on iOS, Android, and Web.
+          This is not a component library. It{"'"}s how you build your component
+          library. Pick the components you need, copy them into your project, and
+          customize everything. Works on iOS, Android, and Web.
         </p>
 
+        {/* CTA buttons */}
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="/docs"
@@ -36,34 +38,48 @@ export default function HomePage() {
           </Link>
         </div>
 
+        {/* CLI snippet */}
         <div className="bg-fd-muted mx-auto max-w-md rounded-lg p-4">
           <code className="text-fd-muted-foreground text-sm">
             npx @tapcn/cli add button card input
           </code>
         </div>
 
-        <div className="grid gap-6 pt-8 sm:grid-cols-3">
-          <div className="space-y-2">
+        {/* Feature cards */}
+        <div className="grid gap-6 pt-8 text-left sm:grid-cols-3">
+          <div className="border-fd-border rounded-lg border p-4 space-y-2">
             <h3 className="font-semibold">Cross-Platform</h3>
             <p className="text-fd-muted-foreground text-sm">
               Every component works on iOS, Android, and Web out of the box with
               NativeWind.
             </p>
           </div>
-          <div className="space-y-2">
-            <h3 className="font-semibold">Copy & Paste</h3>
+          <div className="border-fd-border rounded-lg border p-4 space-y-2">
+            <h3 className="font-semibold">Copy &amp; Paste</h3>
             <p className="text-fd-muted-foreground text-sm">
               Components live in your project. Full control, no version lock-in,
               customize freely.
             </p>
           </div>
-          <div className="space-y-2">
+          <div className="border-fd-border rounded-lg border p-4 space-y-2">
             <h3 className="font-semibold">AI Friendly</h3>
             <p className="text-fd-muted-foreground text-sm">
               Simple, readable code that AI tools like Claude and Cursor can
               easily understand and modify.
             </p>
           </div>
+        </div>
+
+        {/* Tech stack */}
+        <div className="flex flex-wrap items-center justify-center gap-2 pt-4">
+          {['Expo', 'NativeWind v4', '@rn-primitives', 'Reanimated', 'cva', 'lucide-react-native'].map((tech) => (
+            <span
+              key={tech}
+              className="bg-fd-secondary text-fd-secondary-foreground rounded-full px-3 py-1 text-xs font-medium"
+            >
+              {tech}
+            </span>
+          ))}
         </div>
       </div>
     </main>
