@@ -1,0 +1,226 @@
+---
+title: Animations
+description: Add animations and transitions to your tapcn components.
+---
+
+# Animations
+
+tapcn components work with NativeWind's CSS animation and transition support, as well as React Native Reanimated for complex native animations. Choose the right approach for your use case -- CSS transitions for simple state changes, `tailwindcss-animate` for entry/exit animations, and Reanimated for gesture-driven or complex sequences.
+
+## CSS Transitions
+
+NativeWind v4 supports CSS transitions out of the box. Use Tailwind's transition utilities to animate property changes smoothly.
+
+```tsx
+// Transition on hover/press state changes
+<View className="transition-colors duration-200 hover:bg-primary/90">
+  ...
+</View>
+
+// Transition opacity
+<View className="transition-opacity duration-300 opacity-100 data-[hidden]:opacity-0">
+  ...
+</View>
+```
+
+CSS transitions are ideal for interactive state changes like hover effects, press feedback, and toggling visibility. They run natively and require no additional dependencies.
+
+```tsx
+// Combined transitions for a pressable card
+<Pressable className="rounded-lg bg-card p-4 transition-all duration-200 active:scale-95 active:bg-accent">
+  <Text className="text-card-foreground">Press me</Text>
+</Pressable>
+```
+
+## tailwindcss-animate
+
+The [tailwindcss-animate](https://github.com/jamiebuilds/tailwindcss-animate) plugin adds animation utilities for entry and exit animations. tapcn already uses this plugin for built-in component animations like dialog overlays and dropdown menus.
+
+### Installation
+
+```npm
+npm install tailwindcss-animate
+```
+
+Add the plugin to your `tailwind.config.ts`:
+
+```ts
+import type { Config } from 'tailwindcss';
+
+export default {
+  // ...
+  plugins: [require('tailwindcss-animate')],
+} satisfies Config;
+```
+
+### Available Utilities
+
+**Entry/Exit animations:**
+- `animate-in` / `animate-out` -- Base classes for entry and exit animations
+
+**Fade:**
+- `fade-in` / `fade-out` -- Animate opacity from 0 to 1 (or 1 to 0)
+- `fade-in-0` through `fade-in-100` -- Specify starting opacity
+
+**Slide:**
+- `slide-in-from-top` / `slide-in-from-bottom` -- Vertical slide entry
+- `slide-in-from-left` / `slide-in-from-right` -- Horizontal slide entry
+- Append a number for distance: `slide-in-from-bottom-4`, `slide-in-from-left-8`
+
+**Zoom:**
+- `zoom-in` / `zoom-out` -- Scale animations
+- `zoom-in-50` through `zoom-in-100` -- Specify starting scale
+
+**Spin:**
+- `spin-in` / `spin-out` -- Rotation animations
+
+**Duration:**
+- `duration-200`, `duration-300`, `duration-500` -- Control animation speed
+
+### Practical Examples
+
+```tsx
+import { View } from 'react-native';
+import { Card, CardHeader, CardTitle, CardContent } from '~/components/ui/card';
+import { Text } from '~/components/ui/text';
+
+// Fade in with slide from bottom
+<View className="animate-in fade-in slide-in-from-bottom-4 duration-300">
+  <Card>
+    <CardHeader>
+      <CardTitle>Welcome</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <Text>This card slides up and fades in.</Text>
+    </CardContent>
+  </Card>
+</View>
+```
+
+```tsx
+// Zoom in from center
+<View className="animate-in zoom-in-50 fade-in duration-200">
+  <Badge>
+    <Text>New</Text>
+  </Badge>
+</View>
+```
+
+```tsx
+// Slide in from the right
+<View className="animate-in slide-in-from-right-8 fade-in duration-300">
+  <Alert>
+    <Text>Notification received.</Text>
+  </Alert>
+</View>
+```
+
+## Reanimated Animations
+
+For complex, gesture-driven, or high-performance animations, use [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/) directly. Reanimated runs animations on the UI thread for smooth 60fps performance.
+
+```tsx
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from 'react-native-reanimated';
+import { Pressable } from 'react-native';
+import { Card, CardHeader, CardTitle } from '~/components/ui/card';
+
+function AnimatedCard() {
+  const scale = useSharedValue(1);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  const onPressIn = () => {
+    scale.value = withSpring(0.95);
+  };
+
+  const onPressOut = () => {
+    scale.value = withSpring(1);
+  };
+
+  return (
+    <Pressable onPressIn={onPressIn} onPressOut={onPressOut}>
+      <Animated.View style={animatedStyle}>
+        <Card>
+          <CardHeader>
+            <CardTitle>Animated Card</CardTitle>
+          </CardHeader>
+        </Card>
+      </Animated.View>
+    </Pressable>
+  );
+}
+```
+
+### Entering and Exiting Animations
+
+Reanimated provides built-in entering and exiting animations for mount/unmount transitions:
+
+```tsx
+import Animated, { FadeIn, FadeOut, SlideInRight } from 'react-native-reanimated';
+
+function ListItem({ item }: { item: Item }) {
+  return (
+    <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
+      <Card>
+        <CardHeader>
+          <CardTitle>{item.title}</CardTitle>
+        </CardHeader>
+      </Card>
+    </Animated.View>
+  );
+}
+```
+
+## Layout Animations
+
+Use `LayoutAnimationConfig` from Reanimated to automatically animate layout changes. This is useful when items are added, removed, or reordered in a list.
+
+```tsx
+import Animated, { LinearTransition } from 'react-native-reanimated';
+
+function AnimatedList({ items }: { items: Item[] }) {
+  return (
+    <Animated.FlatList
+      data={items}
+      itemLayoutAnimation={LinearTransition}
+      renderItem={({ item }) => (
+        <Card>
+          <CardHeader>
+            <CardTitle>{item.title}</CardTitle>
+          </CardHeader>
+        </Card>
+      )}
+    />
+  );
+}
+```
+
+Layout animations make reordering and filtering feel smooth and natural without manually tracking positions.
+
+## Best Practices
+
+- **Keep animations subtle and purposeful.** Animations should guide the user's attention, not distract. A 200-300ms duration is usually enough.
+- **Use CSS transitions for simple state changes.** Hover effects, press feedback, and toggling visibility are best handled with Tailwind's transition utilities.
+- **Use `tailwindcss-animate` for entry/exit animations.** Fading in a card or sliding in a notification is straightforward with animation utilities.
+- **Use Reanimated for complex interactions.** Gesture-driven animations, spring physics, and shared element transitions belong in Reanimated.
+- **Respect reduced motion preferences.** Consider users who prefer reduced motion. Reanimated's `useReducedMotion` hook can help you adapt.
+
+```tsx
+import { useReducedMotion } from 'react-native-reanimated';
+
+function MyComponent() {
+  const reducedMotion = useReducedMotion();
+
+  return (
+    <View className={reducedMotion ? '' : 'animate-in fade-in duration-300'}>
+      {/* content */}
+    </View>
+  );
+}
+```

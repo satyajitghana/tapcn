@@ -40,16 +40,16 @@ export function PreviewCard({ preview, code, highlightedCode }: PreviewCardProps
       </div>
 
       {tab === 'preview' ? (
-        <div className="tapcn-preview flex min-h-[350px] items-center justify-center rounded-b-md border border-t-0 border-fd-border bg-fd-background p-6">
-          <div style={{ width: '100%', maxWidth: 480 }}>{preview}</div>
+        <div className="tapcn-preview flex min-h-[350px] flex-col items-center justify-center rounded-b-md border border-t-0 border-fd-border bg-fd-background p-6">
+          <div className="w-full max-w-[480px]">{preview}</div>
         </div>
       ) : code ? (
         <div className="overflow-hidden rounded-b-md border border-t-0 border-fd-border [&_figure]:my-0 [&_figure]:rounded-none [&_figure]:border-0">
           {highlightedCode ? (
             <CodeBlock allowCopy keepBackground>
-              <Pre
-                className="max-h-[400px]"
-                dangerouslySetInnerHTML={{ __html: extractPreContent(highlightedCode) }}
+              <div
+                className="max-h-[400px] overflow-auto [&>pre]:!my-0 [&>pre]:!rounded-none [&>pre]:!border-0"
+                dangerouslySetInnerHTML={{ __html: highlightedCode }}
               />
             </CodeBlock>
           ) : (
@@ -63,12 +63,4 @@ export function PreviewCard({ preview, code, highlightedCode }: PreviewCardProps
       ) : null}
     </div>
   );
-}
-
-/** Extract the inner content from shiki's <pre><code>...</code></pre> output */
-function extractPreContent(html: string): string {
-  // Shiki wraps output in <pre ...><code ...>content</code></pre>
-  // We need just the inner HTML of <code> for our Pre component
-  const codeMatch = html.match(/<code[^>]*>([\s\S]*?)<\/code>/);
-  return codeMatch ? codeMatch[1] : html;
 }

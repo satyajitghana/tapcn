@@ -1,0 +1,132 @@
+---
+title: Features
+description: Why choose tapcn for your React Native UI components.
+---
+
+# Features
+
+tapcn takes a different approach to React Native UI. Instead of adding another dependency to manage, it gives you the source code directly. Here is why that matters.
+
+## Not a Component Library
+
+tapcn is **not** a traditional component library. There is no `npm install tapcn` that gives you a black-box package you cannot change. Instead, components are copied directly into your project using the CLI.
+
+This means:
+
+- **No version lock-in.** You are not stuck waiting for a library update to fix a bug or add a feature. The code is yours.
+- **No dependency management nightmares.** Components do not pull in transitive dependencies you cannot control. What you see is what you get.
+- **Full customization.** Every component is a file in your `components/ui/` directory. Change anything -- styles, behavior, structure -- without fighting abstractions.
+- **No breaking changes.** Once a component is in your project, upstream changes never break your app.
+
+Think of tapcn as a starting point, not a finished product. Pick the components you need, make them your own, and ship.
+
+## Cross-Platform
+
+Every tapcn component works on **iOS**, **Android**, and **Web** out of the box. There is no platform-specific code to maintain.
+
+This is powered by [NativeWind v4](https://www.nativewind.dev/), which compiles Tailwind CSS classes to native styles at build time. You write familiar utility classes like `bg-primary` and `rounded-lg`, and NativeWind handles the rest -- whether that is a native `View` on mobile or a `div` on the web.
+
+```tsx
+// This works identically on iOS, Android, and Web
+<Button variant="outline" size="lg">
+  <Text>Cross-platform button</Text>
+</Button>
+```
+
+## Accessible
+
+Accessibility is not an afterthought. tapcn components are built on top of [@rn-primitives](https://rn-primitives.vercel.app/), which provides proper accessibility support across all platforms.
+
+What you get:
+
+- **Screen reader support.** Components announce themselves correctly with proper roles and labels.
+- **Keyboard navigation.** Dialogs, menus, selects, and other interactive components are fully keyboard navigable.
+- **WAI-ARIA patterns.** Where applicable, components follow established accessibility patterns -- focus management, escape-to-close, arrow key navigation, and more.
+- **Platform-native behavior.** Accessibility adapts to each platform's conventions rather than forcing a single approach.
+
+## AI Friendly
+
+tapcn components are designed to be easy for AI tools to understand and work with. Each component is a **single file** of clean, readable TypeScript with consistent patterns.
+
+Tools like **Claude**, **Cursor**, and **GitHub Copilot** can:
+
+- Read and understand component structure immediately
+- Modify styling, variants, and behavior confidently
+- Generate new components following the same patterns
+- Refactor and extend components without confusion
+
+Because the code lives in your project (not hidden inside `node_modules`), AI tools have full context and can make changes directly.
+
+```tsx
+// Clean, readable pattern that AI tools understand
+const buttonVariants = cva('flex-row items-center justify-center rounded-md', {
+  variants: {
+    variant: {
+      default: 'bg-primary',
+      outline: 'border border-input bg-background',
+    },
+    size: {
+      default: 'h-10 px-4',
+      sm: 'h-9 px-3',
+      lg: 'h-11 px-8',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+    size: 'default',
+  },
+});
+```
+
+## Type-Safe Variants
+
+tapcn uses [class-variance-authority](https://cva.style) (cva) for managing component variants. This gives you full TypeScript support for every variant and size a component offers.
+
+- **Autocomplete.** Your editor suggests available variants as you type.
+- **Type checking.** Pass an invalid variant and TypeScript catches it at build time.
+- **Default variants.** Components have sensible defaults so you can use them without any props.
+- **Composable.** Combine variant classes with additional Tailwind utilities using the `cn()` helper.
+
+```tsx
+// TypeScript knows exactly which variants are valid
+<Button variant="outline" size="sm">
+  <Text>Small outlined button</Text>
+</Button>
+
+// Type error: "ghost" is not assignable if not defined
+<Badge variant="ghost">
+  <Text>This would fail type checking</Text>
+</Badge>
+```
+
+## shadcn/ui Compatible
+
+tapcn uses the **same registry format** as [shadcn/ui](https://ui.shadcn.com). This means:
+
+- The `shadcn` CLI works directly with tapcn component URLs.
+- If you have used shadcn/ui in a web project, the workflow is identical.
+- The `components.json` configuration file follows the same schema.
+- Component structure and naming conventions are consistent.
+
+```npm
+# The shadcn CLI works with tapcn registry URLs
+npx shadcn@latest add https://tapcn.vercel.app/r/button.json
+```
+
+The tapcn CLI (`@tapcn/cli`) wraps this functionality and adds dependency resolution, so you do not have to manage registry URLs manually.
+
+## Built on Proven Tech
+
+tapcn is not reinventing the wheel. Every layer of the stack is a mature, well-maintained project.
+
+| Technology | Purpose |
+|-----------|---------|
+| [**Expo**](https://expo.dev) | The platform for building React Native apps |
+| [**NativeWind v4**](https://www.nativewind.dev) | Tailwind CSS compiled to native styles |
+| [**@rn-primitives**](https://rn-primitives.vercel.app) | Accessible primitive components (Radix UI ports) |
+| [**React Native Reanimated**](https://docs.swmansion.com/react-native-reanimated/) | Smooth, native-performance animations |
+| [**class-variance-authority**](https://cva.style) | Type-safe variant management |
+| [**Lucide Icons**](https://lucide.dev) | Beautiful, consistent open-source icons |
+| [**clsx + tailwind-merge**](https://github.com/dcastil/tailwind-merge) | The `cn()` utility for merging class names |
+
+This stack is widely adopted, actively maintained, and battle-tested in production apps. You are building on solid ground.

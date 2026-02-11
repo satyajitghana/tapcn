@@ -9,8 +9,11 @@ description: How to set up tapcn in your Expo / React Native project.
 
 You need an existing Expo project. If you do not have one yet:
 
-```bash
+```npm
 npx create-expo-app@latest my-app
+```
+
+```bash
 cd my-app
 ```
 
@@ -18,7 +21,7 @@ cd my-app
 
 The tapcn CLI handles all configuration for you:
 
-```bash
+```npm
 npx @tapcn/cli init
 ```
 
@@ -38,7 +41,7 @@ If you prefer to set things up manually, follow these steps.
 
 ### 1. Install NativeWind
 
-```bash
+```npm
 npx expo install nativewind tailwindcss react-native-reanimated react-native-safe-area-context
 ```
 
@@ -46,7 +49,7 @@ Follow the [NativeWind installation guide](https://www.nativewind.dev/getting-st
 
 ### 2. Install utilities
 
-```bash
+```npm
 npm install class-variance-authority clsx tailwind-merge
 ```
 
@@ -171,13 +174,13 @@ export default config;
 
 Once set up, add components using the CLI:
 
-```bash
+```npm
 npx @tapcn/cli add button
 ```
 
 Or directly with shadcn:
 
-```bash
+```npm
 npx shadcn@latest add https://tapcn.vercel.app/r/button.json
 ```
 

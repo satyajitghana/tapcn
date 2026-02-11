@@ -91,6 +91,12 @@
   --tapcn-radius: 0.5rem;
 }
 
+/* Hero gradient text animation */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
 .dark .tapcn-preview {
   --tapcn-background: hsl(240 10% 3.9%);
   --tapcn-foreground: hsl(0 0% 98%);

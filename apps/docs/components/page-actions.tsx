@@ -1,5 +1,7 @@
 'use client';
 
+import { HugeiconsIcon } from '@hugeicons/react';
+import ClaudeIcon from '@hugeicons/core-free-icons/dist/esm/ClaudeIcon';
 import { usePathname } from 'next/navigation';
 import { useCallback, useState } from 'react';
 
@@ -40,23 +42,6 @@ function CheckIcon({ className }: { className?: string }) {
       className={className}
     >
       <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
-
-function ClaudeIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-    >
-      <path d="M4.709 15.955l4.486-2.236a.3.3 0 0 0 .163-.165l2.293-5.291a.116.116 0 0 0-.212-.005l-.762 1.589-1.612 3.544a.3.3 0 0 1-.148.148l-4.226 2.126a.116.116 0 0 0 .018.215z" />
-      <path d="M12.577 8.643l-1.277 2.94a.3.3 0 0 1-.148.149L6.26 14.1a.116.116 0 0 0 .018.214l6.203-2.457a.3.3 0 0 0 .165-.165L15.2 5.606a.116.116 0 0 0-.212-.005l-2.41 3.042z" />
-      <path d="M16.1 8.372l-2.99 5.47a.3.3 0 0 1-.15.134l-6.143 2.636a.116.116 0 0 0 .024.218l8.663-2.142a.3.3 0 0 0 .196-.155l2.766-5.322a.116.116 0 0 0-.188-.123L16.1 8.372z" />
     </svg>
   );
 }
@@ -151,7 +136,7 @@ export function PageActions({ rawContent }: { rawContent?: string }) {
                 onClick={() => setOpen(false)}
                 className="flex items-center gap-2 rounded-sm px-2 py-1.5 text-xs text-fd-popover-foreground transition-colors hover:bg-fd-accent"
               >
-                <ClaudeIcon />
+                <HugeiconsIcon icon={ClaudeIcon} size={16} />
                 Open in Claude
               </a>
               <a
