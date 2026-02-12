@@ -200,7 +200,7 @@ export default function HomePage() {
         <OpenSource />
       </div>
 
-      <footer className="mt-16 border-t border-fd-border px-4 py-8 text-center text-sm text-fd-muted-foreground">
+      <footer className="mt-16 border-t border-fd-border px-4 py-8 text-center text-sm text-fd-foreground/70">
         <p>
           Built with{' '}
           <a
@@ -468,7 +468,7 @@ export function MyScreen() {
             'flex flex-col items-center justify-center col-span-full',
         })}
       >
-        <h2 className="mb-6 text-center text-sm font-medium uppercase tracking-wider text-fd-muted-foreground">
+        <h2 className="mb-6 text-center text-sm font-medium uppercase tracking-wider text-fd-foreground/60">
           Built with
         </h2>
         <Marquee>
@@ -543,7 +543,7 @@ function OpenSource() {
             <BatteryChargingIcon className="size-5" />
             Battery guaranteed.
           </span>
-          <span className="mt-2 text-sm text-fd-muted-foreground">
+          <span className="mt-2 text-sm text-fd-foreground/70">
             Actively maintained with new components added regularly.
           </span>
         </li>
@@ -554,7 +554,7 @@ function OpenSource() {
             </svg>
             Fully open-source.
           </span>
-          <span className="mt-2 text-sm text-fd-muted-foreground">
+          <span className="mt-2 text-sm text-fd-foreground/70">
             Open source, available on GitHub. Star us if you like it!
           </span>
         </li>
@@ -563,7 +563,7 @@ function OpenSource() {
             <Smartphone className="size-5" />
             Cross-platform first.
           </span>
-          <span className="mt-2 text-sm text-fd-muted-foreground">
+          <span className="mt-2 text-sm text-fd-foreground/70">
             Every component tested on iOS, Android, and Web.
           </span>
         </li>
@@ -572,7 +572,7 @@ function OpenSource() {
             <TimerIcon className="size-5" />
             Within seconds.
           </span>
-          <span className="mt-2 text-sm text-fd-muted-foreground">
+          <span className="mt-2 text-sm text-fd-foreground/70">
             Add any component to your project instantly with the CLI.
           </span>
         </li>
