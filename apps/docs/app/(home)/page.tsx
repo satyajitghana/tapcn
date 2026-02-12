@@ -130,14 +130,14 @@ export default function HomePage() {
       <div className="relative flex min-h-[600px] h-[70vh] max-h-[900px] border rounded-2xl overflow-hidden mx-auto w-full max-w-[1400px] bg-origin-border">
         <Hero />
         <div className="flex flex-col z-[2] px-4 size-full md:p-12 max-md:items-center max-md:text-center">
-          <p className="mt-12 text-xs text-brand font-medium rounded-full p-2 border border-brand/50 w-fit">
+          <p className="mt-12 text-xs text-neutral-900 dark:text-neutral-100 font-medium rounded-full p-2 border border-brand/50 w-fit">
             the React Native component library you deserve.
           </p>
-          <h1 className="text-4xl my-8 leading-tight font-medium tracking-tight xl:text-5xl xl:mb-12">
+          <h1 className="text-4xl my-8 leading-tight font-medium tracking-tight xl:text-5xl xl:mb-12 text-neutral-900 dark:text-neutral-100">
             Build beautiful
             <br className="md:hidden" /> React Native apps,
             <br />
-            your <span className="text-brand">way</span>.
+            your <span className="text-brand font-semibold">way</span>.
           </h1>
           <div className="flex flex-row items-center justify-center gap-4 flex-wrap w-fit">
             <Link
@@ -161,13 +161,13 @@ export default function HomePage() {
 
       <div className="grid grid-cols-1 gap-10 mt-12 px-6 mx-auto w-full max-w-[1400px] md:px-12 lg:grid-cols-2">
         {/* Intro */}
-        <p className="text-2xl tracking-tight leading-snug font-light col-span-full md:text-3xl xl:text-4xl">
+        <p className="text-2xl tracking-tight leading-snug font-light col-span-full md:text-3xl xl:text-4xl text-neutral-700 dark:text-neutral-300">
           tapcn is a{' '}
-          <span className="text-brand font-medium">copy-paste</span> component
+          <span className="text-neutral-900 dark:text-neutral-100 font-medium">copy-paste</span> component
           library for{' '}
-          <span className="text-brand font-medium">React Native</span>{' '}
+          <span className="text-neutral-900 dark:text-neutral-100 font-medium">React Native</span>{' '}
           developers. Pick the components you need, add them with the CLI, and{' '}
-          <span className="text-brand font-medium">customize everything</span>.
+          <span className="text-neutral-900 dark:text-neutral-100 font-medium">customize everything</span>.
           No version lock-in, no black boxes — just your code.
         </p>
 

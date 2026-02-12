@@ -109,8 +109,40 @@ export function BlockPreview({ slug }: { slug: string }) {
         </div>
       ) : (
         <div className="rounded-b-md border border-t-0 border-fd-border bg-fd-background overflow-hidden">
-          <pre className="overflow-auto p-4 text-sm bg-neutral-950 text-neutral-100">
-            <code>{`// ${slug} block implementation\n// Check the preview tab to see it in action\n\nimport { View, Text } from 'react-native';\nimport { cn } from '@/lib/utils';\n\nexport function ${slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('')}Block() {\n  return (\n    <View className="flex-1 p-6">\n      <Text className="text-2xl font-bold">\n        ${slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}\n      </Text>\n    </View>\n  );\n}`}</code>
+          <pre className="overflow-auto p-4 text-sm bg-neutral-950">
+            <code>
+              <span style={{ color: '#6b7280' }}>{`// ${slug} block implementation`}</span>{'\n'}
+              <span style={{ color: '#6b7280' }}>{`// Check the preview tab to see it in action`}</span>{'\n\n'}
+              <span style={{ color: '#c678dd' }}>import</span>{' '}
+              {'{ '}
+              <span style={{ color: '#e5c07b' }}>View</span>,{' '}
+              <span style={{ color: '#e5c07b' }}>Text</span>{' }'}
+              {' '}<span style={{ color: '#c678dd' }}>from</span>{' '}
+              <span style={{ color: '#98c379' }}>'react-native'</span>;{'\n'}
+              <span style={{ color: '#c678dd' }}>import</span>{' '}
+              {'{ '}
+              <span style={{ color: '#e5c07b' }}>cn</span>{' }'}
+              {' '}<span style={{ color: '#c678dd' }}>from</span>{' '}
+              <span style={{ color: '#98c379' }}>'@/lib/utils'</span>;{'\n\n'}
+              <span style={{ color: '#c678dd' }}>export</span>{' '}
+              <span style={{ color: '#c678dd' }}>function</span>{' '}
+              <span style={{ color: '#61afef' }}>{slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('')}Block</span>
+              {'() {'}{'\n'}
+              {'  '}<span style={{ color: '#c678dd' }}>return</span>{' ('}{'\n'}
+              {'    '}<span style={{ color: '#e06c75' }}>{'<View'}</span>{' '}
+              <span style={{ color: '#d19a66' }}>className</span>=
+              <span style={{ color: '#98c379' }}>"flex-1 p-6"</span>
+              <span style={{ color: '#e06c75' }}>{'>'}</span>{'\n'}
+              {'      '}<span style={{ color: '#e06c75' }}>{'<Text'}</span>{' '}
+              <span style={{ color: '#d19a66' }}>className</span>=
+              <span style={{ color: '#98c379' }}>"text-2xl font-bold"</span>
+              <span style={{ color: '#e06c75' }}>{'>'}</span>{'\n'}
+              {'        '}<span style={{ color: '#abb2bf' }}>{slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</span>{'\n'}
+              {'      '}<span style={{ color: '#e06c75' }}>{'</Text>'}</span>{'\n'}
+              {'    '}<span style={{ color: '#e06c75' }}>{'</View>'}</span>{'\n'}
+              {'  );'}{'\n'}
+              {'}'}
+            </code>
           </pre>
         </div>
       )}
