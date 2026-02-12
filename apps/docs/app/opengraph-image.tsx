@@ -124,18 +124,18 @@ export default async function Image() {
             <path
               d="M40 120 L40 40 L120 40"
               stroke="#000000"
-              strokeWidth="40"
+              strokeWidth="24"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
             <path
               d="M216 136 L216 216 L136 216"
               stroke="#000000"
-              strokeWidth="40"
+              strokeWidth="24"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-            <circle cx="128" cy="128" r="24" fill="#000000" />
+            <circle cx="128" cy="128" r="16" fill="#000000" />
           </svg>
 
           <h1

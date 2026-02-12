@@ -465,22 +465,24 @@ export function MyScreen() {
         className={cardVariants({
           variant: 'secondary',
           className:
-            'flex flex-col items-center justify-center col-span-full',
+            'flex flex-col items-center justify-center col-span-full overflow-hidden',
         })}
       >
         <h2 className="mb-6 text-center text-sm font-medium uppercase tracking-wider text-fd-foreground/60">
           Built with
         </h2>
-        <Marquee>
-          {techStack.map((tech) => (
-            <span
-              key={tech}
-              className="rounded-full border border-brand-secondary-foreground/20 bg-brand-secondary-foreground/5 px-4 py-1.5 text-sm font-medium text-brand-secondary-foreground whitespace-nowrap"
-            >
-              {tech}
-            </span>
-          ))}
-        </Marquee>
+        <div className="w-full overflow-hidden">
+          <Marquee>
+            {techStack.map((tech) => (
+              <span
+                key={tech}
+                className="rounded-full border border-brand-secondary-foreground/20 bg-brand-secondary-foreground/5 px-4 py-1.5 text-sm font-medium text-brand-secondary-foreground whitespace-nowrap"
+              >
+                {tech}
+              </span>
+            ))}
+          </Marquee>
+        </div>
       </div>
     </>
   );

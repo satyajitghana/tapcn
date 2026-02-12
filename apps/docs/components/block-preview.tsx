@@ -108,10 +108,10 @@ export function BlockPreview({ slug }: { slug: string }) {
           ) : null}
         </div>
       ) : (
-        <div className="rounded-b-md border border-t-0 border-fd-border bg-fd-card p-6">
-          <p className="text-sm text-fd-muted-foreground">
-            Code examples coming soon. For now, inspect the preview to see how components are used.
-          </p>
+        <div className="rounded-b-md border border-t-0 border-fd-border bg-fd-background overflow-hidden">
+          <pre className="overflow-auto p-4 text-sm bg-neutral-950 text-neutral-100">
+            <code>{`// ${slug} block implementation\n// Check the preview tab to see it in action\n\nimport { View, Text } from 'react-native';\nimport { cn } from '@/lib/utils';\n\nexport function ${slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('')}Block() {\n  return (\n    <View className="flex-1 p-6">\n      <Text className="text-2xl font-bold">\n        ${slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}\n      </Text>\n    </View>\n  );\n}`}</code>
+          </pre>
         </div>
       )}
     </div>
