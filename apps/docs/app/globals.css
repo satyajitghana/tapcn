@@ -35,11 +35,11 @@
   --radius-sm: calc(var(--tapcn-radius, 0.5rem) - 4px);
 
   /* Brand color system for landing page */
-  --color-brand: hsl(240, 5.9%, 10%);
+  --color-brand: hsl(240, 5.9%, 15%);
   --color-brand-foreground: hsl(0, 0%, 98%);
   --color-brand-secondary: hsl(240, 4.8%, 95.9%);
-  --color-brand-secondary-foreground: hsl(240, 5.9%, 10%);
-  --color-brand-200: hsl(240, 3.7%, 20%);
+  --color-brand-secondary-foreground: hsl(240, 5.9%, 15%);
+  --color-brand-200: hsl(240, 3.7%, 25%);
 
   /* Marquee animation */
   --animate-marquee: marquee var(--duration) infinite linear;
@@ -54,6 +54,10 @@
     from { opacity: 0; }
     to { opacity: 1; }
   }
+
+  /* Font families */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'Liberation Mono', monospace;
 }
 
 /*
@@ -163,9 +167,30 @@
 
 /* Dark mode brand colors */
 .dark {
-  --color-brand: hsl(0, 0%, 98%);
+  --color-brand: hsl(0, 0%, 96%);
   --color-brand-foreground: hsl(240, 5.9%, 10%);
   --color-brand-secondary: hsl(240, 3.7%, 15.9%);
   --color-brand-secondary-foreground: hsl(0, 0%, 98%);
   --color-brand-200: hsl(240, 4.9%, 83.9%);
+}
+
+/* Apply font families */
+body {
+  font-family: var(--font-sans);
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* Shiki code block theme integration */
+pre[class*="shiki"] {
+  background-color: hsl(var(--fd-card)) !important;
+  color: hsl(var(--fd-foreground)) !important;
+  border: 1px solid hsl(var(--fd-border));
+}
+
+.dark pre[class*="shiki"] {
+  background-color: hsl(var(--fd-card)) !important;
+  color: hsl(var(--fd-foreground)) !important;
 }

@@ -271,46 +271,6 @@ export function CreateAppAnimation() {
     return () => clearInterval(timer);
   }, [timeEnd]);
 
-  const lines: ReactElement[] = [];
-
-  lines.push(
-    <span key="cmd_type">
-      {installCmd.substring(0, tick)}
-      {tick < timeCommandEnter && (
-        <span className="inline-block h-3.5 w-1.5 animate-[blink_1s_step-end_infinite] bg-green-400" />
-      )}
-    </span>,
-  );
-
-  if (tick >= timeCommandEnter) {
-    lines.push(<span key="space"> </span>);
-  }
-
-  if (tick > timeCommandRun) {
-    lines.push(
-      <Fragment key="cmd_response">
-        {tick > timeCommandRun + 1 && (
-          <span className="text-neutral-400">Resolving dependencies...</span>
-        )}
-        {tick > timeCommandRun + 2 && (
-          <>
-            <span className="text-green-400">✓ Downloaded button.tsx</span>
-            <span className="text-green-400">✓ Downloaded card.tsx</span>
-            <span className="text-green-400">✓ Downloaded input.tsx</span>
-          </>
-        )}
-        {tick > timeCommandRun + 3 && (
-          <>
-            <span> </span>
-            <span className="font-bold text-white">
-              Added 3 components to ~/components/ui/
-            </span>
-          </>
-        )}
-      </Fragment>,
-    );
-  }
-
   return (
     <div
       className="relative mt-4 mx-auto w-full max-w-[800px]"
@@ -328,11 +288,35 @@ export function CreateAppAnimation() {
           <div className="size-2 rounded-full bg-green-500/70" />
         </div>
         <div className="min-h-[180px]">
-          <code className="grid gap-0.5 p-4 text-neutral-100">
-            <span>
+          <code className="grid gap-1 p-4 text-neutral-100 font-mono">
+            <div>
               <span className="text-neutral-500">$ </span>
-              {lines}
-            </span>
+              <span>
+                {installCmd.substring(0, tick)}
+                {tick < timeCommandEnter && (
+                  <span className="inline-block h-3.5 w-1.5 animate-[blink_1s_step-end_infinite] bg-green-400" />
+                )}
+              </span>
+            </div>
+            {tick >= timeCommandEnter && <div />}
+            {tick > timeCommandRun + 1 && (
+              <div className="text-neutral-400">Resolving dependencies...</div>
+            )}
+            {tick > timeCommandRun + 2 && (
+              <>
+                <div className="text-green-400">✓ Downloaded button.tsx</div>
+                <div className="text-green-400">✓ Downloaded card.tsx</div>
+                <div className="text-green-400">✓ Downloaded input.tsx</div>
+              </>
+            )}
+            {tick > timeCommandRun + 3 && (
+              <>
+                <div />
+                <div className="font-bold text-white">
+                  Added 3 components to ~/components/ui/
+                </div>
+              </>
+            )}
           </code>
         </div>
       </pre>
@@ -360,7 +344,7 @@ function PreviewCell({
 }) {
   return (
     <div className="rounded-xl border border-dashed p-6 flex flex-col items-center justify-center gap-3 min-h-[120px]">
-      <p className="text-xs font-medium text-fd-muted-foreground uppercase tracking-wider">
+      <p className="text-xs font-medium text-fd-foreground/60 uppercase tracking-wider">
         {label}
       </p>
       {children}
@@ -376,10 +360,10 @@ export function ComponentTabs() {
       <h2 className="text-3xl lg:text-4xl text-brand mb-8 text-center font-medium tracking-tight">
         Components, Live.
       </h2>
-      <p className="text-center mb-8 mx-auto w-full max-w-[800px] text-fd-muted-foreground">
+      <p className="text-center mb-8 mx-auto w-full max-w-[800px] text-fd-foreground/70">
         38+ accessible, cross-platform components. Pick a category to explore.
       </p>
-      <div className="flex justify-center items-center gap-4 text-fd-muted-foreground mb-8">
+      <div className="flex justify-center items-center gap-4 text-fd-foreground/70 mb-8">
         {ComponentTabCategories.map((item, i) => (
           <Fragment key={item.value}>
             {i > 0 && <ArrowRight className="size-4" />}
@@ -514,7 +498,7 @@ export function SearchPreview() {
 
   return (
     <div className="flex select-none flex-col mt-auto bg-fd-popover rounded-xl border mask-[linear-gradient(to_bottom,white_40%,transparent_90%)] max-md:-mx-4">
-      <div className="inline-flex items-center gap-2 px-4 py-3 text-sm text-fd-muted-foreground">
+      <div className="inline-flex items-center gap-2 px-4 py-3 text-sm text-fd-foreground/70">
         <SearchIcon className="size-4" />
         Search components...
       </div>
@@ -525,10 +509,10 @@ export function SearchPreview() {
             className={cn('rounded-md p-2 text-sm', i === 0 && 'bg-fd-accent')}
           >
             <div className="flex flex-row items-center gap-2">
-              <FileTextIcon className="size-4 text-fd-muted-foreground" />
+              <FileTextIcon className="size-4 text-fd-foreground/70" />
               <p>{item.title}</p>
             </div>
-            <p className="text-xs mt-2 text-fd-muted-foreground ps-6">
+            <p className="text-xs mt-2 text-fd-foreground/70 ps-6">
               {item.description}
             </p>
           </div>

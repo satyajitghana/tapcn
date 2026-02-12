@@ -3,6 +3,9 @@ import { RootProvider } from 'fumadocs-ui/provider/next';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import type { SearchLink } from 'fumadocs-ui/provider';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
+import { PlatformProvider } from '@/lib/use-platform';
 
 export const metadata: Metadata = {
   title: {
@@ -24,9 +27,11 @@ const searchOptions = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <body className="flex min-h-screen flex-col">
-        <RootProvider search={searchOptions}>{children}</RootProvider>
+        <PlatformProvider>
+          <RootProvider search={searchOptions}>{children}</RootProvider>
+        </PlatformProvider>
       </body>
     </html>
   );

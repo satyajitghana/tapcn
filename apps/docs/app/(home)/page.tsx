@@ -338,7 +338,7 @@ function PlatformAndTheming() {
           Customize every component with NativeWind classes and CVA variants.
           Full design token support with CSS variables.
         </p>
-        <p className="mb-4 text-fd-muted-foreground">
+        <p className="mb-4 text-fd-foreground/80">
           Add components with the tapcn CLI, then make them yours.
         </p>
         <pre className="overflow-auto rounded-xl bg-neutral-950 p-4 text-sm leading-relaxed text-neutral-100 mt-auto">
@@ -398,7 +398,7 @@ function BuiltForDevelopers() {
           <span className="text-brand font-medium">shadcn/ui</span>. If you
           know shadcn, you already know tapcn.
         </p>
-        <ul className="text-xs list-disc list-inside space-y-1 text-fd-muted-foreground mb-6">
+        <ul className="text-xs list-disc list-inside space-y-1 text-fd-foreground/70 mb-6">
           <li>Full TypeScript autocompletion</li>
           <li>CVA for type-safe variants</li>
           <li>cn() for class merging</li>
@@ -475,7 +475,7 @@ export function MyScreen() {
           {techStack.map((tech) => (
             <span
               key={tech}
-              className="rounded-full border bg-fd-card px-4 py-1.5 text-sm font-medium text-fd-muted-foreground whitespace-nowrap"
+              className="rounded-full border bg-fd-card px-4 py-1.5 text-sm font-medium text-fd-foreground/70 whitespace-nowrap"
             >
               {tech}
             </span>

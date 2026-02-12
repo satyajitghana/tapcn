@@ -42,9 +42,10 @@ async function highlightCode(code: string): Promise<string> {
   return codeToHtml(code, {
     lang: 'tsx',
     themes: {
-      light: 'github-light-default',
-      dark: 'github-dark-default',
+      light: 'github-light',
+      dark: 'github-dark',
     },
+    defaultColor: false,
   });
 }
 
