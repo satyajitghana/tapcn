@@ -16,6 +16,10 @@ const BlockComponents: Record<string, any> = {
   settings: dynamic(() => import('@/components/blocks/settings').then((m) => m.SettingsBlock)),
   dashboard: dynamic(() => import('@/components/blocks/dashboard').then((m) => m.DashboardBlock)),
   todo: dynamic(() => import('@/components/blocks/todo').then((m) => m.TodoBlock)),
+  'music-player': dynamic(() => import('@/components/blocks/music-player').then((m) => m.MusicPlayerBlock)),
+  chat: dynamic(() => import('@/components/blocks/chat').then((m) => m.ChatBlock)),
+  ecommerce: dynamic(() => import('@/components/blocks/ecommerce').then((m) => m.EcommerceBlock)),
+  'social-feed': dynamic(() => import('@/components/blocks/social-feed').then((m) => m.SocialFeedBlock)),
 };
 
 export function BlockPreview({

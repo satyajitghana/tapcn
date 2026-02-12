@@ -2,7 +2,7 @@ export type Block = {
   name: string;
   title: string;
   description: string;
-  category: 'authentication' | 'profile' | 'dashboard' | 'ecommerce' | 'social' | 'productivity';
+  category: 'authentication' | 'profile' | 'dashboard' | 'ecommerce' | 'social' | 'productivity' | 'entertainment' | 'messaging';
   component: string;
 };
 
@@ -49,6 +49,34 @@ export const blocks: Block[] = [
     category: 'productivity',
     component: 'TodoBlock',
   },
+  {
+    name: 'music-player',
+    title: 'Music Player',
+    description: 'Now playing screen with animated controls, progress bar, and queue',
+    category: 'entertainment',
+    component: 'MusicPlayerBlock',
+  },
+  {
+    name: 'chat',
+    title: 'Chat',
+    description: 'Real-time messaging with typing indicators and animated bubbles',
+    category: 'messaging',
+    component: 'ChatBlock',
+  },
+  {
+    name: 'ecommerce',
+    title: 'Product Page',
+    description: 'Product detail with size/color picker, cart animation, and reviews',
+    category: 'ecommerce',
+    component: 'EcommerceBlock',
+  },
+  {
+    name: 'social-feed',
+    title: 'Social Feed',
+    description: 'Social media feed with stories, posts, likes, and comments',
+    category: 'social',
+    component: 'SocialFeedBlock',
+  },
 ];
 
 export function getBlock(name: string): Block | undefined {
@@ -65,5 +93,7 @@ export const categories = [
   { value: 'dashboard', label: 'Dashboard' },
   { value: 'ecommerce', label: 'E-commerce' },
   { value: 'social', label: 'Social' },
+  { value: 'messaging', label: 'Messaging' },
+  { value: 'entertainment', label: 'Entertainment' },
   { value: 'productivity', label: 'Productivity' },
 ] as const;
