@@ -250,7 +250,7 @@ function Feedback() {
       <div
         className={cardVariants({
           variant: 'secondary',
-          className: 'relative p-0',
+          className: 'relative p-0 overflow-hidden',
         })}
       >
         <div className="absolute inset-0 z-[2] rounded-2xl marquee-overlay pointer-events-none" />
@@ -258,9 +258,9 @@ function Feedback() {
           {communityFeedback.map((item) => (
             <div
               key={item.user}
-              className="flex flex-col rounded-xl border border-brand/10 bg-white dark:bg-neutral-900 dark:border-neutral-700 p-4 shadow-lg w-[320px]"
+              className="flex flex-col rounded-xl border border-brand-secondary-foreground/20 bg-brand-secondary-foreground/5 p-4 shadow-lg w-[320px]"
             >
-              <p className="text-sm whitespace-pre-wrap text-neutral-900 dark:text-neutral-100">{item.message}</p>
+              <p className="text-sm whitespace-pre-wrap text-brand-secondary-foreground">{item.message}</p>
               <div className="mt-auto flex flex-row items-center gap-2 pt-4">
                 <Image
                   src={item.avatar}
@@ -271,8 +271,8 @@ function Feedback() {
                   className="size-8 rounded-full"
                 />
                 <div>
-                  <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{item.user}</p>
-                  <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                  <p className="text-sm font-medium text-brand-secondary-foreground">{item.user}</p>
+                  <p className="text-xs text-brand-secondary-foreground/60">
                     {item.role}
                   </p>
                 </div>
@@ -475,7 +475,7 @@ export function MyScreen() {
           {techStack.map((tech) => (
             <span
               key={tech}
-              className="rounded-full border border-brand/10 bg-white dark:bg-neutral-900 dark:border-neutral-700 px-4 py-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300 whitespace-nowrap"
+              className="rounded-full border border-brand-secondary-foreground/20 bg-brand-secondary-foreground/5 px-4 py-1.5 text-sm font-medium text-brand-secondary-foreground whitespace-nowrap"
             >
               {tech}
             </span>
