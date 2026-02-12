@@ -226,7 +226,7 @@ export default async function HomePage() {
         <Feedback />
         <ComponentTabs />
         <PlatformAndTheming />
-        <BuiltForDevelopers />
+        <BuiltForDevelopers highlightedCode={highlightedCode} />
         <OpenSource />
       </div>
 
@@ -382,7 +382,7 @@ function PlatformAndTheming() {
 // ---------------------------------------------------------------------------
 // Built for Developers — architecture, search, tech stack
 // ---------------------------------------------------------------------------
-function BuiltForDevelopers() {
+function BuiltForDevelopers({ highlightedCode }: { highlightedCode: string }) {
   return (
     <>
       <h2
