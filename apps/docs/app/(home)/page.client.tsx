@@ -4,17 +4,38 @@ import {
   type ComponentProps,
   Fragment,
   type ReactElement,
+  type ReactNode,
+  type RefObject,
   useEffect,
+  useRef,
   useState,
 } from 'react';
-import { TerminalIcon } from 'lucide-react';
+import { ArrowRight, FileTextIcon, SearchIcon, TerminalIcon } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 
 function cn(...classes: (string | boolean | undefined | null)[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-// Dynamically import component previews to avoid bundle bloat
+// ---------------------------------------------------------------------------
+// Shader backgrounds (dynamically imported to avoid SSR/bundle issues)
+// ---------------------------------------------------------------------------
+const GrainGradient = dynamic(
+  () =>
+    import('@paper-design/shaders-react').then((mod) => mod.GrainGradient),
+  { ssr: false },
+);
+
+const Dithering = dynamic(
+  () =>
+    import('@paper-design/shaders-react').then((mod) => mod.Dithering),
+  { ssr: false },
+);
+
+// ---------------------------------------------------------------------------
+// Dynamic component preview imports
+// ---------------------------------------------------------------------------
 const ButtonPreview = dynamic(
   () =>
     import('@/components/previews/button-preview').then((m) => ({
@@ -99,9 +120,139 @@ const AlertPreview = dynamic(
     })),
   { ssr: false },
 );
+const CardPreview = dynamic(
+  () =>
+    import('@/components/previews/card-preview').then((m) => ({
+      default: m.CardPreview,
+    })),
+  { ssr: false },
+);
+const SliderPreview = dynamic(
+  () =>
+    import('@/components/previews/slider-preview').then((m) => ({
+      default: m.SliderPreview,
+    })),
+  { ssr: false },
+);
+const DialogPreview = dynamic(
+  () =>
+    import('@/components/previews/dialog-preview').then((m) => ({
+      default: m.DialogPreview,
+    })),
+  { ssr: false },
+);
+const TooltipPreview = dynamic(
+  () =>
+    import('@/components/previews/tooltip-preview').then((m) => ({
+      default: m.TooltipPreview,
+    })),
+  { ssr: false },
+);
+const PopoverPreview = dynamic(
+  () =>
+    import('@/components/previews/popover-preview').then((m) => ({
+      default: m.PopoverPreview,
+    })),
+  { ssr: false },
+);
+const DropdownMenuPreview = dynamic(
+  () =>
+    import('@/components/previews/dropdown-menu-preview').then((m) => ({
+      default: m.DropdownMenuPreview,
+    })),
+  { ssr: false },
+);
+const ToastPreview = dynamic(
+  () =>
+    import('@/components/previews/toast-preview').then((m) => ({
+      default: m.ToastPreview,
+    })),
+  { ssr: false },
+);
+const SeparatorPreview = dynamic(
+  () =>
+    import('@/components/previews/separator-preview').then((m) => ({
+      default: m.SeparatorPreview,
+    })),
+  { ssr: false },
+);
 
 // ---------------------------------------------------------------------------
-// CreateAppAnimation — adapted from fumadocs
+// Hero — GrainGradient + Dithering shader backgrounds (like fumadocs)
+// ---------------------------------------------------------------------------
+function useIsVisible(ref: RefObject<HTMLElement | null>) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setVisible(entry.isIntersecting);
+    });
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [ref]);
+
+  return visible;
+}
+
+export function Hero() {
+  const { resolvedTheme } = useTheme();
+  const ref = useRef<HTMLDivElement>(null);
+  const visible = useIsVisible(ref);
+  const [showShaders, setShowShaders] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowShaders(true), 400);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div ref={ref} className="absolute inset-0">
+      {showShaders && (
+        <GrainGradient
+          className="absolute inset-0 animate-[fd-fade-in_0.8s_ease-out]"
+          colors={
+            resolvedTheme === 'dark'
+              ? ['#6366f1', '#4338ca', '#00000000']
+              : ['#e0e7ff', '#c7d2fe', '#00000020']
+          }
+          colorBack="#00000000"
+          softness={1}
+          intensity={0.9}
+          noise={0.5}
+          speed={visible ? 0.8 : 0}
+          shape="corners"
+          minPixelRatio={1}
+          maxPixelCount={1920 * 1080}
+        />
+      )}
+      {showShaders && (
+        <Dithering
+          width={720}
+          height={720}
+          colorBack="#00000000"
+          colorFront={resolvedTheme === 'dark' ? '#818cf8' : '#6366f1'}
+          shape="sphere"
+          type="4x4"
+          scale={0.5}
+          size={3}
+          speed={0}
+          frame={5000 * 120}
+          className="absolute animate-[fd-fade-in_0.4s_ease-out] max-lg:bottom-[-50%] max-lg:left-[-200px] lg:top-[-5%] lg:right-0"
+          minPixelRatio={1}
+        />
+      )}
+      {/* Grid dots as fallback/overlay */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-30 [mask-image:radial-gradient(ellipse_80%_60%_at_50%_40%,black,transparent)]" />
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// CreateAppAnimation — terminal typing effect
 // ---------------------------------------------------------------------------
 export function CreateAppAnimation() {
   const installCmd = 'npx @tapcn/cli add button card input';
@@ -139,21 +290,13 @@ export function CreateAppAnimation() {
     lines.push(
       <Fragment key="cmd_response">
         {tick > timeCommandRun + 1 && (
-          <span className="text-neutral-400">
-            Resolving dependencies...
-          </span>
+          <span className="text-neutral-400">Resolving dependencies...</span>
         )}
         {tick > timeCommandRun + 2 && (
           <>
-            <span className="text-green-400">
-              ✓ Downloaded button.tsx
-            </span>
-            <span className="text-green-400">
-              ✓ Downloaded card.tsx
-            </span>
-            <span className="text-green-400">
-              ✓ Downloaded input.tsx
-            </span>
+            <span className="text-green-400">✓ Downloaded button.tsx</span>
+            <span className="text-green-400">✓ Downloaded card.tsx</span>
+            <span className="text-green-400">✓ Downloaded input.tsx</span>
           </>
         )}
         {tick > timeCommandRun + 3 && (
@@ -198,65 +341,148 @@ export function CreateAppAnimation() {
 }
 
 // ---------------------------------------------------------------------------
-// ComponentsGrid — adapted from react-native-reusables
+// ComponentTabs — tabbed component showcase (like fumadocs Writing)
 // ---------------------------------------------------------------------------
-export function ComponentsGrid() {
+const ComponentTabCategories = [
+  { name: 'Form Controls', value: 'forms' },
+  { name: 'Display', value: 'display' },
+  { name: 'Overlays', value: 'overlays' },
+] as const;
+
+type TabValue = (typeof ComponentTabCategories)[number]['value'];
+
+function PreviewCell({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="tapcn-preview mx-auto w-full max-w-[1400px] px-6 md:px-12">
-      <div className="dark:from-fd-background dark:to-fd-accent/30 to-fd-accent/20 relative flex w-full flex-wrap overflow-clip rounded-xl border border-dashed bg-gradient-to-bl from-white max-md:hidden">
-        {/* Row 1 */}
-        <div className="flex w-full flex-wrap items-center border-b border-dashed">
-          <div className="flex justify-center border-r border-dashed p-5">
+    <div className="rounded-xl border border-dashed p-6 flex flex-col items-center justify-center gap-3 min-h-[120px]">
+      <p className="text-xs font-medium text-fd-muted-foreground uppercase tracking-wider">
+        {label}
+      </p>
+      {children}
+    </div>
+  );
+}
+
+export function ComponentTabs() {
+  const [tab, setTab] = useState<TabValue>('forms');
+
+  return (
+    <div className="col-span-full my-12">
+      <h2 className="text-3xl lg:text-4xl text-brand mb-8 text-center font-medium tracking-tight">
+        Components, Live.
+      </h2>
+      <p className="text-center mb-8 mx-auto w-full max-w-[800px] text-fd-muted-foreground">
+        38+ accessible, cross-platform components. Pick a category to explore.
+      </p>
+      <div className="flex justify-center items-center gap-4 text-fd-muted-foreground mb-8">
+        {ComponentTabCategories.map((item, i) => (
+          <Fragment key={item.value}>
+            {i > 0 && <ArrowRight className="size-4" />}
+            <button
+              className={cn(
+                'text-lg font-medium transition-colors',
+                item.value === tab && 'text-brand',
+              )}
+              onClick={() => setTab(item.value)}
+            >
+              {item.name}
+            </button>
+          </Fragment>
+        ))}
+      </div>
+
+      {/* Form Controls */}
+      <div
+        aria-hidden={tab !== 'forms'}
+        className={cn(
+          'tapcn-preview animate-[fd-fade-in_0.3s_ease-out]',
+          tab !== 'forms' && 'hidden',
+        )}
+      >
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <PreviewCell label="Button">
             <ButtonPreview />
-          </div>
-          <div className="flex justify-center border-r border-dashed p-5">
+          </PreviewCell>
+          <PreviewCell label="Input">
+            <InputPreview />
+          </PreviewCell>
+          <PreviewCell label="Select">
             <SelectPreview />
-          </div>
-          <div className="flex justify-center border-r border-dashed p-5">
-            <ToggleGroupPreview />
-          </div>
-          <div className="flex flex-1 items-center justify-center border-r border-dashed p-5 max-xl:hidden">
-            <ProgressPreview />
-          </div>
-          <div className="flex justify-center border-r border-dashed p-5">
-            <BadgePreview />
-          </div>
-          <div className="flex justify-center p-5">
-            <AvatarPreview />
-          </div>
+          </PreviewCell>
+          <PreviewCell label="Checkbox">
+            <CheckboxPreview />
+          </PreviewCell>
+          <PreviewCell label="Switch">
+            <SwitchPreview />
+          </PreviewCell>
+          <PreviewCell label="Radio Group">
+            <RadioGroupPreview />
+          </PreviewCell>
         </div>
-        {/* Row 2 */}
-        <div className="flex w-full max-xl:flex-col">
-          {/* Column 1 */}
-          <div className="border-r border-dashed">
-            <div className="p-5">
-              <CheckboxPreview />
-            </div>
-            <div className="border-t border-dashed p-5">
-              <SwitchPreview />
-            </div>
-            <div className="border-t border-dashed p-5">
-              <RadioGroupPreview />
-            </div>
-          </div>
-          {/* Column 2 */}
-          <div className="flex-1 border-r border-dashed">
-            <div className="p-5">
-              <TabsPreview />
-            </div>
-            <div className="border-t border-dashed p-5">
-              <InputPreview />
-            </div>
-          </div>
-          {/* Column 3 */}
-          <div className="flex-1">
-            <div className="p-5 xl:hidden">
-              <ProgressPreview />
-            </div>
-            <div className="border-t border-dashed p-5 xl:border-t-0">
-              <AlertPreview />
-            </div>
-          </div>
+      </div>
+
+      {/* Display */}
+      <div
+        aria-hidden={tab !== 'display'}
+        className={cn(
+          'tapcn-preview animate-[fd-fade-in_0.3s_ease-out]',
+          tab !== 'display' && 'hidden',
+        )}
+      >
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <PreviewCell label="Badge">
+            <BadgePreview />
+          </PreviewCell>
+          <PreviewCell label="Avatar">
+            <AvatarPreview />
+          </PreviewCell>
+          <PreviewCell label="Progress">
+            <ProgressPreview />
+          </PreviewCell>
+          <PreviewCell label="Alert">
+            <AlertPreview />
+          </PreviewCell>
+          <PreviewCell label="Tabs">
+            <TabsPreview />
+          </PreviewCell>
+          <PreviewCell label="Card">
+            <CardPreview />
+          </PreviewCell>
+        </div>
+      </div>
+
+      {/* Overlays */}
+      <div
+        aria-hidden={tab !== 'overlays'}
+        className={cn(
+          'tapcn-preview animate-[fd-fade-in_0.3s_ease-out]',
+          tab !== 'overlays' && 'hidden',
+        )}
+      >
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <PreviewCell label="Dialog">
+            <DialogPreview />
+          </PreviewCell>
+          <PreviewCell label="Tooltip">
+            <TooltipPreview />
+          </PreviewCell>
+          <PreviewCell label="Popover">
+            <PopoverPreview />
+          </PreviewCell>
+          <PreviewCell label="Dropdown Menu">
+            <DropdownMenuPreview />
+          </PreviewCell>
+          <PreviewCell label="Slider">
+            <SliderPreview />
+          </PreviewCell>
+          <PreviewCell label="Toggle Group">
+            <ToggleGroupPreview />
+          </PreviewCell>
         </div>
       </div>
     </div>
@@ -264,7 +490,56 @@ export function ComponentsGrid() {
 }
 
 // ---------------------------------------------------------------------------
-// Marquee — copied from fumadocs
+// SearchPreview — mock search dialog (like fumadocs)
+// ---------------------------------------------------------------------------
+export function SearchPreview() {
+  const items = [
+    {
+      title: 'Button',
+      description: 'Customizable button with multiple variants and sizes.',
+    },
+    {
+      title: 'Input',
+      description: 'Text input with label and error state support.',
+    },
+    {
+      title: 'Dialog',
+      description: 'Modal dialog with overlay and animations.',
+    },
+    {
+      title: 'Tabs',
+      description: 'Tabbed content navigation component.',
+    },
+  ];
+
+  return (
+    <div className="flex select-none flex-col mt-auto bg-fd-popover rounded-xl border mask-[linear-gradient(to_bottom,white_40%,transparent_90%)] max-md:-mx-4">
+      <div className="inline-flex items-center gap-2 px-4 py-3 text-sm text-fd-muted-foreground">
+        <SearchIcon className="size-4" />
+        Search components...
+      </div>
+      <div className="border-t p-2">
+        {items.map((item, i) => (
+          <div
+            key={item.title}
+            className={cn('rounded-md p-2 text-sm', i === 0 && 'bg-fd-accent')}
+          >
+            <div className="flex flex-row items-center gap-2">
+              <FileTextIcon className="size-4 text-fd-muted-foreground" />
+              <p>{item.title}</p>
+            </div>
+            <p className="text-xs mt-2 text-fd-muted-foreground ps-6">
+              {item.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Marquee — infinite scrolling
 // ---------------------------------------------------------------------------
 interface MarqueeProps extends ComponentProps<'div'> {
   reverse?: boolean;
@@ -276,7 +551,7 @@ interface MarqueeProps extends ComponentProps<'div'> {
 export function Marquee({
   className,
   reverse = false,
-  pauseOnHover = true,
+  pauseOnHover = false,
   children,
   repeat = 4,
   ...props
@@ -285,7 +560,7 @@ export function Marquee({
     <div
       {...props}
       className={cn(
-        'group flex overflow-hidden [--duration:30s] [--gap:0.75rem] [gap:var(--gap)]',
+        'group flex overflow-hidden [--duration:40s] [--gap:1rem] [gap:var(--gap)]',
         className,
       )}
     >
@@ -303,6 +578,32 @@ export function Marquee({
             {children}
           </div>
         ))}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// PlatformBackground — Dithering shader for the platform card
+// ---------------------------------------------------------------------------
+export function PlatformBackground() {
+  const { resolvedTheme } = useTheme();
+  const ref = useRef<HTMLDivElement>(null);
+  const visible = useIsVisible(ref);
+
+  return (
+    <div
+      ref={ref}
+      className="absolute inset-0 -z-[1] mask-[linear-gradient(to_top,white_30%,transparent_calc(100%-120px))]"
+    >
+      <Dithering
+        colorBack="#00000000"
+        colorFront={resolvedTheme === 'dark' ? '#818cf8' : '#6366f1'}
+        shape="warp"
+        type="4x4"
+        speed={visible ? 0.4 : 0}
+        className="size-full"
+        minPixelRatio={1}
+      />
     </div>
   );
 }
