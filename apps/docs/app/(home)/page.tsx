@@ -6,6 +6,7 @@ import {
   BatteryChargingIcon,
   Heart,
   Smartphone,
+  SparklesIcon,
   TimerIcon,
 } from 'lucide-react';
 import {
@@ -49,7 +50,7 @@ const cardVariants = cva('rounded-2xl text-sm p-6 bg-origin-border shadow-lg', {
   variants: {
     variant: {
       secondary: 'bg-brand-secondary text-brand-secondary-foreground',
-      default: 'border bg-fd-card',
+      default: 'border bg-fd-card text-fd-card-foreground',
     },
   },
   defaultVariants: {
@@ -130,14 +131,15 @@ export default function HomePage() {
       <div className="relative flex min-h-[600px] h-[70vh] max-h-[900px] border rounded-2xl overflow-hidden mx-auto w-full max-w-[1400px] bg-origin-border">
         <Hero />
         <div className="flex flex-col z-[2] px-4 size-full md:p-12 max-md:items-center max-md:text-center">
-          <p className="mt-12 text-xs text-brand font-medium rounded-full p-2 border border-brand/50 w-fit">
+          <p className="shiny-pill mt-12 text-xs text-brand font-medium rounded-full px-3 py-1.5 border border-brand/50 w-fit flex items-center gap-1.5">
+            <SparklesIcon className="size-3.5" />
             the React Native component library you deserve.
           </p>
-          <h1 className="text-4xl my-8 leading-tight font-medium tracking-tight xl:text-5xl xl:mb-12">
+          <h1 className="text-4xl my-8 leading-tight font-medium tracking-tight xl:text-5xl xl:mb-12 dark:text-white">
             Build beautiful
             <br className="md:hidden" /> React Native apps,
             <br />
-            your <span className="text-brand font-semibold">way</span>.
+            your <span className="text-brand dark:text-brand font-semibold">way</span>.
           </h1>
           <div className="flex flex-row items-center justify-center gap-4 flex-wrap w-fit">
             <Link
@@ -161,7 +163,7 @@ export default function HomePage() {
 
       <div className="grid grid-cols-1 gap-10 mt-12 px-6 mx-auto w-full max-w-[1400px] md:px-12 lg:grid-cols-2">
         {/* Intro */}
-        <p className="text-2xl tracking-tight leading-snug font-light col-span-full md:text-3xl xl:text-4xl text-landing-foreground-200">
+        <p className="text-2xl tracking-tight leading-snug font-light col-span-full md:text-3xl xl:text-4xl text-landing-foreground-200 dark:text-fd-foreground/70">
           tapcn is a{' '}
           <span className="text-brand font-medium">copy-paste</span> component
           library for{' '}
@@ -258,7 +260,7 @@ function Feedback() {
           {communityFeedback.map((item) => (
             <div
               key={item.user}
-              className="flex flex-col rounded-xl border bg-fd-card text-landing-foreground p-4 shadow-lg w-[320px]"
+              className="flex flex-col rounded-xl border bg-fd-card text-fd-card-foreground p-4 shadow-lg w-[320px]"
             >
               <p className="text-sm whitespace-pre-wrap">{item.message}</p>
               <div className="mt-auto flex flex-row items-center gap-2 pt-4">
@@ -476,7 +478,7 @@ export function MyScreen() {
             {techStack.map((tech) => (
               <span
                 key={tech}
-                className="rounded-full border border-fd-border bg-fd-card px-4 py-1.5 text-sm font-medium text-landing-foreground whitespace-nowrap"
+                className="rounded-full border border-fd-border bg-fd-card px-4 py-1.5 text-sm font-medium text-fd-card-foreground whitespace-nowrap"
               >
                 {tech}
               </span>
@@ -527,10 +529,10 @@ function OpenSource() {
       </div>
 
       <div className={cardVariants({ className: 'flex flex-col p-0 pt-8' })}>
-        <h2 className="text-3xl text-center font-extrabold font-mono uppercase mb-4 lg:text-4xl">
+        <h2 className="text-3xl text-center font-extrabold font-mono uppercase mb-4 lg:text-4xl text-fd-card-foreground">
           Build Your App
         </h2>
-        <p className="text-center font-mono text-xs opacity-50 mb-8">
+        <p className="text-center font-mono text-xs text-fd-muted-foreground mb-8">
           beautiful, accessible, cross-platform.
         </p>
         <div className="h-[200px] mt-auto overflow-hidden p-8 bg-gradient-to-b from-brand-secondary/10">
