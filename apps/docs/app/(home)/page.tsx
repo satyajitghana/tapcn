@@ -130,14 +130,14 @@ export default function HomePage() {
       <div className="relative flex min-h-[600px] h-[70vh] max-h-[900px] border rounded-2xl overflow-hidden mx-auto w-full max-w-[1400px] bg-origin-border">
         <Hero />
         <div className="flex flex-col z-[2] px-4 size-full md:p-12 max-md:items-center max-md:text-center">
-          <p className="mt-12 text-xs text-brand font-medium rounded-full p-2 border border-brand/50 w-fit">
+          <p className="mt-12 text-xs text-neutral-900 dark:text-neutral-100 font-medium rounded-full p-2 border border-brand/50 w-fit">
             the React Native component library you deserve.
           </p>
-          <h1 className="text-4xl my-8 leading-tight font-medium tracking-tight xl:text-5xl xl:mb-12">
+          <h1 className="text-4xl my-8 leading-tight font-medium tracking-tight xl:text-5xl xl:mb-12 text-neutral-900 dark:text-neutral-100">
             Build beautiful
             <br className="md:hidden" /> React Native apps,
             <br />
-            your <span className="text-brand">way</span>.
+            your <span className="text-brand font-semibold">way</span>.
           </h1>
           <div className="flex flex-row items-center justify-center gap-4 flex-wrap w-fit">
             <Link
@@ -161,13 +161,13 @@ export default function HomePage() {
 
       <div className="grid grid-cols-1 gap-10 mt-12 px-6 mx-auto w-full max-w-[1400px] md:px-12 lg:grid-cols-2">
         {/* Intro */}
-        <p className="text-2xl tracking-tight leading-snug font-light col-span-full md:text-3xl xl:text-4xl">
+        <p className="text-2xl tracking-tight leading-snug font-light col-span-full md:text-3xl xl:text-4xl text-neutral-700 dark:text-neutral-300">
           tapcn is a{' '}
-          <span className="text-brand font-medium">copy-paste</span> component
+          <span className="text-neutral-900 dark:text-neutral-100 font-medium">copy-paste</span> component
           library for{' '}
-          <span className="text-brand font-medium">React Native</span>{' '}
+          <span className="text-neutral-900 dark:text-neutral-100 font-medium">React Native</span>{' '}
           developers. Pick the components you need, add them with the CLI, and{' '}
-          <span className="text-brand font-medium">customize everything</span>.
+          <span className="text-neutral-900 dark:text-neutral-100 font-medium">customize everything</span>.
           No version lock-in, no black boxes — just your code.
         </p>
 
@@ -200,7 +200,7 @@ export default function HomePage() {
         <OpenSource />
       </div>
 
-      <footer className="mt-16 border-t border-fd-border px-4 py-8 text-center text-sm text-fd-muted-foreground">
+      <footer className="mt-16 border-t border-fd-border px-4 py-8 text-center text-sm text-fd-foreground/70">
         <p>
           Built with{' '}
           <a
@@ -250,7 +250,7 @@ function Feedback() {
       <div
         className={cardVariants({
           variant: 'secondary',
-          className: 'relative p-0',
+          className: 'relative p-0 overflow-hidden',
         })}
       >
         <div className="absolute inset-0 z-[2] rounded-2xl marquee-overlay pointer-events-none" />
@@ -258,9 +258,9 @@ function Feedback() {
           {communityFeedback.map((item) => (
             <div
               key={item.user}
-              className="flex flex-col rounded-xl border bg-fd-card p-4 shadow-lg w-[320px]"
+              className="flex flex-col rounded-xl border border-brand-secondary-foreground/20 bg-brand-secondary-foreground/5 p-4 shadow-lg w-[320px]"
             >
-              <p className="text-sm whitespace-pre-wrap">{item.message}</p>
+              <p className="text-sm whitespace-pre-wrap text-brand-secondary-foreground">{item.message}</p>
               <div className="mt-auto flex flex-row items-center gap-2 pt-4">
                 <Image
                   src={item.avatar}
@@ -271,8 +271,8 @@ function Feedback() {
                   className="size-8 rounded-full"
                 />
                 <div>
-                  <p className="text-sm font-medium">{item.user}</p>
-                  <p className="text-xs text-fd-muted-foreground">
+                  <p className="text-sm font-medium text-brand-secondary-foreground">{item.user}</p>
+                  <p className="text-xs text-brand-secondary-foreground/60">
                     {item.role}
                   </p>
                 </div>
@@ -338,7 +338,7 @@ function PlatformAndTheming() {
           Customize every component with NativeWind classes and CVA variants.
           Full design token support with CSS variables.
         </p>
-        <p className="mb-4 text-fd-muted-foreground">
+        <p className="mb-4 text-fd-foreground/80">
           Add components with the tapcn CLI, then make them yours.
         </p>
         <pre className="overflow-auto rounded-xl bg-neutral-950 p-4 text-sm leading-relaxed text-neutral-100 mt-auto">
@@ -398,7 +398,7 @@ function BuiltForDevelopers() {
           <span className="text-brand font-medium">shadcn/ui</span>. If you
           know shadcn, you already know tapcn.
         </p>
-        <ul className="text-xs list-disc list-inside space-y-1 text-fd-muted-foreground mb-6">
+        <ul className="text-xs list-disc list-inside space-y-1 text-fd-foreground/70 mb-6">
           <li>Full TypeScript autocompletion</li>
           <li>CVA for type-safe variants</li>
           <li>cn() for class merging</li>
@@ -465,22 +465,24 @@ export function MyScreen() {
         className={cardVariants({
           variant: 'secondary',
           className:
-            'flex flex-col items-center justify-center col-span-full',
+            'flex flex-col items-center justify-center col-span-full overflow-hidden',
         })}
       >
-        <h2 className="mb-6 text-center text-sm font-medium uppercase tracking-wider text-fd-muted-foreground">
+        <h2 className="mb-6 text-center text-sm font-medium uppercase tracking-wider text-fd-foreground/60">
           Built with
         </h2>
-        <Marquee>
-          {techStack.map((tech) => (
-            <span
-              key={tech}
-              className="rounded-full border bg-fd-card px-4 py-1.5 text-sm font-medium text-fd-muted-foreground whitespace-nowrap"
-            >
-              {tech}
-            </span>
-          ))}
-        </Marquee>
+        <div className="w-full overflow-hidden">
+          <Marquee>
+            {techStack.map((tech) => (
+              <span
+                key={tech}
+                className="rounded-full border border-brand-secondary-foreground/20 bg-brand-secondary-foreground/5 px-4 py-1.5 text-sm font-medium text-brand-secondary-foreground whitespace-nowrap"
+              >
+                {tech}
+              </span>
+            ))}
+          </Marquee>
+        </div>
       </div>
     </>
   );
@@ -543,7 +545,7 @@ function OpenSource() {
             <BatteryChargingIcon className="size-5" />
             Battery guaranteed.
           </span>
-          <span className="mt-2 text-sm text-fd-muted-foreground">
+          <span className="mt-2 text-sm text-fd-foreground/70">
             Actively maintained with new components added regularly.
           </span>
         </li>
@@ -554,7 +556,7 @@ function OpenSource() {
             </svg>
             Fully open-source.
           </span>
-          <span className="mt-2 text-sm text-fd-muted-foreground">
+          <span className="mt-2 text-sm text-fd-foreground/70">
             Open source, available on GitHub. Star us if you like it!
           </span>
         </li>
@@ -563,7 +565,7 @@ function OpenSource() {
             <Smartphone className="size-5" />
             Cross-platform first.
           </span>
-          <span className="mt-2 text-sm text-fd-muted-foreground">
+          <span className="mt-2 text-sm text-fd-foreground/70">
             Every component tested on iOS, Android, and Web.
           </span>
         </li>
@@ -572,7 +574,7 @@ function OpenSource() {
             <TimerIcon className="size-5" />
             Within seconds.
           </span>
-          <span className="mt-2 text-sm text-fd-muted-foreground">
+          <span className="mt-2 text-sm text-fd-foreground/70">
             Add any component to your project instantly with the CLI.
           </span>
         </li>
