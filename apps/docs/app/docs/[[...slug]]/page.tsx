@@ -100,8 +100,33 @@ export async function generateMetadata(props: {
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
+  const ogTitle = page.data.title;
+  const ogDesc = page.data.description || '';
+
   return {
     title: page.data.title,
     description: page.data.description,
+
+    openGraph: {
+      type: 'article',
+      title: ogTitle,
+      description: ogDesc,
+      url: `https://tapcn.vercel.app/docs/${params.slug?.join('/') || ''}`,
+      images: [
+        {
+          url: `/api/og?title=${encodeURIComponent(ogTitle)}&description=${encodeURIComponent(ogDesc)}`,
+          width: 1200,
+          height: 628,
+          alt: ogTitle,
+        },
+      ],
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: ogTitle,
+      description: ogDesc,
+      images: [`/api/og?title=${encodeURIComponent(ogTitle)}`],
+    },
   };
 }
