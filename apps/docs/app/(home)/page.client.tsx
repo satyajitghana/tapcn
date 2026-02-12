@@ -591,3 +591,36 @@ export function PlatformBackground() {
     </div>
   );
 }
+
+// ---------------------------------------------------------------------------
+// CTABackground — GrainGradient shader for the final CTA card
+// ---------------------------------------------------------------------------
+export function CTABackground() {
+  const { resolvedTheme } = useTheme();
+  const ref = useRef<HTMLDivElement>(null);
+  const visible = useIsVisible(ref);
+
+  return (
+    <div
+      ref={ref}
+      className="absolute inset-0 -z-[1]"
+    >
+      <GrainGradient
+        className="absolute inset-0 animate-[fd-fade-in_0.8s_ease-out]"
+        colors={
+          resolvedTheme === 'dark'
+            ? ['#4338ca', '#6366f1', '#1e1b4b']
+            : ['#c7d2fe', '#a5b4fc', '#e0e7ff']
+        }
+        colorBack={resolvedTheme === 'dark' ? '#0a0a1a' : '#eef2ff'}
+        softness={1}
+        intensity={0.8}
+        noise={0.4}
+        speed={visible ? 0.5 : 0}
+        shape="plane"
+        minPixelRatio={1}
+        maxPixelCount={1920 * 1080}
+      />
+    </div>
+  );
+}

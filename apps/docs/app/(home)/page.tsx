@@ -5,10 +5,14 @@ import { codeToHtml } from 'shiki';
 import {
   ArrowRight,
   BatteryChargingIcon,
+  Code2Icon,
+  GitForkIcon,
   Heart,
   Smartphone,
   SparklesIcon,
+  StarIcon,
   TimerIcon,
+  ZapIcon,
 } from 'lucide-react';
 import {
   Hero,
@@ -17,6 +21,7 @@ import {
   SearchPreview,
   Marquee,
   PlatformBackground,
+  CTABackground,
 } from '@/app/(home)/page.client';
 
 // ---------------------------------------------------------------------------
@@ -499,107 +504,124 @@ function BuiltForDevelopers({ highlightedCode }: { highlightedCode: string }) {
 // ---------------------------------------------------------------------------
 // Open Source section
 // ---------------------------------------------------------------------------
+const benefits = [
+  {
+    icon: <ZapIcon className="size-5" />,
+    title: 'Lightning fast.',
+    description: 'Add any component to your project instantly with the CLI.',
+  },
+  {
+    icon: <Smartphone className="size-5" />,
+    title: 'Cross-platform.',
+    description: 'Every component tested on iOS, Android, and Web.',
+  },
+  {
+    icon: <Code2Icon className="size-5" />,
+    title: 'You own the code.',
+    description: 'Copy-paste model. No version lock-in, no black boxes.',
+  },
+  {
+    icon: <BatteryChargingIcon className="size-5" />,
+    title: 'Actively maintained.',
+    description: 'New components and improvements shipped regularly.',
+  },
+];
+
 function OpenSource() {
   return (
     <>
+      {/* Section heading */}
       <h2
         className={headingVariants({
           variant: 'h2',
           className: 'mt-8 text-brand text-center mb-4 col-span-full',
         })}
       >
-        A Library of Dream.
+        Open Source, Always.
       </h2>
 
+      {/* Benefits grid — 2x2 on desktop, 1 col on mobile */}
+      <div className="col-span-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {benefits.map((item) => (
+          <div
+            key={item.title}
+            className="group rounded-2xl border bg-fd-card p-5 transition-colors hover:border-brand/40"
+          >
+            <div className="mb-3 flex size-10 items-center justify-center rounded-lg bg-brand/10 text-brand">
+              {item.icon}
+            </div>
+            <h4 className="font-medium mb-1">{item.title}</h4>
+            <p className="text-sm text-fd-muted-foreground">
+              {item.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Community card */}
       <div className={cardVariants({ className: 'flex flex-col' })}>
         <Heart fill="currentColor" className="text-pink-500 mb-4" />
-        <h3 className={headingVariants({ variant: 'h3', className: 'mb-6' })}>
+        <h3 className={headingVariants({ variant: 'h3', className: 'mb-4' })}>
           Made Possible by You.
         </h3>
-        <p className="mb-8">
-          tapcn is 100% powered by passion and the open source community.
+        <p className="mb-6 text-fd-muted-foreground">
+          100% powered by passion and the open-source community. Every
+          contribution makes tapcn better for everyone.
         </p>
-        <div className="mb-8 flex flex-row items-center gap-2">
-          <Link href="/docs" className={buttonVariants({ variant: 'primary' })}>
+        <div className="flex flex-row items-center gap-3 mb-6">
+          <a
+            href="https://github.com/satyajitghana/tapcn"
+            rel="noreferrer noopener"
+            target="_blank"
+            className={buttonVariants({ variant: 'primary' })}
+          >
+            <StarIcon className="size-4" />
+            Star on GitHub
+          </a>
+          <a
+            href="https://github.com/satyajitghana/tapcn/graphs/contributors"
+            rel="noreferrer noopener"
+            target="_blank"
+            className={buttonVariants({ variant: 'secondary' })}
+          >
+            <GitForkIcon className="size-4" />
+            Contribute
+          </a>
+        </div>
+        <div className="mt-auto flex items-center gap-2 text-xs text-fd-muted-foreground">
+          <svg viewBox="0 0 24 24" className="size-4" fill="currentColor">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+          </svg>
+          MIT Licensed — Free forever
+        </div>
+      </div>
+
+      {/* CTA card with shader background */}
+      <div
+        className={cardVariants({
+          className:
+            'relative flex flex-col items-center justify-center text-center overflow-hidden min-h-[300px] z-[2]',
+        })}
+      >
+        <CTABackground />
+        <h2 className="text-3xl font-extrabold uppercase mb-3 lg:text-4xl text-fd-card-foreground relative">
+          Start Building
+        </h2>
+        <p className="text-sm text-fd-muted-foreground mb-6 max-w-xs relative">
+          Beautiful, accessible, cross-platform components for React Native.
+        </p>
+        <div className="relative flex flex-row items-center gap-3">
+          <Link href="/docs" className={buttonVariants()}>
             Read Docs
           </Link>
-          <a
-            href="https://github.com/satyajitghana/tapcn"
-            rel="noreferrer noopener"
-            target="_blank"
+          <Link
+            href="/docs/components/button"
             className={buttonVariants({ variant: 'secondary' })}
           >
-            Contributors
-          </a>
-        </div>
-      </div>
-
-      <div className={cardVariants({ className: 'flex flex-col p-0 pt-8' })}>
-        <h2 className="text-3xl text-center font-extrabold font-mono uppercase mb-4 lg:text-4xl text-fd-card-foreground">
-          Build Your App
-        </h2>
-        <p className="text-center font-mono text-xs text-fd-muted-foreground mb-8">
-          beautiful, accessible, cross-platform.
-        </p>
-        <div className="h-[200px] mt-auto overflow-hidden p-8 bg-gradient-to-b from-brand-secondary/10">
-          <div className="mx-auto bg-radial-[circle_at_0%_100%] from-60% from-transparent to-brand-secondary size-[500px] rounded-full" />
-        </div>
-      </div>
-
-      {/* Benefits list card */}
-      <ul className={cardVariants({ className: 'flex flex-col gap-6 col-span-full' })}>
-        <li>
-          <span className="flex flex-row items-center gap-2 font-medium">
-            <BatteryChargingIcon className="size-5" />
-            Battery guaranteed.
-          </span>
-          <span className="mt-2 text-sm text-fd-muted-foreground">
-            Actively maintained with new components added regularly.
-          </span>
-        </li>
-        <li>
-          <span className="flex flex-row items-center gap-2 font-medium">
-            <svg viewBox="0 0 24 24" className="size-5" fill="currentColor">
-              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-            </svg>
-            Fully open-source.
-          </span>
-          <span className="mt-2 text-sm text-fd-muted-foreground">
-            Open source, available on GitHub. Star us if you like it!
-          </span>
-        </li>
-        <li>
-          <span className="flex flex-row items-center gap-2 font-medium">
-            <Smartphone className="size-5" />
-            Cross-platform first.
-          </span>
-          <span className="mt-2 text-sm text-fd-muted-foreground">
-            Every component tested on iOS, Android, and Web.
-          </span>
-        </li>
-        <li>
-          <span className="flex flex-row items-center gap-2 font-medium">
-            <TimerIcon className="size-5" />
-            Within seconds.
-          </span>
-          <span className="mt-2 text-sm text-fd-muted-foreground">
-            Add any component to your project instantly with the CLI.
-          </span>
-        </li>
-        <li className="flex flex-row flex-wrap gap-2 mt-auto">
-          <Link href="/docs" className={buttonVariants()}>
-            Read docs
+            Browse Components
           </Link>
-          <a
-            href="https://github.com/satyajitghana/tapcn"
-            rel="noreferrer noopener"
-            target="_blank"
-            className={buttonVariants({ variant: 'secondary' })}
-          >
-            Open GitHub
-          </a>
-        </li>
-      </ul>
+        </div>
+      </div>
     </>
   );
 }
