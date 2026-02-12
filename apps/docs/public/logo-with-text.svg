@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 100" width="440" height="100" fill="none">
+  <!-- Logo icon (brackets + center dot) -->
+  <g transform="translate(10, 10) scale(0.3125)">
+    <path d="M40 120 L40 40 L120 40" stroke="#000000" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M216 136 L216 216 L136 216" stroke="#000000" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="128" cy="128" r="16" fill="#000000"/>
+  </g>
+  <!-- "tapcn" text -->
+  <text x="110" y="66" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-weight="600" font-size="52" letter-spacing="-1" fill="#000000">tapcn</text>
+</svg>
