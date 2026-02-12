@@ -2,7 +2,7 @@ export type Block = {
   name: string;
   title: string;
   description: string;
-  category: 'authentication' | 'profile' | 'dashboard' | 'ecommerce' | 'social' | 'productivity' | 'entertainment' | 'messaging';
+  category: 'authentication' | 'profile' | 'dashboard' | 'ecommerce' | 'social' | 'productivity' | 'entertainment' | 'messaging' | 'health' | 'weather';
   component: string;
 };
 
@@ -77,6 +77,34 @@ export const blocks: Block[] = [
     category: 'social',
     component: 'SocialFeedBlock',
   },
+  {
+    name: 'playlists',
+    title: 'Music Playlists',
+    description: 'Playlist grid with shader art, recently played, and now-playing indicators',
+    category: 'entertainment',
+    component: 'PlaylistsBlock',
+  },
+  {
+    name: 'food-delivery',
+    title: 'Food Delivery',
+    description: 'Order tracking with live map, driver info, status stepper, and order summary',
+    category: 'ecommerce',
+    component: 'FoodDeliveryBlock',
+  },
+  {
+    name: 'fitness',
+    title: 'Fitness Tracker',
+    description: 'Activity rings, stats dashboard, weekly chart, and workout log',
+    category: 'health',
+    component: 'FitnessBlock',
+  },
+  {
+    name: 'weather',
+    title: 'Weather',
+    description: 'Current conditions, hourly and 5-day forecast with animated icons',
+    category: 'weather',
+    component: 'WeatherBlock',
+  },
 ];
 
 export function getBlock(name: string): Block | undefined {
@@ -95,5 +123,7 @@ export const categories = [
   { value: 'social', label: 'Social' },
   { value: 'messaging', label: 'Messaging' },
   { value: 'entertainment', label: 'Entertainment' },
+  { value: 'health', label: 'Health & Fitness' },
+  { value: 'weather', label: 'Weather' },
   { value: 'productivity', label: 'Productivity' },
 ] as const;

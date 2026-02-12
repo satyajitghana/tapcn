@@ -20,6 +20,10 @@ const BlockComponents: Record<string, any> = {
   chat: dynamic(() => import('@/components/blocks/chat').then((m) => m.ChatBlock)),
   ecommerce: dynamic(() => import('@/components/blocks/ecommerce').then((m) => m.EcommerceBlock)),
   'social-feed': dynamic(() => import('@/components/blocks/social-feed').then((m) => m.SocialFeedBlock)),
+  playlists: dynamic(() => import('@/components/blocks/playlists').then((m) => m.PlaylistsBlock)),
+  'food-delivery': dynamic(() => import('@/components/blocks/food-delivery').then((m) => m.FoodDeliveryBlock)),
+  fitness: dynamic(() => import('@/components/blocks/fitness').then((m) => m.FitnessBlock)),
+  weather: dynamic(() => import('@/components/blocks/weather').then((m) => m.WeatherBlock)),
 };
 
 export function BlockPreview({
