@@ -28,7 +28,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           url: '/blocks',
         },
       ]}
-      className="[--color-fd-primary:var(--color-brand)]"
+      className="dark:bg-neutral-950 dark:[--color-fd-background:var(--color-neutral-950)] [--color-fd-primary:var(--color-brand)]"
     >
       {children}
     </HomeLayout>

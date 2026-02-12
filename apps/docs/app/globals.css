@@ -34,12 +34,16 @@
   --radius-md: calc(var(--tapcn-radius, 0.5rem) - 2px);
   --radius-sm: calc(var(--tapcn-radius, 0.5rem) - 4px);
 
-  /* Brand color system for landing page */
-  --color-brand: hsl(240, 5.9%, 15%);
-  --color-brand-foreground: hsl(0, 0%, 98%);
-  --color-brand-secondary: hsl(240, 4.8%, 95.9%);
-  --color-brand-secondary-foreground: hsl(240, 5.9%, 15%);
-  --color-brand-200: hsl(240, 3.7%, 25%);
+  /* Brand color system for landing page — vibrant indigo */
+  --color-brand: hsl(245, 58%, 51%);
+  --color-brand-foreground: white;
+  --color-brand-secondary: hsl(240, 40%, 96%);
+  --color-brand-secondary-foreground: hsl(240, 20%, 20%);
+  --color-brand-200: hsl(245, 58%, 44%);
+
+  /* Landing page text colors (following fumadocs pattern) */
+  --color-landing-foreground: hsl(240, 10%, 30%);
+  --color-landing-foreground-200: hsl(240, 8%, 55%);
 
   /* Marquee animation */
   --animate-marquee: marquee var(--duration) infinite linear;
@@ -124,7 +128,7 @@
 
 /* Grid dot pattern for hero background */
 .bg-grid-pattern {
-  background-image: radial-gradient(circle, hsl(240 5.9% 10% / 0.12) 1px, transparent 1px);
+  background-image: radial-gradient(circle, hsl(245 58% 51% / 0.15) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -135,7 +139,7 @@
 }
 
 .dark .bg-grid-pattern {
-  background-image: radial-gradient(circle, hsl(0 0% 98% / 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(circle, hsl(240 80% 75% / 0.10) 1px, transparent 1px);
 }
 
 .dark .tapcn-preview {
@@ -162,11 +166,15 @@
 
 /* Dark mode brand colors */
 .dark {
-  --color-brand: hsl(0, 0%, 96%);
-  --color-brand-foreground: hsl(240, 5.9%, 10%);
-  --color-brand-secondary: hsl(240, 3.7%, 15.9%);
-  --color-brand-secondary-foreground: hsl(0, 0%, 98%);
-  --color-brand-200: hsl(240, 4.9%, 83.9%);
+  --color-brand: hsl(240, 80%, 75%);
+  --color-brand-foreground: hsl(240, 30%, 8%);
+  --color-brand-secondary: hsl(240, 20%, 15%);
+  --color-brand-secondary-foreground: hsl(240, 30%, 92%);
+  --color-brand-200: hsl(240, 80%, 85%);
+
+  /* Landing page text colors — dark mode */
+  --color-landing-foreground: hsl(240, 10%, 90%);
+  --color-landing-foreground-200: hsl(240, 8%, 65%);
 }
 
 /* Apply font families */

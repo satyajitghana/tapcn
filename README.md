@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="apps/docs/public/logo-with-text.svg" alt="tapcn" width="300" />
+</p>
+
 # tapcn
 
 Copy-paste UI components for React Native & Expo. Like shadcn/ui, but for mobile.
