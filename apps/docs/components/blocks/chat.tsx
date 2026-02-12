@@ -66,7 +66,7 @@ export function ChatBlock() {
   };
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="min-h-full bg-background">
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes messagePop {
           0% { opacity: 0; transform: translateY(12px) scale(0.95); }
@@ -97,7 +97,7 @@ export function ChatBlock() {
         .chat-slide-up-1 { animation: slideUp 0.5s ease-out 0.1s both; }
       `}} />
 
-      <div className="flex h-full flex-col">
+      <div className="flex min-h-full flex-col">
         {/* Chat Header */}
         <div className={`flex items-center gap-3 border-b border-border px-4 py-3 ${mounted ? 'chat-slide-up' : 'opacity-0'}`}>
           <div className="relative">
