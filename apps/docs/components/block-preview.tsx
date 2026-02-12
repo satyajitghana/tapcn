@@ -99,7 +99,7 @@ export function BlockPreview({
             </div>
           ) : showPreview && BlockComponent ? (
             <Iphone className="max-w-[420px]">
-              <div className="size-full overflow-y-auto overflow-x-hidden bg-white dark:bg-neutral-950">
+              <div className="size-full overflow-y-auto overflow-x-hidden bg-white dark:bg-neutral-950 pt-12">
                 <BlockComponent />
               </div>
             </Iphone>

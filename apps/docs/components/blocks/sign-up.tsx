@@ -27,7 +27,7 @@ export function SignUpBlock() {
 
         {/* Form */}
         <div className="space-y-4">
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             <label className="text-sm font-medium">Full Name</label>
             <input
               placeholder="John Doe"
@@ -37,7 +37,7 @@ export function SignUpBlock() {
             />
           </div>
 
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             <label className="text-sm font-medium">Email</label>
             <input
               type="email"
@@ -48,7 +48,7 @@ export function SignUpBlock() {
             />
           </div>
 
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             <label className="text-sm font-medium">Password</label>
             <input
               type="password"
