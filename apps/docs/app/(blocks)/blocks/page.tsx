@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { blocks, categories } from '@/lib/blocks';
+import { blocks, categories } from '../../../lib/blocks';
 
 export default function BlocksPage() {
   return (

@@ -56,5 +56,5 @@ export function ComponentPreview({
   const Preview = previewComponents[component];
   if (!Preview) return null;
 
-  return <PreviewCard preview={<Preview />} code={code} highlightedCode={highlightedCode} />;
+  return <PreviewCard preview={<Preview />} code={code} highlightedCode={highlightedCode} componentName={component} />;
 }

@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 import type { SearchLink } from 'fumadocs-ui/provider';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
-import { PlatformProvider } from '@/lib/use-platform';
+import { PlatformProvider } from '../lib/use-platform';
 
 export const metadata: Metadata = {
   title: {

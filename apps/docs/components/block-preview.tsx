@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { usePlatform } from '@/lib/use-platform';
-import { useWindowSize } from '@/lib/use-window-size';
+import { usePlatform } from '../lib/use-platform';
+import { useWindowSize } from '../lib/use-window-size';
 import { QRCodeSVG } from 'qrcode.react';
 
 // Dynamically import block components

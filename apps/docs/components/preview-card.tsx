@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { CodeBlock, Pre } from 'fumadocs-ui/components/codeblock';
-import { usePlatform } from '@/lib/use-platform';
-import { useWindowSize } from '@/lib/use-window-size';
+import { usePlatform } from '../lib/use-platform';
+import { useWindowSize } from '../lib/use-window-size';
 import { QRCodeSVG } from 'qrcode.react';
 
 type PreviewCardProps = {

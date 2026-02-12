@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
-import { getBlock } from '@/lib/blocks';
-import { BlockPreview } from '@/components/block-preview';
+import { getBlock } from '../../../../lib/blocks';
+import { BlockPreview } from '../../../../components/block-preview';
 
 export default async function BlockPage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
