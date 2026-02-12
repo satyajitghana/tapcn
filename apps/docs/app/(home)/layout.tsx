@@ -17,6 +17,10 @@ export default function Layout({ children }: { children: ReactNode }) {
           text: 'Components',
           url: '/docs/components/button',
         },
+        {
+          text: 'Blocks',
+          url: '/blocks',
+        },
       ]}
       className="[--color-fd-primary:var(--color-brand)]"
     >
