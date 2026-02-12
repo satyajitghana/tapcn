@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { cva } from 'class-variance-authority';
+import { codeToHtml } from 'shiki';
 import {
   ArrowRight,
   BatteryChargingIcon,
@@ -125,7 +126,34 @@ const techStack = [
 // ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
-export default function HomePage() {
+const codeExample = `import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+import { View } from 'react-native';
+
+export function MyScreen() {
+  return (
+    <View className="flex-1 items-center
+      justify-center gap-4">
+      <Button variant="outline">
+        <Text>Click me</Text>
+      </Button>
+      <Button variant="destructive">
+        <Text>Delete</Text>
+      </Button>
+    </View>
+  );
+}`;
+
+export default async function HomePage() {
+  const highlightedCode = await codeToHtml(codeExample, {
+    lang: 'tsx',
+    themes: {
+      light: 'github-light',
+      dark: 'github-dark',
+    },
+    defaultColor: false,
+  });
+
   return (
     <main className="text-landing-foreground pt-4 pb-6 md:pb-12">
       <div className="relative flex min-h-[600px] h-[70vh] max-h-[900px] border rounded-2xl overflow-hidden mx-auto w-full max-w-[1400px] bg-origin-border">
@@ -415,32 +443,16 @@ function BuiltForDevelopers() {
         </Link>
       </div>
 
-      {/* Code example card */}
+      {/* Code example card — syntax highlighted with shiki */}
       <div
         className={cardVariants({
-          variant: 'secondary',
           className: 'flex flex-col p-0 overflow-hidden',
         })}
       >
-        <pre className="overflow-auto rounded-2xl bg-neutral-950 p-6 text-sm leading-relaxed text-neutral-100 h-full">
-          <code>{`import { Button } from '~/components/ui/button';
-import { Text } from '~/components/ui/text';
-import { View } from 'react-native';
-
-export function MyScreen() {
-  return (
-    <View className="flex-1 items-center
-      justify-center gap-4">
-      <Button variant="outline">
-        <Text>Click me</Text>
-      </Button>
-      <Button variant="destructive">
-        <Text>Delete</Text>
-      </Button>
-    </View>
-  );
-}`}</code>
-        </pre>
+        <div
+          className="overflow-auto text-sm leading-relaxed h-full [&_pre]:p-6 [&_pre]:h-full [&_pre]:!bg-transparent"
+          dangerouslySetInnerHTML={{ __html: highlightedCode }}
+        />
       </div>
 
       {/* Search preview card */}
@@ -462,14 +474,8 @@ export function MyScreen() {
         <SearchPreview />
       </div>
 
-      {/* Tech Stack Marquee card */}
-      <div
-        className={cardVariants({
-          variant: 'secondary',
-          className:
-            'flex flex-col items-center justify-center col-span-full overflow-hidden',
-        })}
-      >
+      {/* Tech Stack Marquee */}
+      <div className="flex flex-col items-center justify-center col-span-full py-6 overflow-hidden">
         <h2 className="mb-6 text-center text-sm font-medium uppercase tracking-wider text-fd-muted-foreground">
           Built with
         </h2>
@@ -478,7 +484,7 @@ export function MyScreen() {
             {techStack.map((tech) => (
               <span
                 key={tech}
-                className="rounded-full border border-fd-border bg-fd-card px-4 py-1.5 text-sm font-medium text-fd-card-foreground whitespace-nowrap"
+                className="rounded-full border border-fd-border bg-fd-secondary px-4 py-1.5 text-sm font-medium text-fd-secondary-foreground whitespace-nowrap"
               >
                 {tech}
               </span>
