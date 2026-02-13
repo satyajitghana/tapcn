@@ -18,7 +18,7 @@ export function AlertDialogPreview() {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline">
-          <Text>Delete Account</Text>
+          <Text>Show Alert Dialog</Text>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -26,7 +26,7 @@ export function AlertDialogPreview() {
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
-            account.
+            account and remove your data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

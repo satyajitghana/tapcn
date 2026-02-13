@@ -19,27 +19,36 @@ export function DialogPreview() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>
+        <Button variant="outline">
           <Text>Edit Profile</Text>
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Profile</DialogTitle>
+          <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when done.
+            Make changes to your profile here. Click save when you're done.
           </DialogDescription>
         </DialogHeader>
-        <View className="gap-2">
-          <Label>Name</Label>
-          <Input defaultValue="John Doe" />
+        <View className="grid gap-4">
+          <View className="grid gap-3">
+            <Label nativeID="name">Name</Label>
+            <Input defaultValue="Pedro Duarte" aria-labelledby="name" />
+          </View>
+          <View className="grid gap-3">
+            <Label nativeID="username">Username</Label>
+            <Input defaultValue="@peduarte" aria-labelledby="username" />
+          </View>
         </View>
         <DialogFooter>
           <DialogClose asChild>
-            <Button>
-              <Text>Save changes</Text>
+            <Button variant="outline">
+              <Text>Cancel</Text>
             </Button>
           </DialogClose>
+          <Button>
+            <Text>Save changes</Text>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
