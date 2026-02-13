@@ -31,6 +31,14 @@ function withTiming<T>(toValue: T, _config?: unknown, _callback?: unknown): T {
   return toValue;
 }
 
+function withSpring<T>(toValue: T, _config?: unknown, _callback?: unknown): T {
+  return toValue;
+}
+
+function withRepeat<T>(animation: T, _numberOfReps?: number, _reverse?: boolean, _callback?: unknown): T {
+  return animation;
+}
+
 // Chainable animation config stub
 function animationBuilder() {
   const self = {
@@ -57,6 +65,10 @@ const FadeOut = animationBuilder();
 const FadeInDown = animationBuilder();
 const FadeInUp = animationBuilder();
 const FadeOutUp = animationBuilder();
+const FadeOutDown = animationBuilder();
+const SlideInDown = animationBuilder();
+const SlideOutDown = animationBuilder();
+const SlideInUp = animationBuilder();
 const LinearTransition = animationBuilder();
 
 // ---------- Hooks ----------
@@ -76,6 +88,17 @@ function LayoutAnimationConfig({ children }: { children: React.ReactNode; skipEn
   return <>{children}</>;
 }
 
+// createAnimatedComponent – returns the component as-is, ignoring animation props
+function createAnimatedComponent<T extends React.ComponentType<any>>(Component: T): T {
+  const AnimatedComponent = React.forwardRef<any, any>(
+    ({ layout, entering, exiting, ...props }, ref) => {
+      return <Component ref={ref} {...props} />;
+    }
+  ) as any;
+  AnimatedComponent.displayName = `Animated(${Component.displayName || Component.name || 'Component'})`;
+  return AnimatedComponent;
+}
+
 // Animated.View – renders a plain View, ignoring animation-specific props
 const AnimatedView = React.forwardRef<any, any>(
   ({ layout, entering, exiting, ...props }, ref) => {
@@ -86,20 +109,28 @@ AnimatedView.displayName = 'Animated.View';
 
 const Animated = {
   View: AnimatedView,
+  createAnimatedComponent,
 };
 
 export default Animated;
 export {
   Animated,
+  createAnimatedComponent,
   FadeIn,
   FadeOut,
   FadeInDown,
   FadeInUp,
   FadeOutUp,
+  FadeOutDown,
+  SlideInDown,
+  SlideOutDown,
+  SlideInUp,
   LayoutAnimationConfig,
   LinearTransition,
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
   withTiming,
+  withSpring,
+  withRepeat,
 };
