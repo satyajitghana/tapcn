@@ -7,6 +7,34 @@
 /* Also scan the preview components */
 @source "../components";
 
+/*
+ * tapcn design tokens at :root — ensures portal-based components (Dialog, AlertDialog,
+ * DropdownMenu, etc.) can resolve colors when rendered outside .tapcn-preview via Radix portals.
+ * Safe because the docs site uses fd-prefixed utilities (bg-fd-background), not bg-background.
+ */
+:root {
+  --tapcn-background: hsl(0 0% 100%);
+  --tapcn-foreground: hsl(240 10% 3.9%);
+  --tapcn-card: hsl(0 0% 100%);
+  --tapcn-card-foreground: hsl(240 10% 3.9%);
+  --tapcn-popover: hsl(0 0% 100%);
+  --tapcn-popover-foreground: hsl(240 10% 3.9%);
+  --tapcn-primary: hsl(240 5.9% 10%);
+  --tapcn-primary-foreground: hsl(0 0% 98%);
+  --tapcn-secondary: hsl(240 4.8% 95.9%);
+  --tapcn-secondary-foreground: hsl(240 5.9% 10%);
+  --tapcn-muted: hsl(240 4.8% 95.9%);
+  --tapcn-muted-foreground: hsl(240 3.8% 46.1%);
+  --tapcn-accent: hsl(240 4.8% 95.9%);
+  --tapcn-accent-foreground: hsl(240 5.9% 10%);
+  --tapcn-destructive: hsl(0 84.2% 60.2%);
+  --tapcn-destructive-foreground: hsl(0 0% 98%);
+  --tapcn-border: hsl(240 5.9% 90%);
+  --tapcn-input: hsl(240 5.9% 90%);
+  --tapcn-ring: hsl(240 5.9% 10%);
+  --tapcn-radius: 0.5rem;
+}
+
 @theme inline {
   /* tapcn color system — maps Tailwind utilities (bg-primary, text-foreground, etc.)
      to CSS vars that only resolve inside .tapcn-preview */
@@ -164,7 +192,7 @@
   --tapcn-ring: hsl(240 4.9% 83.9%);
 }
 
-/* Dark mode brand colors */
+/* Dark mode brand colors + tapcn tokens for portal-rendered components */
 .dark {
   --color-brand: hsl(240, 80%, 75%);
   --color-brand-foreground: hsl(240, 30%, 8%);
@@ -175,6 +203,27 @@
   /* Landing page text colors — dark mode (bright for visibility) */
   --color-landing-foreground: hsl(0, 0%, 95%);
   --color-landing-foreground-200: hsl(0, 0%, 72%);
+
+  /* tapcn dark tokens — mirrors .dark .tapcn-preview so portals resolve correctly */
+  --tapcn-background: hsl(240 10% 3.9%);
+  --tapcn-foreground: hsl(0 0% 98%);
+  --tapcn-card: hsl(240 10% 3.9%);
+  --tapcn-card-foreground: hsl(0 0% 98%);
+  --tapcn-popover: hsl(240 10% 3.9%);
+  --tapcn-popover-foreground: hsl(0 0% 98%);
+  --tapcn-primary: hsl(0 0% 98%);
+  --tapcn-primary-foreground: hsl(240 5.9% 10%);
+  --tapcn-secondary: hsl(240 3.7% 15.9%);
+  --tapcn-secondary-foreground: hsl(0 0% 98%);
+  --tapcn-muted: hsl(240 3.7% 15.9%);
+  --tapcn-muted-foreground: hsl(240 5% 64.9%);
+  --tapcn-accent: hsl(240 3.7% 15.9%);
+  --tapcn-accent-foreground: hsl(0 0% 98%);
+  --tapcn-destructive: hsl(0 72% 51%);
+  --tapcn-destructive-foreground: hsl(0 0% 98%);
+  --tapcn-border: hsl(240 3.7% 15.9%);
+  --tapcn-input: hsl(240 3.7% 15.9%);
+  --tapcn-ring: hsl(240 4.9% 83.9%);
 }
 
 /* Apply font families */
