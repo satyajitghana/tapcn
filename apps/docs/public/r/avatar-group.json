@@ -1,0 +1,15 @@
+{
+  "name": "avatar-group",
+  "type": "registry:ui",
+  "title": "Avatar Group",
+  "description": "A avatar group component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/avatar-group.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/utils';\nimport * as React from 'react';\nimport { Image, Text, View } from 'react-native';\n\ntype AvatarData = {\n  src?: string;\n  fallback: string;\n};\n\ntype AvatarGroupProps = {\n  avatars: AvatarData[];\n  max?: number;\n  size?: 'sm' | 'default' | 'lg';\n  className?: string;\n};\n\nconst sizeConfig = {\n  sm: {\n    avatar: 'w-6 h-6',\n    text: 'text-[8px]',\n    overlap: '-ml-2',\n  },\n  default: {\n    avatar: 'w-8 h-8',\n    text: 'text-xs',\n    overlap: '-ml-3',\n  },\n  lg: {\n    avatar: 'w-10 h-10',\n    text: 'text-sm',\n    overlap: '-ml-3',\n  },\n};\n\nfunction AvatarGroup({ avatars, max = 3, size = 'default', className }: AvatarGroupProps) {\n  const config = sizeConfig[size];\n  const visible = avatars.slice(0, max);\n  const overflow = avatars.length - max;\n\n  return (\n    <View className={cn('flex-row items-center', className)}>\n      {visible.map((avatar, index) => (\n        <View\n          key={index}\n          className={cn(\n            config.avatar,\n            'rounded-full overflow-hidden border-2 border-background',\n            index > 0 && config.overlap\n          )}>\n          {avatar.src ? (\n            <Image\n              source={{ uri: avatar.src }}\n              className=\"w-full h-full\"\n              resizeMode=\"cover\"\n            />\n          ) : (\n            <View className=\"flex-1 bg-muted items-center justify-center\">\n              <Text className={cn(config.text, 'text-muted-foreground')}>\n                {avatar.fallback.slice(0, 2).toUpperCase()}\n              </Text>\n            </View>\n          )}\n        </View>\n      ))}\n      {overflow > 0 && (\n        <View\n          className={cn(\n            config.avatar,\n            config.overlap,\n            'bg-muted rounded-full border-2 border-background items-center justify-center'\n          )}>\n          <Text className={cn(config.text, 'font-medium text-muted-foreground')}>\n            {`+${overflow}`}\n          </Text>\n        </View>\n      )}\n    </View>\n  );\n}\n\nexport { AvatarGroup };\nexport type { AvatarData, AvatarGroupProps };\n"
+    }
+  ]
+}

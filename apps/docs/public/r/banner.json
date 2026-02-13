@@ -1,0 +1,15 @@
+{
+  "name": "banner",
+  "type": "registry:ui",
+  "title": "Banner",
+  "description": "A banner component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/banner.tsx",
+      "type": "registry:ui",
+      "content": "import { Icon } from '@/components/ui/icon';\nimport { cn } from '@/lib/utils';\nimport { cva, type VariantProps } from 'class-variance-authority';\nimport { X } from 'lucide-react-native';\nimport * as React from 'react';\nimport { Pressable, Text, View } from 'react-native';\nimport Animated, { FadeOut, SlideInUp } from 'react-native-reanimated';\n\nconst bannerVariants = cva('flex-row items-center px-4 py-3 gap-3', {\n  variants: {\n    variant: {\n      info: 'bg-blue-500/10 border-b border-blue-500/20',\n      warning: 'bg-yellow-500/10 border-b border-yellow-500/20',\n      error: 'bg-destructive/10 border-b border-destructive/20',\n      success: 'bg-green-500/10 border-b border-green-500/20',\n    },\n  },\n  defaultVariants: {\n    variant: 'info',\n  },\n});\n\nconst bannerTextVariants = cva('', {\n  variants: {\n    variant: {\n      info: 'text-blue-700 dark:text-blue-400',\n      warning: 'text-yellow-700 dark:text-yellow-400',\n      error: 'text-destructive',\n      success: 'text-green-700 dark:text-green-400',\n    },\n  },\n  defaultVariants: {\n    variant: 'info',\n  },\n});\n\ntype BannerProps = {\n  variant?: 'info' | 'warning' | 'error' | 'success';\n  icon?: React.ReactNode;\n  title: string;\n  action?: React.ReactNode;\n  dismissable?: boolean;\n  onDismiss?: () => void;\n  className?: string;\n};\n\nfunction Banner({\n  variant = 'info',\n  icon,\n  title,\n  action,\n  dismissable = false,\n  onDismiss,\n  className,\n}: BannerProps) {\n  const [visible, setVisible] = React.useState(true);\n\n  if (!visible) {\n    return null;\n  }\n\n  return (\n    <Animated.View\n      entering={SlideInUp}\n      exiting={FadeOut}\n      className={cn(bannerVariants({ variant }), className)}\n    >\n      {icon ? icon : null}\n      <Text className={cn('flex-1 text-sm font-medium', bannerTextVariants({ variant }))}>\n        {title}\n      </Text>\n      {action ? action : null}\n      {dismissable ? (\n        <Pressable\n          hitSlop={8}\n          onPress={() => {\n            setVisible(false);\n            onDismiss?.();\n          }}\n        >\n          <Icon as={X} className={cn('size-4', bannerTextVariants({ variant }))} />\n        </Pressable>\n      ) : null}\n    </Animated.View>\n  );\n}\n\nexport { Banner, bannerVariants };\nexport type { BannerProps };\n"
+    }
+  ]
+}

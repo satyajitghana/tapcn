@@ -1,0 +1,15 @@
+{
+  "name": "bottom-bar",
+  "type": "registry:ui",
+  "title": "Bottom Bar",
+  "description": "A bottom bar component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/bottom-bar.tsx",
+      "type": "registry:ui",
+      "content": "import { TextClassContext } from '@/components/ui/text';\nimport { cn } from '@/lib/utils';\nimport * as React from 'react';\nimport { Platform, Pressable, View } from 'react-native';\n\nfunction BottomBar({\n  className,\n  children,\n}: {\n  className?: string;\n  children: React.ReactNode;\n}) {\n  return (\n    <View\n      className={cn(\n        'absolute bottom-0 left-0 right-0 flex-row items-center gap-3 border-t border-border bg-background px-4 py-3 pb-6 shadow-sm shadow-black/5',\n        Platform.select({\n          web: 'pb-3',\n        }),\n        className\n      )}\n    >\n      {children}\n    </View>\n  );\n}\n\nfunction BottomBarAction({\n  className,\n  ...props\n}: React.ComponentProps<typeof Pressable> & { className?: string }) {\n  return (\n    <TextClassContext.Provider\n      value={cn(\n        'text-sm font-medium text-primary-foreground',\n        Platform.select({ web: 'pointer-events-none transition-colors' })\n      )}\n    >\n      <Pressable\n        className={cn(\n          'h-12 flex-1 items-center justify-center rounded-lg bg-primary active:bg-primary/90',\n          Platform.select({ web: 'hover:bg-primary/90' }),\n          props.disabled && 'opacity-50',\n          className\n        )}\n        role=\"button\"\n        {...props}\n      />\n    </TextClassContext.Provider>\n  );\n}\n\nfunction BottomBarSecondaryAction({\n  className,\n  ...props\n}: React.ComponentProps<typeof Pressable> & { className?: string }) {\n  return (\n    <TextClassContext.Provider\n      value={cn(\n        'text-sm font-medium text-secondary-foreground',\n        Platform.select({ web: 'pointer-events-none transition-colors' })\n      )}\n    >\n      <Pressable\n        className={cn(\n          'h-12 flex-1 items-center justify-center rounded-lg bg-secondary active:bg-secondary/80',\n          Platform.select({ web: 'hover:bg-secondary/80' }),\n          props.disabled && 'opacity-50',\n          className\n        )}\n        role=\"button\"\n        {...props}\n      />\n    </TextClassContext.Provider>\n  );\n}\n\nexport { BottomBar, BottomBarAction, BottomBarSecondaryAction };\n"
+    }
+  ]
+}

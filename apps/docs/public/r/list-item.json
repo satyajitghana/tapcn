@@ -1,0 +1,15 @@
+{
+  "name": "list-item",
+  "type": "registry:ui",
+  "title": "List Item",
+  "description": "A list item component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/list-item.tsx",
+      "type": "registry:ui",
+      "content": "import { Icon } from '@/components/ui/icon';\nimport { cn } from '@/lib/utils';\nimport { ChevronRight } from 'lucide-react-native';\nimport * as React from 'react';\nimport { Platform, Pressable, Text, View } from 'react-native';\n\ninterface ListItemProps {\n  title: string;\n  subtitle?: string;\n  leading?: React.ReactNode;\n  trailing?: React.ReactNode;\n  onPress?: () => void;\n  showSeparator?: boolean;\n  chevron?: boolean;\n  disabled?: boolean;\n  className?: string;\n}\n\nfunction ListItem({\n  title,\n  subtitle,\n  leading,\n  trailing,\n  onPress,\n  showSeparator = true,\n  chevron,\n  disabled,\n  className,\n}: ListItemProps) {\n  return (\n    <View>\n      <Pressable\n        onPress={onPress}\n        disabled={disabled}\n        className={cn(\n          'flex-row items-center gap-3 bg-background px-4 py-3',\n          'active:bg-accent',\n          Platform.select({ web: 'cursor-default' }),\n          disabled && 'opacity-50',\n          className\n        )}\n      >\n        {leading && <View>{leading}</View>}\n        <View className=\"flex-1 gap-0.5\">\n          <Text\n            className={cn(\n              'text-base text-foreground',\n              Platform.select({ web: 'select-none' })\n            )}\n          >\n            {title}\n          </Text>\n          {subtitle && (\n            <Text\n              className={cn(\n                'text-sm text-muted-foreground',\n                Platform.select({ web: 'select-none' })\n              )}\n            >\n              {subtitle}\n            </Text>\n          )}\n        </View>\n        {trailing\n          ? <View>{trailing}</View>\n          : chevron && (\n              <Icon\n                as={ChevronRight}\n                className=\"size-5 text-muted-foreground\"\n              />\n            )}\n      </Pressable>\n      {showSeparator && (\n        <View\n          className={cn(\n            'h-[1px] bg-border',\n            leading ? 'ml-[52px]' : 'ml-4'\n          )}\n        />\n      )}\n    </View>\n  );\n}\n\ninterface ListItemGroupProps {\n  title?: string;\n  className?: string;\n  children: React.ReactNode;\n}\n\nfunction ListItemGroup({ title, className, children }: ListItemGroupProps) {\n  return (\n    <View className={cn(className)}>\n      {title && (\n        <View className=\"px-4 py-2\">\n          <Text\n            className={cn(\n              'text-xs font-medium uppercase tracking-wider text-muted-foreground',\n              Platform.select({ web: 'select-none' })\n            )}\n          >\n            {title}\n          </Text>\n        </View>\n      )}\n      {children}\n    </View>\n  );\n}\n\nexport { ListItem, ListItemGroup };\nexport type { ListItemGroupProps, ListItemProps };\n"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "notification-item",
+  "type": "registry:ui",
+  "title": "Notification Item",
+  "description": "A notification item component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/notification-item.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/utils';\nimport * as React from 'react';\nimport { Pressable, Text, View } from 'react-native';\n\ninterface NotificationItemProps {\n  icon?: React.ReactNode;\n  title: string;\n  body?: string;\n  timestamp?: string;\n  unread?: boolean;\n  onPress?: () => void;\n  className?: string;\n}\n\nfunction NotificationItem({\n  icon,\n  title,\n  body,\n  timestamp,\n  unread,\n  onPress,\n  className,\n}: NotificationItemProps) {\n  return (\n    <Pressable\n      onPress={onPress}\n      className={cn(\n        'flex-row px-4 py-3 gap-3',\n        unread ? 'bg-accent/30' : 'bg-background',\n        'active:bg-accent/50',\n        className\n      )}\n    >\n      {/* Left: icon container */}\n      <View className=\"relative\">\n        {icon ? (\n          <View>{icon}</View>\n        ) : (\n          <View className=\"w-10 h-10 rounded-full bg-muted items-center justify-center\" />\n        )}\n        {unread && (\n          <View className=\"absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-primary\" />\n        )}\n      </View>\n\n      {/* Center: title and body */}\n      <View className=\"flex-1 gap-0.5\">\n        <Text\n          className={cn(\n            'text-sm text-foreground',\n            unread ? 'font-semibold' : 'font-normal'\n          )}\n        >\n          {title}\n        </Text>\n        {body && (\n          <Text\n            className=\"text-sm text-muted-foreground\"\n            numberOfLines={2}\n          >\n            {body}\n          </Text>\n        )}\n      </View>\n\n      {/* Right: timestamp and unread dot */}\n      <View className=\"items-end gap-1\">\n        {timestamp && (\n          <Text className=\"text-xs text-muted-foreground\">{timestamp}</Text>\n        )}\n        {unread && (\n          <View className=\"w-2 h-2 rounded-full bg-primary\" />\n        )}\n      </View>\n    </Pressable>\n  );\n}\n\nexport { NotificationItem };\nexport type { NotificationItemProps };\n"
+    }
+  ]
+}

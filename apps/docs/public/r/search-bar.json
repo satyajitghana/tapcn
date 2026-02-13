@@ -1,0 +1,15 @@
+{
+  "name": "search-bar",
+  "type": "registry:ui",
+  "title": "Search Bar",
+  "description": "A search bar component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/search-bar.tsx",
+      "type": "registry:ui",
+      "content": "import { Icon } from '@/components/ui/icon';\nimport { cn } from '@/lib/utils';\nimport { Search, X } from 'lucide-react-native';\nimport * as React from 'react';\nimport { Platform, Pressable, Text, TextInput, View } from 'react-native';\n\ninterface SearchBarProps {\n  value?: string;\n  onChangeText?: (text: string) => void;\n  placeholder?: string;\n  onCancel?: () => void;\n  showCancel?: boolean;\n  autoFocus?: boolean;\n  className?: string;\n  ref?: React.Ref<TextInput>;\n}\n\nfunction SearchBar({\n  value,\n  onChangeText,\n  placeholder = 'Search',\n  onCancel,\n  showCancel = false,\n  autoFocus = false,\n  className,\n  ref,\n  ...props\n}: SearchBarProps) {\n  return (\n    <View className={cn('flex-row items-center gap-2', className)}>\n      <View className=\"flex-1 flex-row items-center gap-2 rounded-xl bg-muted px-3 h-10\">\n        <Icon\n          as={Search}\n          className=\"size-4 text-muted-foreground\"\n        />\n        <TextInput\n          ref={ref}\n          value={value}\n          onChangeText={onChangeText}\n          placeholder={placeholder}\n          autoFocus={autoFocus}\n          className={cn(\n            'flex-1 text-base text-foreground',\n            Platform.select({\n              web: 'placeholder:text-muted-foreground outline-none',\n              native: 'placeholder:text-muted-foreground',\n            })\n          )}\n          {...props}\n        />\n        {value && value.length > 0 && (\n          <Pressable\n            onPress={() => onChangeText?.('')}\n            hitSlop={8}\n          >\n            <Icon\n              as={X}\n              className=\"size-4 text-muted-foreground\"\n            />\n          </Pressable>\n        )}\n      </View>\n      {showCancel && (\n        <Pressable\n          onPress={onCancel}\n          className={cn(Platform.select({ web: 'active:opacity-70', native: 'active:opacity-70' }))}\n        >\n          <Text className=\"text-base text-primary\">Cancel</Text>\n        </Pressable>\n      )}\n    </View>\n  );\n}\n\nexport { SearchBar };\nexport type { SearchBarProps };\n"
+    }
+  ]
+}

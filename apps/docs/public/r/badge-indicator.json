@@ -1,0 +1,15 @@
+{
+  "name": "badge-indicator",
+  "type": "registry:ui",
+  "title": "Badge Indicator",
+  "description": "A badge indicator component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/badge-indicator.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/utils';\nimport * as React from 'react';\nimport { Text, View } from 'react-native';\n\ntype BadgeIndicatorProps = {\n  count?: number;\n  maxCount?: number;\n  showDot?: boolean;\n  variant?: 'default' | 'destructive';\n  hidden?: boolean;\n  className?: string;\n  children: React.ReactNode;\n};\n\nfunction BadgeIndicator({\n  count,\n  maxCount = 99,\n  showDot = false,\n  variant = 'destructive',\n  hidden = false,\n  className,\n  children,\n}: BadgeIndicatorProps) {\n  const isDot = showDot || count === undefined;\n  const isHidden = hidden || (!showDot && count !== undefined && count === 0);\n\n  const displayText = count !== undefined ? (count > maxCount ? `${maxCount}+` : `${count}`) : '';\n\n  return (\n    <View className={cn('relative', className)}>\n      {children}\n      {!isHidden && (\n        <View\n          className={cn(\n            'absolute border-2 border-background',\n            variant === 'default' && 'bg-primary',\n            variant === 'destructive' && 'bg-destructive',\n            isDot && '-top-1 -right-1 h-2.5 w-2.5 rounded-full',\n            !isDot && '-top-2 -right-2 min-w-5 h-5 rounded-full px-1 items-center justify-center'\n          )}\n        >\n          {!isDot && (\n            <Text\n              className={cn(\n                'text-[10px] font-bold',\n                variant === 'default' && 'text-white',\n                variant === 'destructive' && 'text-destructive-foreground'\n              )}\n            >\n              {displayText}\n            </Text>\n          )}\n        </View>\n      )}\n    </View>\n  );\n}\n\nexport { BadgeIndicator };\nexport type { BadgeIndicatorProps };\n"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "segmented-control",
+  "type": "registry:ui",
+  "title": "Segmented Control",
+  "description": "A segmented control component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/segmented-control.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/utils';\nimport * as React from 'react';\nimport { LayoutChangeEvent, Platform, Pressable, Text, View } from 'react-native';\nimport Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';\n\ninterface SegmentedControlProps {\n  segments: string[];\n  selectedIndex: number;\n  onIndexChange: (index: number) => void;\n  className?: string;\n}\n\nfunction SegmentedControl({\n  segments,\n  selectedIndex,\n  onIndexChange,\n  className,\n}: SegmentedControlProps) {\n  const translateX = useSharedValue(0);\n  const [indicatorWidth, setIndicatorWidth] = React.useState(0);\n  const segmentWidthRef = React.useRef(0);\n\n  const handleLayout = React.useCallback(\n    (event: LayoutChangeEvent) => {\n      const width = event.nativeEvent.layout.width;\n      const singleSegmentWidth = width / segments.length;\n      segmentWidthRef.current = singleSegmentWidth;\n      setIndicatorWidth(singleSegmentWidth);\n      translateX.value = selectedIndex * singleSegmentWidth;\n    },\n    [segments.length, selectedIndex, translateX]\n  );\n\n  React.useEffect(() => {\n    if (segmentWidthRef.current > 0) {\n      translateX.value = withTiming(selectedIndex * segmentWidthRef.current, { duration: 200 });\n    }\n  }, [selectedIndex, translateX]);\n\n  const indicatorAnimatedStyle = useAnimatedStyle(() => ({\n    transform: [{ translateX: translateX.value }],\n  }));\n\n  return (\n    <View\n      className={cn('relative flex-row rounded-lg bg-muted p-1', className)}\n      onLayout={handleLayout}\n    >\n      <Animated.View\n        className={cn(\n          'absolute left-1 top-1 bottom-1 rounded-md bg-background shadow-sm shadow-black/5'\n        )}\n        pointerEvents=\"none\"\n        style={[indicatorAnimatedStyle, { width: indicatorWidth }]}\n      />\n      {segments.map((segment, index) => (\n        <Pressable\n          key={segment}\n          onPress={() => onIndexChange(index)}\n          className={cn(\n            'z-10 flex-1 items-center justify-center py-2',\n            Platform.select({ web: 'cursor-pointer' })\n          )}\n          accessibilityRole=\"button\"\n          accessibilityState={{ selected: index === selectedIndex }}\n        >\n          <Text\n            className={cn(\n              'text-sm font-medium',\n              index === selectedIndex ? 'text-foreground' : 'text-muted-foreground'\n            )}\n          >\n            {segment}\n          </Text>\n        </Pressable>\n      ))}\n    </View>\n  );\n}\n\nexport { SegmentedControl };\nexport type { SegmentedControlProps };\n"
+    }
+  ]
+}
