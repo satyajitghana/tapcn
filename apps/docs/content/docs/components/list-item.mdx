@@ -1,0 +1,81 @@
+---
+title: List Item
+description: A mobile-style list row with leading, trailing, and separator support.
+---
+
+# List Item
+
+A mobile-style list row component for building settings screens, menus, and navigation lists. Supports leading and trailing content, subtitles, chevron indicators, and optional separators. Use `ListItemGroup` to organize items under section headings.
+
+## Installation
+
+```npm
+npx @tapcn/cli add list-item
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/list-item.json
+```
+
+## Usage
+
+```tsx
+import { ListItem, ListItemGroup } from '~/components/ui/list-item';
+import { Icon } from '~/components/ui/icon';
+import { Bell, User, Shield } from 'lucide-react-native';
+
+export function ListItemExample() {
+  return (
+    <ListItemGroup title="Settings">
+      <ListItem
+        title="Profile"
+        subtitle="Manage your account"
+        leading={<Icon as={User} className="size-5 text-foreground" />}
+        chevron
+        onPress={() => {}}
+      />
+      <ListItem
+        title="Notifications"
+        leading={<Icon as={Bell} className="size-5 text-foreground" />}
+        chevron
+        onPress={() => {}}
+      />
+      <ListItem
+        title="Privacy"
+        leading={<Icon as={Shield} className="size-5 text-foreground" />}
+        chevron
+        showSeparator={false}
+        onPress={() => {}}
+      />
+    </ListItemGroup>
+  );
+}
+```
+
+## ListItem Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | - | Primary text for the list row. |
+| `subtitle` | `string` | - | Secondary text displayed below the title. |
+| `leading` | `React.ReactNode` | - | Content rendered on the left side (e.g., an icon). |
+| `trailing` | `React.ReactNode` | - | Content rendered on the right side. Overrides `chevron` when provided. |
+| `onPress` | `() => void` | - | Callback fired when the row is pressed. |
+| `showSeparator` | `boolean` | `true` | Whether to show a bottom separator line. |
+| `chevron` | `boolean` | - | When true, displays a right-pointing chevron icon on the trailing side. |
+| `disabled` | `boolean` | - | When true, the row is not pressable and appears dimmed. |
+| `className` | `string` | - | Additional CSS classes for the pressable container. |
+
+## ListItemGroup Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | - | Section heading displayed above the group. |
+| `className` | `string` | - | Additional CSS classes for the group container. |
+| `children` | `React.ReactNode` | - | The list items to render inside the group. |
+
+## Dependencies
+
+- `lucide-react-native`

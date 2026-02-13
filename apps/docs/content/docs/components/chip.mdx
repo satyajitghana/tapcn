@@ -1,0 +1,107 @@
+---
+title: Chip
+description: A pill-shaped component for filters, selections, and tags with optional close action.
+---
+
+# Chip
+
+A compact, pill-shaped component for displaying filters, selections, or tags. Supports multiple visual variants, sizes, selection state, and an optional close button.
+
+## Installation
+
+```npm
+npx @tapcn/cli add chip
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/chip.json
+```
+
+This will also install the `text` and `icon` components.
+
+## Usage
+
+```tsx
+import { Chip } from '~/components/ui/chip';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <Chip>
+      <Text>Filter</Text>
+    </Chip>
+  );
+}
+```
+
+### With variants
+
+```tsx
+<Chip variant="filled">
+  <Text>Filled</Text>
+</Chip>
+
+<Chip variant="outline">
+  <Text>Outline</Text>
+</Chip>
+
+<Chip variant="secondary">
+  <Text>Secondary</Text>
+</Chip>
+
+<Chip variant="destructive">
+  <Text>Destructive</Text>
+</Chip>
+```
+
+### With close button
+
+```tsx
+<Chip onClose={() => console.log('removed')}>
+  <Text>Removable</Text>
+</Chip>
+```
+
+### Selected state
+
+```tsx
+<Chip selected onPress={() => console.log('toggled')}>
+  <Text>Selected</Text>
+</Chip>
+```
+
+### Sizes
+
+```tsx
+<Chip size="sm">
+  <Text>Small</Text>
+</Chip>
+
+<Chip size="default">
+  <Text>Default</Text>
+</Chip>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'filled' \| 'outline' \| 'secondary' \| 'destructive'` | `'filled'` | The visual style variant |
+| `size` | `'sm' \| 'default'` | `'default'` | The size of the chip |
+| `selected` | `boolean` | -- | Whether the chip is in a selected state (adds ring styling) |
+| `onPress` | `() => void` | -- | Callback when the chip is pressed |
+| `onClose` | `() => void` | -- | Callback when the close button is pressed. Shows the close (X) icon when provided. |
+| `disabled` | `boolean` | -- | Disables both press and close interactions |
+| `className` | `string` | -- | Additional NativeWind classes |
+| `children` | `ReactNode` | -- | Content to display inside the chip |
+
+All standard `Pressable` props are also supported.
+
+## Dependencies
+
+- `text` -- for TextClassContext to auto-style child Text components
+- `icon` -- for the close (X) icon
+- `class-variance-authority` -- for variant management
+- `lucide-react-native` -- provides the X icon

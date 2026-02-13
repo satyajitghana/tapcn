@@ -1,0 +1,87 @@
+---
+title: Page Indicator
+description: Animated pagination dots for carousels, onboarding flows, and paged content.
+---
+
+# Page Indicator
+
+An animated pagination indicator component with support for dot, dash, and expanding variants. Uses `react-native-reanimated` for smooth transitions between active and inactive states.
+
+## Installation
+
+```npm
+npx @tapcn/cli add page-indicator
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/page-indicator.json
+```
+
+## Usage
+
+```tsx
+import { PageIndicator } from '~/components/ui/page-indicator';
+
+export function Example() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  return (
+    <PageIndicator
+      count={5}
+      activeIndex={activeIndex}
+    />
+  );
+}
+```
+
+### Variants
+
+```tsx
+{/* Standard dots with scale animation */}
+<PageIndicator count={4} activeIndex={1} variant="dot" />
+
+{/* Wide dash for the active indicator */}
+<PageIndicator count={4} activeIndex={1} variant="dash" />
+
+{/* Active dot expands wider */}
+<PageIndicator count={4} activeIndex={1} variant="expanding" />
+```
+
+### Custom colors
+
+```tsx
+<PageIndicator
+  count={5}
+  activeIndex={2}
+  activeColor="#007AFF"
+  inactiveColor="#C7C7CC"
+/>
+```
+
+### Custom size
+
+```tsx
+<PageIndicator
+  count={5}
+  activeIndex={0}
+  size={12}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `count` | `number` | -- | Total number of pages/dots |
+| `activeIndex` | `number` | -- | The zero-based index of the currently active page |
+| `variant` | `'dot' \| 'dash' \| 'expanding'` | `'dot'` | The visual style of the indicator |
+| `activeColor` | `string` | -- | Custom color for the active indicator (overrides theme) |
+| `inactiveColor` | `string` | -- | Custom color for inactive indicators (overrides theme) |
+| `size` | `number` | `8` | Base size in pixels for each dot |
+| `className` | `string` | -- | Additional NativeWind classes for the container |
+
+## Dependencies
+
+- `react-native-reanimated` -- for animated width, opacity, and scale transitions

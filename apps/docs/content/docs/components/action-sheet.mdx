@@ -1,0 +1,112 @@
+---
+title: Action Sheet
+description: An iOS-style bottom action sheet with grouped actions and cancel button.
+---
+
+# Action Sheet
+
+An iOS-style action sheet that slides up from the bottom. Displays a group of contextual actions with an optional title, message, and a separated cancel button.
+
+## Installation
+
+```npm
+npx @tapcn/cli add action-sheet
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/action-sheet.json
+```
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import {
+  ActionSheet,
+  ActionSheetContent,
+  ActionSheetAction,
+  ActionSheetCancel,
+} from '~/components/ui/action-sheet';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <ActionSheet open={open} onOpenChange={setOpen}>
+      <Button onPress={() => setOpen(true)}>
+        <Text>Show Actions</Text>
+      </Button>
+      <ActionSheetContent title="Photo Options" message="Choose an action for this photo.">
+        <ActionSheetAction onPress={() => console.log('Save')}>
+          Save to Library
+        </ActionSheetAction>
+        <ActionSheetAction onPress={() => console.log('Share')}>
+          Share
+        </ActionSheetAction>
+        <ActionSheetAction destructive onPress={() => console.log('Delete')}>
+          Delete Photo
+        </ActionSheetAction>
+        <ActionSheetCancel />
+      </ActionSheetContent>
+    </ActionSheet>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `ActionSheet` | Root provider component. Controls open state. |
+| `ActionSheetContent` | The sheet panel with backdrop, optional title/message, and action groups. |
+| `ActionSheetAction` | A pressable action row inside the sheet. |
+| `ActionSheetCancel` | A separated cancel button rendered in its own rounded group. |
+
+## Props
+
+### ActionSheet
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | -- | Whether the action sheet is visible. |
+| `onOpenChange` | `(open: boolean) => void` | -- | Callback when the open state changes. |
+| `children` | `ReactNode` | -- | Child components. |
+
+### ActionSheetContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | -- | Optional title displayed at the top of the actions group. |
+| `message` | `string` | -- | Optional message displayed below the title. |
+| `className` | `string` | -- | Additional NativeWind classes. |
+| `children` | `ReactNode` | -- | `ActionSheetAction` and `ActionSheetCancel` components. |
+
+### ActionSheetAction
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onPress` | `() => void` | -- | Callback when the action is pressed. The sheet auto-closes after. |
+| `destructive` | `boolean` | `false` | Renders the action text in the destructive color. |
+| `className` | `string` | -- | Additional NativeWind classes. |
+| `children` | `ReactNode` | -- | Action label text. |
+
+### ActionSheetCancel
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | Additional NativeWind classes. |
+| `children` | `ReactNode` | `"Cancel"` | Custom cancel label. Defaults to "Cancel". |
+
+## Platform Behavior
+
+- **Web**: The backdrop uses `fixed` positioning. Action text uses `select-none` and `cursor-default`.
+- **Native**: Uses React Native `Modal` with transparent background and animated overlays.
+- Both platforms use `react-native-reanimated` for spring-based slide-in and fade animations.
+
+## Dependencies
+
+- `react-native-reanimated` -- enter/exit animations

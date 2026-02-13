@@ -1,0 +1,100 @@
+---
+title: Avatar Group
+description: An overlapping stack of avatars for displaying groups of users.
+---
+
+# Avatar Group
+
+A component that renders a horizontal stack of overlapping avatars with an optional overflow indicator. Useful for showing participants, team members, or any grouped set of users.
+
+## Installation
+
+```npm
+npx @tapcn/cli add avatar-group
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/avatar-group.json
+```
+
+## Usage
+
+```tsx
+import { AvatarGroup } from '~/components/ui/avatar-group';
+
+export function Example() {
+  return (
+    <AvatarGroup
+      avatars={[
+        { src: 'https://example.com/alice.jpg', fallback: 'AL' },
+        { src: 'https://example.com/bob.jpg', fallback: 'BO' },
+        { fallback: 'CD' },
+        { fallback: 'EF' },
+      ]}
+      max={3}
+    />
+  );
+}
+```
+
+This renders the first 3 avatars with a `+1` overflow indicator.
+
+### Sizes
+
+```tsx
+<AvatarGroup
+  avatars={avatars}
+  size="sm"
+  max={4}
+/>
+
+<AvatarGroup
+  avatars={avatars}
+  size="default"
+  max={4}
+/>
+
+<AvatarGroup
+  avatars={avatars}
+  size="lg"
+  max={4}
+/>
+```
+
+### Fallback avatars
+
+When `src` is not provided, the first two characters of the `fallback` string are displayed:
+
+```tsx
+<AvatarGroup
+  avatars={[
+    { fallback: 'Alice' },
+    { fallback: 'Bob' },
+    { fallback: 'Carol' },
+  ]}
+/>
+```
+
+## Props
+
+### AvatarGroup
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `avatars` | `AvatarData[]` | -- | Array of avatar data objects to display |
+| `max` | `number` | `3` | Maximum number of avatars to show before the overflow indicator |
+| `size` | `'sm' \| 'default' \| 'lg'` | `'default'` | Size of the avatars (`sm`: 24px, `default`: 32px, `lg`: 40px) |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+### AvatarData
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `src` | `string` | -- | Image URI for the avatar |
+| `fallback` | `string` | -- | Fallback text; first 2 characters are displayed when no image is provided |
+
+## Dependencies
+
+No additional dependencies.

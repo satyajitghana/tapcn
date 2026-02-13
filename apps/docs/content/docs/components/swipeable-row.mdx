@@ -1,0 +1,75 @@
+---
+title: Swipeable Row
+description: A row component that reveals action buttons on swipe.
+---
+
+# Swipeable Row
+
+A swipeable row that reveals hidden action buttons when the user swipes left or right. Supports configurable action widths, snap-back behavior, and full-swipe triggers. Pair with `SwipeAction` to build the action buttons.
+
+## Installation
+
+```npm
+npx @tapcn/cli add swipeable-row
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/swipeable-row.json
+```
+
+## Usage
+
+```tsx
+import { SwipeableRow, SwipeAction } from '~/components/ui/swipeable-row';
+import { Text } from 'react-native';
+
+export function SwipeableRowExample() {
+  return (
+    <SwipeableRow
+      rightActions={
+        <SwipeAction
+          onPress={() => console.log('Deleted')}
+          className="bg-destructive"
+        >
+          <Text className="text-sm font-medium text-destructive-foreground">
+            Delete
+          </Text>
+        </SwipeAction>
+      }
+      rightActionWidth={80}
+      onSwipeLeft={() => console.log('Full swipe left')}
+    >
+      <Text className="bg-background px-4 py-3 text-foreground">
+        Swipe me left to reveal actions
+      </Text>
+    </SwipeableRow>
+  );
+}
+```
+
+## SwipeableRow Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | - | The front content of the row. |
+| `leftActions` | `React.ReactNode` | - | Content revealed when swiping right. |
+| `rightActions` | `React.ReactNode` | - | Content revealed when swiping left. |
+| `leftActionWidth` | `number` | `80` | Width in pixels of the left action area. |
+| `rightActionWidth` | `number` | `80` | Width in pixels of the right action area. |
+| `onSwipeLeft` | `() => void` | - | Callback fired on a full swipe to the left. |
+| `onSwipeRight` | `() => void` | - | Callback fired on a full swipe to the right. |
+| `className` | `string` | - | Additional CSS classes for the outer container. |
+
+## SwipeAction Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onPress` | `() => void` | - | Callback fired when the action button is pressed. |
+| `className` | `string` | - | Additional CSS classes for the action button. |
+| `children` | `React.ReactNode` | - | Content rendered inside the action button. |
+
+## Dependencies
+
+- `react-native-reanimated`

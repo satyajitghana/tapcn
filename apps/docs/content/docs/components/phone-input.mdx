@@ -1,0 +1,107 @@
+---
+title: Phone Input
+description: A phone number input with country code selector and flag display.
+---
+
+# Phone Input
+
+A phone number input with an integrated country code selector. Displays the country flag, dial code, and a chevron indicator. Cycles through a built-in list of countries on press.
+
+## Installation
+
+```npm
+npx @tapcn/cli add phone-input
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/phone-input.json
+```
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import { PhoneInput } from '~/components/ui/phone-input';
+
+export function Example() {
+  const [phone, setPhone] = useState('');
+
+  return (
+    <PhoneInput
+      value={phone}
+      onChangeText={setPhone}
+      defaultCountry="US"
+    />
+  );
+}
+```
+
+### With country change callback
+
+```tsx
+import { useState } from 'react';
+import { PhoneInput } from '~/components/ui/phone-input';
+import type { CountryData } from '~/components/ui/phone-input';
+
+export function Example() {
+  const [phone, setPhone] = useState('');
+
+  return (
+    <PhoneInput
+      value={phone}
+      onChangeText={setPhone}
+      defaultCountry="GB"
+      onCountryChange={(country: CountryData) =>
+        console.log('Selected:', country.name, country.dialCode)
+      }
+    />
+  );
+}
+```
+
+### Disabled state
+
+```tsx
+<PhoneInput value="" disabled />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | -- | The phone number text value. |
+| `onChangeText` | `(text: string) => void` | -- | Callback when the phone number text changes. |
+| `defaultCountry` | `string` | `"US"` | The initial country code (e.g., `"US"`, `"GB"`, `"IN"`). |
+| `onCountryChange` | `(country: CountryData) => void` | -- | Callback when the selected country changes. |
+| `disabled` | `boolean` | `false` | Disables input and country selector, reduces opacity. |
+| `className` | `string` | -- | Additional NativeWind classes for the outer container. |
+| `ref` | `Ref<TextInput>` | -- | Ref forwarded to the underlying `TextInput`. |
+
+## Types
+
+### CountryData
+
+```tsx
+type CountryData = {
+  code: string;    // ISO country code (e.g., "US")
+  name: string;    // Country name (e.g., "United States")
+  dialCode: string; // Dial code (e.g., "+1")
+  flag: string;    // Flag emoji
+};
+```
+
+## Supported Countries
+
+The component includes a built-in list of 15 countries: US, GB, IN, DE, FR, JP, AU, CA, BR, MX, KR, IT, ES, NL, SE.
+
+## Platform Behavior
+
+- **Web**: Country selector shows `cursor-pointer` and `select-none`. Input has `outline-none` and `focus-visible:outline-none` styling.
+- **Native**: Uses native `phone-pad` keyboard type and placeholder color styling.
+
+## Dependencies
+
+- `icon` -- for the chevron icon
+- `lucide-react-native` -- `ChevronDown` icon

@@ -1,0 +1,126 @@
+---
+title: Bottom Sheet
+description: A gesture-driven modal sheet that slides up from the bottom with a drag handle.
+---
+
+# Bottom Sheet
+
+A gesture-driven modal that slides up from the bottom of the screen. Supports drag-to-dismiss via a pan gesture, backdrop press to close, and spring-based animations.
+
+## Installation
+
+```npm
+npx @tapcn/cli add bottom-sheet
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/bottom-sheet.json
+```
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import {
+  BottomSheet,
+  BottomSheetContent,
+  BottomSheetHandle,
+  BottomSheetHeader,
+  BottomSheetTitle,
+  BottomSheetFooter,
+} from '~/components/ui/bottom-sheet';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <BottomSheet open={open} onOpenChange={setOpen}>
+      <Button onPress={() => setOpen(true)}>
+        <Text>Open Sheet</Text>
+      </Button>
+      <BottomSheetContent>
+        <BottomSheetHandle />
+        <BottomSheetHeader>
+          <BottomSheetTitle>Sheet Title</BottomSheetTitle>
+        </BottomSheetHeader>
+        <BottomSheetFooter>
+          <Button onPress={() => setOpen(false)}>
+            <Text>Close</Text>
+          </Button>
+        </BottomSheetFooter>
+      </BottomSheetContent>
+    </BottomSheet>
+  );
+}
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `BottomSheet` | Root provider component. Controls open state. |
+| `BottomSheetContent` | The sheet panel with backdrop overlay and drag-to-dismiss. |
+| `BottomSheetHandle` | A small drag handle bar rendered at the top of the sheet. |
+| `BottomSheetHeader` | Groups title content with centered text and padding. |
+| `BottomSheetTitle` | The heading text for the sheet. |
+| `BottomSheetFooter` | Action buttons area at the bottom of the sheet. |
+
+## Props
+
+### BottomSheet
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | -- | Whether the sheet is open. |
+| `onOpenChange` | `(open: boolean) => void` | -- | Callback when the open state changes. |
+| `children` | `ReactNode` | -- | Child components. |
+
+### BottomSheetContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | Additional NativeWind classes for the sheet container. |
+| `children` | `ReactNode` | -- | Content rendered inside the sheet. |
+
+### BottomSheetHandle
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | Additional NativeWind classes. |
+
+### BottomSheetHeader
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | Additional NativeWind classes. |
+| `children` | `ReactNode` | -- | Header content (typically a `BottomSheetTitle`). |
+
+### BottomSheetTitle
+
+Extends React Native's `Text` props.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | Additional NativeWind classes. |
+
+### BottomSheetFooter
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | Additional NativeWind classes. |
+| `children` | `ReactNode` | -- | Footer content (typically action buttons). |
+
+## Platform Behavior
+
+- **Web**: Adds `shadow-lg` styling to the sheet container.
+- **Native**: Uses React Native's `PanResponder` for drag-to-dismiss gesture. Dismisses when dragged down more than 100px.
+- Both platforms use `react-native-reanimated` for enter/exit animations (`SlideInDown`/`SlideOutDown` with spring physics, `FadeIn`/`FadeOut` for the backdrop).
+
+## Dependencies
+
+- `text` -- for `TextClassContext`
+- `react-native-reanimated` -- spring-based enter/exit animations

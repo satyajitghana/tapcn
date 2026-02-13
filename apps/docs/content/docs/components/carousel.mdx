@@ -1,0 +1,88 @@
+---
+title: Carousel
+description: A horizontal swipeable carousel with snap-to-item behavior.
+---
+
+# Carousel
+
+A horizontal swipeable carousel that renders a list of items with snap-to-item scrolling, dot indicators, and optional auto-play. Built on top of React Native's `ScrollView` with snap interval support.
+
+## Installation
+
+```npm
+npx @tapcn/cli add carousel
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/carousel.json
+```
+
+## Usage
+
+```tsx
+import { Carousel } from '~/components/ui/carousel';
+import { View, Text } from 'react-native';
+
+const slides = [
+  { id: '1', title: 'Welcome' },
+  { id: '2', title: 'Explore' },
+  { id: '3', title: 'Get Started' },
+];
+
+export function CarouselExample() {
+  return (
+    <Carousel
+      data={slides}
+      renderItem={(item, index) => (
+        <View className="h-48 items-center justify-center rounded-xl bg-muted">
+          <Text className="text-lg font-semibold text-foreground">{item.title}</Text>
+        </View>
+      )}
+    />
+  );
+}
+```
+
+### With auto-play
+
+```tsx
+<Carousel
+  data={slides}
+  renderItem={(item) => (
+    <View className="h-48 items-center justify-center rounded-xl bg-muted">
+      <Text className="text-foreground">{item.title}</Text>
+    </View>
+  )}
+  autoPlay
+  autoPlayInterval={5000}
+/>
+```
+
+### Without indicators
+
+```tsx
+<Carousel
+  data={slides}
+  renderItem={(item) => (/* ... */)}
+  showIndicators={false}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `data` | `T[]` | **required** | The array of items to render in the carousel. |
+| `renderItem` | `(item: T, index: number) => React.ReactNode` | **required** | Render function called for each item. |
+| `itemWidth` | `number` | `screenWidth - 32` | The width of each carousel item in pixels. |
+| `gap` | `number` | `16` | The horizontal gap between items in pixels. |
+| `showIndicators` | `boolean` | `true` | Whether to show the dot indicators below the carousel. |
+| `autoPlay` | `boolean` | `false` | Whether the carousel should automatically advance. |
+| `autoPlayInterval` | `number` | `4000` | The interval in milliseconds between auto-play advances. |
+| `className` | `string` | - | Additional NativeWind classes for the outer container. |
+
+## Dependencies
+
+No additional dependencies.

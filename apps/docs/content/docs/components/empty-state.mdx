@@ -1,0 +1,65 @@
+---
+title: EmptyState
+description: A placeholder component for empty screens and lists.
+---
+
+# EmptyState
+
+A centered placeholder view for screens or lists with no content. Displays an optional icon, a title, an optional description, and an optional action button.
+
+## Installation
+
+```npm
+npx @tapcn/cli add empty-state
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/empty-state.json
+```
+
+## Usage
+
+```tsx
+import { EmptyState } from '~/components/ui/empty-state';
+import { Icon } from '~/components/ui/icon';
+import { Inbox } from 'lucide-react-native';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+export function EmptyStateExample() {
+  return (
+    <EmptyState
+      icon={<Icon as={Inbox} className="text-muted-foreground size-8" />}
+      title="No messages"
+      description="You don't have any messages yet. Start a conversation!"
+      action={
+        <Button onPress={() => console.log('pressed')}>
+          <Text>New Message</Text>
+        </Button>
+      }
+    />
+  );
+}
+```
+
+### Minimal usage
+
+```tsx
+<EmptyState title="Nothing here yet" />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `icon` | `React.ReactNode` | - | An optional icon displayed above the title inside a rounded muted circle. |
+| `title` | `string` | **required** | The primary heading text. |
+| `description` | `string` | - | An optional secondary description shown below the title. |
+| `action` | `React.ReactNode` | - | An optional action element (e.g. a Button) displayed below the description. |
+| `className` | `string` | - | Additional NativeWind classes for the outer container. |
+
+## Dependencies
+
+No additional dependencies.

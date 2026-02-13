@@ -1,0 +1,87 @@
+---
+title: SpeedDial
+description: An expandable floating action button that reveals a set of actions.
+---
+
+# SpeedDial
+
+An expandable FAB that fans out a list of secondary actions when pressed. Includes an animated overlay, staggered spring entrance for action items, and a rotating icon on the main button.
+
+## Installation
+
+```npm
+npx @tapcn/cli add speed-dial
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/speed-dial.json
+```
+
+## Usage
+
+```tsx
+import { SpeedDial } from '~/components/ui/speed-dial';
+import { Icon } from '~/components/ui/icon';
+import { Plus, Camera, Image, FileText } from 'lucide-react-native';
+
+export function SpeedDialExample() {
+  return (
+    <SpeedDial
+      icon={<Icon as={Plus} className="text-primary-foreground" />}
+      actions={[
+        {
+          icon: <Icon as={Camera} className="text-foreground" />,
+          label: 'Camera',
+          onPress: () => console.log('Camera'),
+        },
+        {
+          icon: <Icon as={Image} className="text-foreground" />,
+          label: 'Gallery',
+          onPress: () => console.log('Gallery'),
+        },
+        {
+          icon: <Icon as={FileText} className="text-foreground" />,
+          label: 'Document',
+          onPress: () => console.log('Document'),
+        },
+      ]}
+    />
+  );
+}
+```
+
+### With a custom open icon
+
+```tsx
+<SpeedDial
+  icon={<Icon as={Plus} className="text-primary-foreground" />}
+  openIcon={<Icon as={X} className="text-primary-foreground" />}
+  actions={actions}
+/>
+```
+
+## Props
+
+### SpeedDial
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `icon` | `React.ReactNode` | **required** | The icon shown on the main FAB when closed. |
+| `openIcon` | `React.ReactNode` | - | Optional icon shown when the dial is open. When omitted, the default icon rotates 45 degrees. |
+| `actions` | `SpeedDialAction[]` | **required** | The list of action items to display. |
+| `position` | `'bottom-right' \| 'bottom-left'` | `'bottom-right'` | The absolute position of the speed dial on screen. |
+| `className` | `string` | - | Additional NativeWind classes for the container. |
+
+### SpeedDialAction
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `icon` | `React.ReactNode` | **required** | The icon displayed in the mini FAB. |
+| `label` | `string` | - | Optional text label shown beside the action. |
+| `onPress` | `() => void` | **required** | Callback fired when the action is pressed. |
+
+## Dependencies
+
+- `react-native-reanimated` -- for enter/exit animations and rotation

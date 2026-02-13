@@ -1,0 +1,89 @@
+---
+title: Search Bar
+description: A mobile-friendly search input with icon, clear button, and optional cancel action.
+---
+
+# Search Bar
+
+A mobile-friendly search input with a leading search icon, inline clear button, and an optional cancel action. Built on React Native's `TextInput`.
+
+## Installation
+
+```npm
+npx @tapcn/cli add search-bar
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/search-bar.json
+```
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import { SearchBar } from '~/components/ui/search-bar';
+
+export function Example() {
+  const [query, setQuery] = useState('');
+
+  return (
+    <SearchBar
+      value={query}
+      onChangeText={setQuery}
+      placeholder="Search..."
+    />
+  );
+}
+```
+
+### With cancel button
+
+```tsx
+import { useState } from 'react';
+import { SearchBar } from '~/components/ui/search-bar';
+
+export function Example() {
+  const [query, setQuery] = useState('');
+
+  return (
+    <SearchBar
+      value={query}
+      onChangeText={setQuery}
+      showCancel
+      onCancel={() => setQuery('')}
+      autoFocus
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | -- | The current search text. |
+| `onChangeText` | `(text: string) => void` | -- | Callback when the text changes. |
+| `placeholder` | `string` | `"Search"` | Placeholder text for the input. |
+| `onCancel` | `() => void` | -- | Callback when the cancel button is pressed. |
+| `showCancel` | `boolean` | `false` | Whether to show the cancel button. |
+| `autoFocus` | `boolean` | `false` | Whether to auto-focus the input on mount. |
+| `className` | `string` | -- | Additional NativeWind classes for the outer container. |
+| `ref` | `Ref<TextInput>` | -- | Ref forwarded to the underlying `TextInput`. |
+
+## Features
+
+- **Search icon**: A leading magnifying glass icon inside the input field.
+- **Clear button**: An X button appears when the input has text, clearing the value on press.
+- **Cancel action**: An optional "Cancel" text button to the right of the input.
+
+## Platform Behavior
+
+- **Web**: Uses `outline-none` for the input and web-specific placeholder styling.
+- **Native**: Uses native placeholder color styling.
+
+## Dependencies
+
+- `icon` -- for the search and clear icons
+- `lucide-react-native` -- `Search` and `X` icons

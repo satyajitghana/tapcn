@@ -1,0 +1,91 @@
+---
+title: Banner
+description: An informational bar for contextual messages and alerts.
+---
+
+# Banner
+
+A top-of-screen informational bar for surfacing contextual messages, warnings, errors, or success feedback. Supports multiple color variants, an optional icon, an optional action, and a dismissable close button with animated enter/exit transitions.
+
+## Installation
+
+```npm
+npx @tapcn/cli add banner
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/banner.json
+```
+
+## Usage
+
+```tsx
+import { Banner } from '~/components/ui/banner';
+import { Icon } from '~/components/ui/icon';
+import { Info } from 'lucide-react-native';
+
+export function BannerExample() {
+  return (
+    <Banner
+      variant="info"
+      icon={<Icon as={Info} className="text-blue-700 dark:text-blue-400 size-4" />}
+      title="A new version is available."
+    />
+  );
+}
+```
+
+### Variants
+
+```tsx
+<Banner variant="info" title="Informational message." />
+<Banner variant="warning" title="Please review your settings." />
+<Banner variant="error" title="Something went wrong." />
+<Banner variant="success" title="Operation completed successfully." />
+```
+
+### Dismissable
+
+```tsx
+<Banner
+  variant="warning"
+  title="Your trial ends in 3 days."
+  dismissable
+  onDismiss={() => console.log('dismissed')}
+/>
+```
+
+### With action
+
+```tsx
+<Banner
+  variant="info"
+  title="Update available."
+  action={
+    <Pressable onPress={() => console.log('update')}>
+      <Text className="text-sm font-semibold text-blue-700 dark:text-blue-400">Update</Text>
+    </Pressable>
+  }
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'info' \| 'warning' \| 'error' \| 'success'` | `'info'` | The color variant of the banner. |
+| `icon` | `React.ReactNode` | - | An optional icon displayed on the left side. |
+| `title` | `string` | **required** | The message text displayed in the banner. |
+| `action` | `React.ReactNode` | - | An optional action element displayed to the right of the title. |
+| `dismissable` | `boolean` | `false` | When true, a close button is shown that hides the banner. |
+| `onDismiss` | `() => void` | - | Callback fired when the banner is dismissed. |
+| `className` | `string` | - | Additional NativeWind classes. |
+
+## Dependencies
+
+- `react-native-reanimated` -- for enter/exit animations
+- `class-variance-authority` -- for variant management
+- `lucide-react-native` -- for the dismiss (X) icon
+- `icon` -- for the Icon component

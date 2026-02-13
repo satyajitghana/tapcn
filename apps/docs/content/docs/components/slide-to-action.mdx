@@ -1,0 +1,54 @@
+---
+title: Slide To Action
+description: A slide-to-confirm button for destructive or important actions.
+---
+
+# Slide To Action
+
+A slide-to-confirm interaction that requires the user to drag a thumb across a track to trigger an action. Ideal for destructive or irreversible operations that need deliberate confirmation.
+
+## Installation
+
+```npm
+npx @tapcn/cli add slide-to-action
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/slide-to-action.json
+```
+
+## Usage
+
+```tsx
+import { SlideToAction } from '~/components/ui/slide-to-action';
+
+export function SlideToActionExample() {
+  return (
+    <SlideToAction
+      label="Slide to confirm"
+      completedLabel="Confirmed"
+      onSlideComplete={() => {
+        console.log('Action confirmed!');
+      }}
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onSlideComplete` | `() => void` | - | Callback fired when the slide reaches the completion threshold. |
+| `label` | `string` | `'Slide to confirm'` | Text displayed on the track before completion. |
+| `completedLabel` | `string` | `'Confirmed'` | Text displayed on the track after completion. |
+| `icon` | `React.ReactNode` | `<ChevronsRight />` | Custom icon to render inside the draggable thumb. |
+| `disabled` | `boolean` | `false` | When true, the slider cannot be dragged. |
+| `className` | `string` | - | Additional CSS classes for the container. |
+
+## Dependencies
+
+- `react-native-reanimated`
+- `lucide-react-native`

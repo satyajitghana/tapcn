@@ -1,0 +1,55 @@
+---
+title: Rating
+description: An interactive star rating component.
+---
+
+# Rating
+
+An interactive star rating component that supports controlled values, multiple sizes, and a read-only display mode. Tapping a selected star toggles the rating back to zero.
+
+## Installation
+
+```npm
+npx @tapcn/cli add rating
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/rating.json
+```
+
+## Usage
+
+```tsx
+import { Rating } from '~/components/ui/rating';
+import * as React from 'react';
+
+export function RatingExample() {
+  const [value, setValue] = React.useState(3);
+
+  return (
+    <Rating
+      value={value}
+      onValueChange={setValue}
+      maxStars={5}
+      size="default"
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | `0` | The current rating value. |
+| `onValueChange` | `(value: number) => void` | - | Callback fired when the rating changes. |
+| `maxStars` | `number` | `5` | The total number of stars to display. |
+| `size` | `'sm' \| 'default' \| 'lg'` | `'default'` | The size of the star icons (16px, 24px, or 32px). |
+| `readOnly` | `boolean` | `false` | When true, the rating is display-only and cannot be changed. |
+| `className` | `string` | - | Additional CSS classes for the container. |
+
+## Dependencies
+
+- `lucide-react-native`
