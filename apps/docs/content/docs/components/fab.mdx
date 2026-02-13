@@ -1,0 +1,75 @@
+---
+title: FAB
+description: A floating action button for primary screen actions.
+---
+
+# FAB
+
+A floating action button (FAB) that hovers above the UI to promote the primary action on a screen. Supports multiple variants, sizes, and an extended mode with a text label.
+
+## Installation
+
+```npm
+npx @tapcn/cli add fab
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/fab.json
+```
+
+## Usage
+
+```tsx
+import { FAB } from '~/components/ui/fab';
+import { Plus } from 'lucide-react-native';
+import { Icon } from '~/components/ui/icon';
+
+export function FABExample() {
+  return (
+    <FAB
+      icon={<Icon as={Plus} className="text-primary-foreground" />}
+      onPress={() => console.log('pressed')}
+    />
+  );
+}
+```
+
+### Extended FAB with label
+
+```tsx
+<FAB
+  icon={<Icon as={Plus} className="text-primary-foreground" />}
+  label="Create"
+  onPress={() => console.log('pressed')}
+/>
+```
+
+### Variants
+
+```tsx
+<FAB variant="default" icon={<Icon as={Plus} className="text-primary-foreground" />} onPress={() => {}} />
+<FAB variant="secondary" icon={<Icon as={Plus} className="text-secondary-foreground" />} onPress={() => {}} />
+<FAB variant="destructive" icon={<Icon as={Plus} className="text-white" />} onPress={() => {}} />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `icon` | `React.ReactNode` | **required** | The icon element displayed inside the FAB. |
+| `label` | `string` | - | Optional text label. When provided, the FAB switches to extended mode. |
+| `variant` | `'default' \| 'secondary' \| 'destructive'` | `'default'` | The visual style variant. |
+| `size` | `'sm' \| 'default' \| 'lg'` | `'default'` | The size of the FAB (48px, 56px, or 64px). Ignored in extended mode. |
+| `position` | `'bottom-right' \| 'bottom-left' \| 'bottom-center'` | `'bottom-right'` | The absolute position of the FAB on screen. |
+| `disabled` | `boolean` | `false` | When true, the FAB is non-interactive and visually dimmed. |
+| `onPress` | `() => void` | - | Callback fired when the FAB is pressed. |
+| `className` | `string` | - | Additional NativeWind classes. |
+
+All standard `Pressable` props are also supported.
+
+## Dependencies
+
+- `class-variance-authority` -- for variant management
+- `text` -- for TextClassContext

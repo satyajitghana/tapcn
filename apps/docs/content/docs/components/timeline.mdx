@@ -1,0 +1,91 @@
+---
+title: Timeline
+description: A vertical activity feed for displaying chronological events with status indicators.
+---
+
+# Timeline
+
+A vertical timeline component for displaying a sequence of events or activities in chronological order. Each item supports different visual states including default, active, and completed.
+
+## Installation
+
+```npm
+npx @tapcn/cli add timeline
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/timeline.json
+```
+
+## Usage
+
+```tsx
+import { Timeline, TimelineItem } from '~/components/ui/timeline';
+
+export function Example() {
+  return (
+    <Timeline>
+      <TimelineItem
+        title="Order placed"
+        description="Your order has been confirmed"
+        timestamp="2 hours ago"
+        variant="completed"
+      />
+      <TimelineItem
+        title="Processing"
+        description="Your order is being prepared"
+        timestamp="1 hour ago"
+        variant="active"
+      />
+      <TimelineItem
+        title="Shipped"
+        timestamp="Pending"
+        variant="default"
+        isLast
+      />
+    </Timeline>
+  );
+}
+```
+
+### With custom icons
+
+```tsx
+import { Icon } from '~/components/ui/icon';
+import { Package, Truck } from 'lucide-react-native';
+
+<TimelineItem
+  title="Shipped"
+  description="Package is on its way"
+  icon={<Icon as={Truck} className="text-primary-foreground" />}
+  variant="completed"
+/>
+```
+
+## Props
+
+### Timeline
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | Additional NativeWind classes |
+| `children` | `ReactNode` | -- | `TimelineItem` elements to render |
+
+### TimelineItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | -- | The title text for the timeline entry |
+| `description` | `string` | -- | Optional description text below the title |
+| `timestamp` | `string` | -- | Optional timestamp or date label |
+| `icon` | `ReactNode` | -- | Custom icon to display in the circle. Completed variant shows a check icon by default. |
+| `variant` | `'default' \| 'active' \| 'completed'` | `'default'` | Visual style of the timeline node |
+| `isLast` | `boolean` | `false` | Whether this is the last item (hides the connecting line) |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Dependencies
+
+- `icon` -- for rendering the default check icon
+- `lucide-react-native` -- provides the Check icon for the completed variant

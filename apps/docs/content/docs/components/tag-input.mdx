@@ -1,0 +1,55 @@
+---
+title: Tag Input
+description: A text input that creates tag chips from typed or comma-separated values.
+---
+
+# Tag Input
+
+A text input that turns submitted text into removable tag chips. Supports adding tags by pressing enter or typing a comma, removing tags with backspace, and enforcing a maximum tag count.
+
+## Installation
+
+```npm
+npx @tapcn/cli add tag-input
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/tag-input.json
+```
+
+## Usage
+
+```tsx
+import { TagInput } from '~/components/ui/tag-input';
+import * as React from 'react';
+
+export function TagInputExample() {
+  const [tags, setTags] = React.useState<string[]>(['React Native', 'Expo']);
+
+  return (
+    <TagInput
+      tags={tags}
+      onTagsChange={setTags}
+      placeholder="Add tag..."
+      maxTags={10}
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `tags` | `string[]` | - | The current array of tag strings. |
+| `onTagsChange` | `(tags: string[]) => void` | - | Callback fired when the tags array changes. |
+| `placeholder` | `string` | `'Add tag...'` | Placeholder text shown in the text input. |
+| `maxTags` | `number` | - | Maximum number of tags allowed. Input is hidden when the limit is reached. |
+| `disabled` | `boolean` | `false` | When true, tags cannot be added or removed. |
+| `className` | `string` | - | Additional CSS classes for the container. |
+
+## Dependencies
+
+- `lucide-react-native`

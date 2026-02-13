@@ -1,0 +1,55 @@
+---
+title: DividerWithLabel
+description: A horizontal divider with a centered text label.
+---
+
+# DividerWithLabel
+
+A horizontal line divider with a centered text label, commonly used to separate sections with contextual text such as "OR" between login options.
+
+## Installation
+
+```npm
+npx @tapcn/cli add divider-with-label
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/divider-with-label.json
+```
+
+## Usage
+
+```tsx
+import { DividerWithLabel } from '~/components/ui/divider-with-label';
+
+export function DividerWithLabelExample() {
+  return <DividerWithLabel label="OR" />;
+}
+```
+
+### In a login form
+
+```tsx
+<Button onPress={handleLogin}>
+  <Text>Sign in</Text>
+</Button>
+
+<DividerWithLabel label="OR" />
+
+<Button variant="outline" onPress={handleGoogleLogin}>
+  <Text>Continue with Google</Text>
+</Button>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | **required** | The text displayed in the center of the divider. |
+| `className` | `string` | - | Additional NativeWind classes for the outer container. |
+
+## Dependencies
+
+No additional dependencies.

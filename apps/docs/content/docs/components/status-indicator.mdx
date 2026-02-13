@@ -1,0 +1,85 @@
+---
+title: Status Indicator
+description: A colored dot for displaying online, offline, away, or busy status.
+---
+
+# Status Indicator
+
+A small colored dot component for displaying user availability or connection status. Supports animated pulsing for the online state using `react-native-reanimated`.
+
+## Installation
+
+```npm
+npx @tapcn/cli add status-indicator
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/status-indicator.json
+```
+
+## Usage
+
+```tsx
+import { StatusIndicator } from '~/components/ui/status-indicator';
+
+export function Example() {
+  return <StatusIndicator status="online" />;
+}
+```
+
+### All statuses
+
+```tsx
+<StatusIndicator status="online" />   {/* Green */}
+<StatusIndicator status="away" />     {/* Yellow */}
+<StatusIndicator status="busy" />     {/* Red */}
+<StatusIndicator status="offline" />  {/* Muted/gray */}
+```
+
+### With pulse animation
+
+The `pulse` prop adds a repeating fade animation. It only activates when the status is `online`:
+
+```tsx
+<StatusIndicator status="online" pulse />
+```
+
+### Sizes
+
+```tsx
+<StatusIndicator status="online" size="sm" />      {/* 8px */}
+<StatusIndicator status="online" size="default" />  {/* 12px */}
+<StatusIndicator status="online" size="lg" />       {/* 16px */}
+```
+
+### Alongside an avatar
+
+```tsx
+import { View } from 'react-native';
+import { Avatar, AvatarImage, AvatarFallback } from '~/components/ui/avatar';
+
+<View className="relative">
+  <Avatar>
+    <AvatarImage source={{ uri: 'https://example.com/user.jpg' }} />
+    <AvatarFallback>JD</AvatarFallback>
+  </Avatar>
+  <View className="absolute bottom-0 right-0">
+    <StatusIndicator status="online" size="sm" pulse />
+  </View>
+</View>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `status` | `'online' \| 'offline' \| 'away' \| 'busy'` | -- | The current status to display |
+| `size` | `'sm' \| 'default' \| 'lg'` | `'default'` | Size of the indicator dot |
+| `pulse` | `boolean` | `false` | Enable a pulsing animation. Only applies when status is `online`. |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+## Dependencies
+
+- `react-native-reanimated` -- for the pulse animation effect

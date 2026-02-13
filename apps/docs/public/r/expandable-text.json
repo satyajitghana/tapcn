@@ -1,0 +1,15 @@
+{
+  "name": "expandable-text",
+  "type": "registry:ui",
+  "title": "Expandable Text",
+  "description": "A expandable text component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/expandable-text.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/utils';\nimport * as React from 'react';\nimport { NativeSyntheticEvent, Platform, Pressable, Text, TextLayoutEventData, View } from 'react-native';\n\ntype ExpandableTextProps = {\n  numberOfLines?: number;\n  expandLabel?: string;\n  collapseLabel?: string;\n  className?: string;\n  children: string;\n};\n\nfunction ExpandableText({\n  numberOfLines = 3,\n  expandLabel = 'Read more',\n  collapseLabel = 'Show less',\n  className,\n  children,\n}: ExpandableTextProps) {\n  const [expanded, setExpanded] = React.useState(false);\n  const [needsTruncation, setNeedsTruncation] = React.useState(\n    Platform.select({ web: true, default: false })\n  );\n\n  const onTextLayout = React.useCallback(\n    (event: NativeSyntheticEvent<TextLayoutEventData>) => {\n      if (!expanded) {\n        setNeedsTruncation(event.nativeEvent.lines.length > numberOfLines);\n      }\n    },\n    [expanded, numberOfLines]\n  );\n\n  return (\n    <View className={className}>\n      <Text\n        className={cn('text-base text-foreground', Platform.select({ web: 'select-text' }))}\n        numberOfLines={expanded ? undefined : numberOfLines}\n        onTextLayout={Platform.select({ web: undefined, default: onTextLayout })}\n      >\n        {children}\n      </Text>\n      {needsTruncation ? (\n        <Pressable\n          onPress={() => setExpanded((prev) => !prev)}\n          className=\"active:opacity-70\"\n          role=\"button\"\n        >\n          <Text\n            className={cn(\n              'text-sm font-medium text-primary mt-1',\n              Platform.select({ web: 'select-none cursor-pointer' })\n            )}\n          >\n            {expanded ? collapseLabel : expandLabel}\n          </Text>\n        </Pressable>\n      ) : null}\n    </View>\n  );\n}\n\nexport { ExpandableText };\nexport type { ExpandableTextProps };\n"
+    }
+  ]
+}

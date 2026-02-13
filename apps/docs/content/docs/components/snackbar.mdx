@@ -1,0 +1,104 @@
+---
+title: Snackbar
+description: A bottom ephemeral message bar for brief feedback.
+---
+
+# Snackbar
+
+A brief message that appears at the bottom of the screen and automatically dismisses after a set duration. Supports an optional action button. Uses a context provider pattern so snackbars can be triggered from anywhere in the tree.
+
+## Installation
+
+```npm
+npx @tapcn/cli add snackbar
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/snackbar.json
+```
+
+## Usage
+
+Wrap your app (or a subtree) with `SnackbarProvider`, then call `snackbar()` from the `useSnackbar` hook.
+
+```tsx
+import { SnackbarProvider, useSnackbar } from '~/components/ui/snackbar';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
+
+function App() {
+  return (
+    <SnackbarProvider>
+      <SnackbarDemo />
+    </SnackbarProvider>
+  );
+}
+
+function SnackbarDemo() {
+  const { snackbar } = useSnackbar();
+
+  return (
+    <Button
+      onPress={() =>
+        snackbar({
+          message: 'Item deleted.',
+          action: { label: 'Undo', onPress: () => console.log('undo') },
+          duration: 4000,
+        })
+      }
+    >
+      <Text>Show Snackbar</Text>
+    </Button>
+  );
+}
+```
+
+### Simple message
+
+```tsx
+snackbar({ message: 'Changes saved.' });
+```
+
+### With action and custom duration
+
+```tsx
+snackbar({
+  message: 'Message archived.',
+  action: { label: 'Undo', onPress: () => restoreMessage() },
+  duration: 5000,
+});
+```
+
+## API
+
+### SnackbarProvider
+
+Wrap your component tree with this provider. It renders a `SnackbarViewport` that displays active snackbars at the bottom of the screen.
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `children` | `React.ReactNode` | The app content. |
+
+### useSnackbar()
+
+Returns the snackbar context with the following properties:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `snackbar` | `(data: Omit<SnackbarData, 'id'>) => void` | Show a new snackbar. |
+| `dismiss` | `(id: string) => void` | Manually dismiss a snackbar by its ID. |
+| `snackbars` | `SnackbarData[]` | The currently visible snackbars. |
+
+### SnackbarData
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `message` | `string` | **required** | The text message to display. |
+| `action` | `{ label: string; onPress: () => void }` | - | An optional action button shown on the right side. |
+| `duration` | `number` | `3000` | Time in milliseconds before the snackbar is automatically dismissed. |
+
+## Dependencies
+
+- `react-native-reanimated` -- for slide-in/slide-out animations

@@ -1,0 +1,52 @@
+---
+title: Expandable Text
+description: A truncated text block with a "Read more" toggle.
+---
+
+# Expandable Text
+
+A text component that truncates content after a specified number of lines and displays a "Read more" / "Show less" toggle. On native platforms it automatically detects whether truncation is needed; on web it always shows the toggle.
+
+## Installation
+
+```npm
+npx @tapcn/cli add expandable-text
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/expandable-text.json
+```
+
+## Usage
+
+```tsx
+import { ExpandableText } from '~/components/ui/expandable-text';
+
+export function ExpandableTextExample() {
+  return (
+    <ExpandableText numberOfLines={3}>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur.
+    </ExpandableText>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `string` | - | The text content to display. |
+| `numberOfLines` | `number` | `3` | Number of lines to show before truncating. |
+| `expandLabel` | `string` | `'Read more'` | Label for the button that expands the text. |
+| `collapseLabel` | `string` | `'Show less'` | Label for the button that collapses the text. |
+| `className` | `string` | - | Additional CSS classes for the outer container. |
+
+## Dependencies
+
+No additional dependencies.

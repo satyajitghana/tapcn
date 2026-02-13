@@ -1,0 +1,15 @@
+{
+  "name": "divider-with-label",
+  "type": "registry:ui",
+  "title": "Divider With Label",
+  "description": "A divider with label component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/divider-with-label.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/utils';\nimport * as React from 'react';\nimport { Text, View } from 'react-native';\n\ninterface DividerWithLabelProps {\n  label: string;\n  className?: string;\n}\n\nfunction DividerWithLabel({ label, className }: DividerWithLabelProps) {\n  return (\n    <View className={cn('flex-row items-center gap-4', className)}>\n      <View className=\"flex-1 h-[1px] bg-border\" />\n      <Text className=\"text-sm text-muted-foreground\">{label}</Text>\n      <View className=\"flex-1 h-[1px] bg-border\" />\n    </View>\n  );\n}\n\nexport { DividerWithLabel };\nexport type { DividerWithLabelProps };\n"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+---
+title: Badge Indicator
+description: A notification count or dot overlay for avatars, icons, and other elements.
+---
+
+# Badge Indicator
+
+A wrapper component that overlays a notification badge on its children. Supports displaying a numeric count, a simple dot indicator, and can be hidden when there are no notifications.
+
+## Installation
+
+```npm
+npx @tapcn/cli add badge-indicator
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/badge-indicator.json
+```
+
+## Usage
+
+```tsx
+import { BadgeIndicator } from '~/components/ui/badge-indicator';
+import { Icon } from '~/components/ui/icon';
+import { Bell } from 'lucide-react-native';
+
+export function Example() {
+  return (
+    <BadgeIndicator count={5}>
+      <Icon as={Bell} className="text-foreground" />
+    </BadgeIndicator>
+  );
+}
+```
+
+### Dot indicator
+
+When no `count` is provided, or when `showDot` is set, a simple dot is shown instead of a number:
+
+```tsx
+<BadgeIndicator showDot>
+  <Icon as={Bell} className="text-foreground" />
+</BadgeIndicator>
+```
+
+### With max count
+
+Counts exceeding `maxCount` are displayed with a `+` suffix:
+
+```tsx
+{/* Displays "99+" */}
+<BadgeIndicator count={150} maxCount={99}>
+  <Icon as={Bell} className="text-foreground" />
+</BadgeIndicator>
+```
+
+### Variants
+
+```tsx
+<BadgeIndicator count={3} variant="destructive">
+  <Icon as={Bell} className="text-foreground" />
+</BadgeIndicator>
+
+<BadgeIndicator count={3} variant="default">
+  <Icon as={Bell} className="text-foreground" />
+</BadgeIndicator>
+```
+
+### Hidden state
+
+The badge automatically hides when `count` is `0`, or can be explicitly hidden:
+
+```tsx
+<BadgeIndicator count={0}>
+  <Icon as={Bell} className="text-foreground" />
+</BadgeIndicator>
+
+<BadgeIndicator count={5} hidden>
+  <Icon as={Bell} className="text-foreground" />
+</BadgeIndicator>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `count` | `number` | -- | The notification count to display. When undefined, a dot is shown instead. |
+| `maxCount` | `number` | `99` | Maximum count before showing `{maxCount}+` |
+| `showDot` | `boolean` | `false` | Force display as a dot instead of a number |
+| `variant` | `'default' \| 'destructive'` | `'destructive'` | The color variant of the badge |
+| `hidden` | `boolean` | `false` | Explicitly hide the badge indicator |
+| `className` | `string` | -- | Additional NativeWind classes for the wrapper |
+| `children` | `ReactNode` | -- | The element to overlay the badge on |
+
+## Dependencies
+
+No additional dependencies.

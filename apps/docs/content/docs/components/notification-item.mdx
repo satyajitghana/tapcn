@@ -1,0 +1,96 @@
+---
+title: Notification Item
+description: A notification row component for displaying alerts and messages in a list.
+---
+
+# Notification Item
+
+A pressable notification row for displaying alerts, messages, or activity items. Supports unread state styling with a visual dot indicator, icon, body text, and timestamp.
+
+## Installation
+
+```npm
+npx @tapcn/cli add notification-item
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/notification-item.json
+```
+
+## Usage
+
+```tsx
+import { NotificationItem } from '~/components/ui/notification-item';
+
+export function Example() {
+  return (
+    <NotificationItem
+      title="New message from Alice"
+      body="Hey, are you available for a quick call?"
+      timestamp="2m ago"
+      unread
+      onPress={() => console.log('Notification pressed')}
+    />
+  );
+}
+```
+
+### With custom icon
+
+```tsx
+import { View } from 'react-native';
+import { Icon } from '~/components/ui/icon';
+import { Bell } from 'lucide-react-native';
+
+<NotificationItem
+  icon={
+    <View className="w-10 h-10 rounded-full bg-primary/10 items-center justify-center">
+      <Icon as={Bell} className="text-primary" />
+    </View>
+  }
+  title="System update available"
+  body="A new version is ready to install."
+  timestamp="1h ago"
+  unread={false}
+/>
+```
+
+### Read vs unread
+
+```tsx
+{/* Unread: highlighted background + bold title + dot indicator */}
+<NotificationItem
+  title="New follower"
+  body="John started following you"
+  timestamp="5m ago"
+  unread
+/>
+
+{/* Read: standard background + normal weight title */}
+<NotificationItem
+  title="Welcome!"
+  body="Thanks for signing up."
+  timestamp="2d ago"
+  unread={false}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | -- | The notification title text |
+| `body` | `string` | -- | Optional body text, truncated to 2 lines |
+| `timestamp` | `string` | -- | Optional timestamp label displayed on the right |
+| `icon` | `ReactNode` | -- | Optional icon or avatar displayed on the left |
+| `unread` | `boolean` | -- | Whether the notification is unread. Applies highlighted background, bold title, and a dot indicator. |
+| `onPress` | `() => void` | -- | Callback when the notification row is pressed |
+| `className` | `string` | -- | Additional NativeWind classes |
+
+All standard `Pressable` props are also supported via the underlying component.
+
+## Dependencies
+
+No additional dependencies.

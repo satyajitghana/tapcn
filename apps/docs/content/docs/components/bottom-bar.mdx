@@ -1,0 +1,108 @@
+---
+title: Bottom Bar
+description: A fixed bottom action bar with primary and secondary action buttons.
+---
+
+# Bottom Bar
+
+A fixed bottom action bar for placing primary and secondary call-to-action buttons. Commonly used for form submissions, checkout flows, or persistent navigation actions.
+
+## Installation
+
+```npm
+npx @tapcn/cli add bottom-bar
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/bottom-bar.json
+```
+
+## Usage
+
+```tsx
+import {
+  BottomBar,
+  BottomBarAction,
+  BottomBarSecondaryAction,
+} from '~/components/ui/bottom-bar';
+import { Text } from '~/components/ui/text';
+
+export function Example() {
+  return (
+    <BottomBar>
+      <BottomBarSecondaryAction onPress={() => console.log('Cancel')}>
+        <Text>Cancel</Text>
+      </BottomBarSecondaryAction>
+      <BottomBarAction onPress={() => console.log('Confirm')}>
+        <Text>Confirm</Text>
+      </BottomBarAction>
+    </BottomBar>
+  );
+}
+```
+
+### Single action
+
+```tsx
+<BottomBar>
+  <BottomBarAction onPress={() => console.log('Submit')}>
+    <Text>Submit Order</Text>
+  </BottomBarAction>
+</BottomBar>
+```
+
+### Disabled state
+
+```tsx
+<BottomBar>
+  <BottomBarAction disabled onPress={() => {}}>
+    <Text>Processing...</Text>
+  </BottomBarAction>
+</BottomBar>
+```
+
+## Sub-Components
+
+| Component | Description |
+|-----------|-------------|
+| `BottomBar` | Fixed container pinned to the bottom of the screen with a top border. |
+| `BottomBarAction` | A primary action button styled with `bg-primary`. |
+| `BottomBarSecondaryAction` | A secondary action button styled with `bg-secondary`. |
+
+## Props
+
+### BottomBar
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | Additional NativeWind classes. |
+| `children` | `ReactNode` | -- | Action button components. |
+
+### BottomBarAction
+
+Extends React Native's `Pressable` props.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | Additional NativeWind classes. |
+| `disabled` | `boolean` | `false` | Disables the button and reduces opacity. |
+
+### BottomBarSecondaryAction
+
+Extends React Native's `Pressable` props.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | -- | Additional NativeWind classes. |
+| `disabled` | `boolean` | `false` | Disables the button and reduces opacity. |
+
+## Platform Behavior
+
+- **Web**: Uses `pb-3` for bottom padding. Hover states are applied on action buttons.
+- **Native**: Uses `pb-6` for safe area bottom padding on devices with home indicators.
+
+## Dependencies
+
+- `text` -- for `TextClassContext`

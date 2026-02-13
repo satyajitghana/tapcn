@@ -1,0 +1,15 @@
+{
+  "name": "status-indicator",
+  "type": "registry:ui",
+  "title": "Status Indicator",
+  "description": "A status indicator component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/status-indicator.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/utils';\nimport * as React from 'react';\nimport { View } from 'react-native';\nimport Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';\n\nconst SIZE_CLASSES = {\n  sm: 'w-2 h-2',\n  default: 'w-3 h-3',\n  lg: 'w-4 h-4',\n} as const;\n\nconst STATUS_CLASSES = {\n  online: 'bg-green-500',\n  away: 'bg-yellow-500',\n  busy: 'bg-red-500',\n  offline: 'bg-muted-foreground/50',\n} as const;\n\ntype StatusIndicatorProps = {\n  status: 'online' | 'offline' | 'away' | 'busy';\n  size?: 'sm' | 'default' | 'lg';\n  pulse?: boolean;\n  className?: string;\n};\n\nfunction StatusIndicatorPulse({ size = 'default' }: { size: 'sm' | 'default' | 'lg' }) {\n  const opacity = useSharedValue(1);\n\n  React.useEffect(() => {\n    opacity.value = withRepeat(withTiming(0, { duration: 1000 }), -1, true);\n  }, [opacity]);\n\n  const animatedStyle = useAnimatedStyle(() => ({\n    opacity: opacity.value,\n    transform: [{ scale: 1.75 }],\n  }));\n\n  return (\n    <Animated.View\n      className={cn('absolute rounded-full bg-green-500', SIZE_CLASSES[size])}\n      style={animatedStyle}\n    />\n  );\n}\n\nfunction StatusIndicator({ status, size = 'default', pulse = false, className }: StatusIndicatorProps) {\n  const shouldPulse = pulse && status === 'online';\n\n  if (shouldPulse) {\n    return (\n      <View className={cn('relative items-center justify-center', className)}>\n        <StatusIndicatorPulse size={size} />\n        <View className={cn('rounded-full', SIZE_CLASSES[size], STATUS_CLASSES[status])} />\n      </View>\n    );\n  }\n\n  return (\n    <View className={cn('rounded-full', SIZE_CLASSES[size], STATUS_CLASSES[status], className)} />\n  );\n}\n\nexport { StatusIndicator };\nexport type { StatusIndicatorProps };\n"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+---
+title: OTP Input
+description: A one-time password input with individual digit cells and animated cursor.
+---
+
+# OTP Input
+
+A one-time password input that renders individual digit cells for verification codes. Features an animated blinking cursor, secure text entry mode, and auto-completion support.
+
+## Installation
+
+```npm
+npx @tapcn/cli add otp-input
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/otp-input.json
+```
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import { OTPInput } from '~/components/ui/otp-input';
+
+export function Example() {
+  const [code, setCode] = useState('');
+
+  return (
+    <OTPInput
+      value={code}
+      onChangeText={setCode}
+      onComplete={(otp) => console.log('OTP entered:', otp)}
+    />
+  );
+}
+```
+
+### Custom length
+
+```tsx
+<OTPInput length={4} value={code} onChangeText={setCode} />
+```
+
+### Secure entry
+
+```tsx
+<OTPInput secureTextEntry value={code} onChangeText={setCode} />
+```
+
+### Disabled state
+
+```tsx
+<OTPInput disabled value={code} onChangeText={setCode} />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `length` | `number` | `6` | Number of digit cells to render. |
+| `value` | `string` | `""` | The current OTP value. |
+| `onChangeText` | `(text: string) => void` | -- | Callback when the text changes. Non-numeric characters are filtered out. |
+| `onComplete` | `(code: string) => void` | -- | Callback fired when all digit cells are filled. |
+| `secureTextEntry` | `boolean` | `false` | Masks entered digits with filled circles. |
+| `disabled` | `boolean` | `false` | Disables input and reduces opacity. |
+| `className` | `string` | -- | Additional NativeWind classes for the outer container. |
+
+## Features
+
+- **Hidden TextInput**: Uses a hidden `TextInput` with `number-pad` keyboard type and `one-time-code` autoComplete for SMS autofill.
+- **Animated cursor**: A blinking cursor animation in the currently active cell using `react-native-reanimated`.
+- **Input sanitization**: Automatically strips non-numeric characters from input.
+- **Secure mode**: Replaces digits with filled circles when `secureTextEntry` is enabled.
+
+## Platform Behavior
+
+- **Web**: Active cells show `cursor-text` and `transition-colors` styling.
+- **Native**: Tapping any cell focuses the hidden input for seamless keyboard interaction.
+
+## Dependencies
+
+- `react-native-reanimated` -- animated cursor blinking

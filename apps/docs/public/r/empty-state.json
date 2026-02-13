@@ -1,0 +1,15 @@
+{
+  "name": "empty-state",
+  "type": "registry:ui",
+  "title": "Empty State",
+  "description": "A empty state component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/empty-state.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/utils';\nimport * as React from 'react';\nimport { Text, View } from 'react-native';\n\ninterface EmptyStateProps {\n  icon?: React.ReactNode;\n  title: string;\n  description?: string;\n  action?: React.ReactNode;\n  className?: string;\n}\n\nfunction EmptyState({ icon, title, description, action, className }: EmptyStateProps) {\n  return (\n    <View className={cn('flex-1 items-center justify-center px-6 py-12 gap-4', className)}>\n      {icon && (\n        <View className=\"items-center justify-center w-16 h-16 rounded-full bg-muted mb-2\">\n          <View className=\"text-muted-foreground\">{icon}</View>\n        </View>\n      )}\n      <Text className=\"text-lg font-semibold text-foreground text-center\">{title}</Text>\n      {description && (\n        <Text className=\"text-sm text-muted-foreground text-center max-w-[280px]\">\n          {description}\n        </Text>\n      )}\n      {action && <View className=\"mt-2\">{action}</View>}\n    </View>\n  );\n}\n\nexport { EmptyState };\nexport type { EmptyStateProps };\n"
+    }
+  ]
+}

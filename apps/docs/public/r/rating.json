@@ -1,0 +1,15 @@
+{
+  "name": "rating",
+  "type": "registry:ui",
+  "title": "Rating",
+  "description": "A rating component.",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "components/ui/rating.tsx",
+      "type": "registry:ui",
+      "content": "import { Icon } from '@/components/ui/icon';\nimport { cn } from '@/lib/utils';\nimport { Star } from 'lucide-react-native';\nimport * as React from 'react';\nimport { Platform, Pressable, View } from 'react-native';\n\nconst ICON_SIZES = {\n  sm: 16,\n  default: 24,\n  lg: 32,\n} as const;\n\ntype RatingProps = {\n  value?: number;\n  onValueChange?: (value: number) => void;\n  maxStars?: number;\n  size?: 'sm' | 'default' | 'lg';\n  readOnly?: boolean;\n  className?: string;\n};\n\nfunction Rating({\n  value = 0,\n  onValueChange,\n  maxStars = 5,\n  size = 'default',\n  readOnly = false,\n  className,\n}: RatingProps) {\n  const iconSize = ICON_SIZES[size];\n\n  function handlePress(starIndex: number) {\n    if (readOnly || !onValueChange) return;\n    onValueChange(starIndex === value ? 0 : starIndex);\n  }\n\n  return (\n    <View\n      className={cn('flex-row gap-1', className)}\n      accessibilityRole=\"adjustable\"\n      accessibilityValue={{\n        min: 0,\n        max: maxStars,\n        now: value,\n        text: `${value} out of ${maxStars} stars`,\n      }}\n    >\n      {Array.from({ length: maxStars }, (_, i) => {\n        const starIndex = i + 1;\n        const isFilled = starIndex <= value;\n\n        if (readOnly) {\n          return (\n            <View key={starIndex}>\n              <Icon\n                as={Star}\n                size={iconSize}\n                className={cn(\n                  isFilled ? 'text-yellow-400' : 'text-muted-foreground'\n                )}\n                {...(isFilled ? { fill: 'currentColor' } : {})}\n              />\n            </View>\n          );\n        }\n\n        return (\n          <Pressable\n            key={starIndex}\n            onPress={() => handlePress(starIndex)}\n            hitSlop={4}\n            className={cn(\n              Platform.select({\n                web: 'cursor-pointer active:opacity-70',\n                default: 'active:opacity-70',\n              })\n            )}\n            accessibilityRole=\"button\"\n            accessibilityLabel={`${starIndex} star${starIndex > 1 ? 's' : ''}`}\n          >\n            <Icon\n              as={Star}\n              size={iconSize}\n              className={cn(\n                isFilled ? 'text-yellow-400' : 'text-muted-foreground'\n              )}\n              {...(isFilled ? { fill: 'currentColor' } : {})}\n            />\n          </Pressable>\n        );\n      })}\n    </View>\n  );\n}\n\nexport { Rating };\nexport type { RatingProps };\n"
+    }
+  ]
+}

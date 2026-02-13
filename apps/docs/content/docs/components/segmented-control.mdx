@@ -1,0 +1,52 @@
+---
+title: Segmented Control
+description: An iOS-style segmented control for switching between options.
+---
+
+# Segmented Control
+
+An iOS-style segmented control that allows users to switch between a set of mutually exclusive options. Features a smooth animated indicator that slides between segments.
+
+## Installation
+
+```npm
+npx @tapcn/cli add segmented-control
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/segmented-control.json
+```
+
+## Usage
+
+```tsx
+import { SegmentedControl } from '~/components/ui/segmented-control';
+import * as React from 'react';
+
+export function SegmentedControlExample() {
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+  return (
+    <SegmentedControl
+      segments={['Daily', 'Weekly', 'Monthly']}
+      selectedIndex={selectedIndex}
+      onIndexChange={setSelectedIndex}
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `segments` | `string[]` | - | Array of segment labels to display. |
+| `selectedIndex` | `number` | - | The index of the currently selected segment. |
+| `onIndexChange` | `(index: number) => void` | - | Callback fired when a segment is selected. |
+| `className` | `string` | - | Additional CSS classes for the container. |
+
+## Dependencies
+
+- `react-native-reanimated`

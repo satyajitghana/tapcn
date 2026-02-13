@@ -1,0 +1,87 @@
+---
+title: Stepper
+description: A numeric stepper control with increment and decrement buttons.
+---
+
+# Stepper
+
+A numeric stepper control with increment (+) and decrement (-) buttons. Supports configurable min/max bounds, step size, and three size variants.
+
+## Installation
+
+```npm
+npx @tapcn/cli add stepper
+```
+
+Or using shadcn directly:
+
+```npm
+npx shadcn@latest add https://tapcn.vercel.app/r/stepper.json
+```
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import { Stepper } from '~/components/ui/stepper';
+
+export function Example() {
+  const [count, setCount] = useState(1);
+
+  return (
+    <Stepper
+      value={count}
+      onValueChange={setCount}
+      min={0}
+      max={10}
+    />
+  );
+}
+```
+
+### With custom step
+
+```tsx
+const [value, setValue] = useState(0);
+
+<Stepper value={value} onValueChange={setValue} step={5} min={0} max={100} />
+```
+
+### Size variants
+
+```tsx
+<Stepper value={1} onValueChange={setValue} size="sm" />
+<Stepper value={1} onValueChange={setValue} size="default" />
+<Stepper value={1} onValueChange={setValue} size="lg" />
+```
+
+### Disabled state
+
+```tsx
+<Stepper value={3} onValueChange={() => {}} disabled />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | -- | The current numeric value. |
+| `onValueChange` | `(value: number) => void` | -- | Callback when the value changes. |
+| `min` | `number` | `0` | Minimum allowed value. The decrement button is disabled at this bound. |
+| `max` | `number` | `100` | Maximum allowed value. The increment button is disabled at this bound. |
+| `step` | `number` | `1` | The amount to increment or decrement per press. |
+| `disabled` | `boolean` | `false` | Disables both buttons and reduces opacity. |
+| `size` | `"sm" \| "default" \| "lg"` | `"default"` | Controls the size of the buttons, text, and icons. |
+| `className` | `string` | -- | Additional NativeWind classes for the outer container. |
+
+## Accessibility
+
+- The decrement button has `aria-label="Decrease value"`.
+- The increment button has `aria-label="Increase value"`.
+- The value display uses `aria-live="polite"` to announce changes to screen readers.
+
+## Dependencies
+
+- `icon` -- for the plus and minus icons
+- `lucide-react-native` -- `Plus` and `Minus` icons
+- `class-variance-authority` -- size variant styling
